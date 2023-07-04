@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS nodeBuild;
+CREATE DATABASE nodeBuild;
