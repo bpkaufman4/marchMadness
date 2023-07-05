@@ -117,7 +117,7 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-    console.log(req);
+    console.log(req.session);
     return;
     if(req.session.loggedIn) {
         req.session.destroy(() => {
