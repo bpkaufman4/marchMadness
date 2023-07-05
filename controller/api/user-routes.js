@@ -14,10 +14,10 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:userId', (req, res) => {
     User.findOne({
         where: {
-            id: req.params.id
+            userId: req.params.userId
         }
     })
     .then(dbUserData => {
@@ -38,17 +38,24 @@ router.post('/', (req, res) => {
         email: req.body.email,
         password: req.body.password
     })
-    .then(dbUserData => res.json(dbUserData))
+    .then(dbUserData => {
+        req.session.save(() => {
+            req.session.userId = dbUserData.userId;
+            req.session.loggedIn = true;
+
+            res.json(dbUserData);
+        })
+    })
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:userId', (req, res) => {
     User.update(req.body, {
         where: {
-            id: req.params.id
+            userId: req.params.userId
         }
     })
     .then(dbUserData => {
@@ -64,10 +71,10 @@ router.put('/:id', (req, res) => {
     })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:userId', (req, res) => {
     User.destroy({
         where: {
-            id: req.params.id
+            userId: req.params.userId
         }
     })
     .then(dbUserData => {
