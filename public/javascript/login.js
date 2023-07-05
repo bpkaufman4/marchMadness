@@ -20,4 +20,26 @@ async function signupFormHandler(event) {
     }
 }
 
+async function loginFormHandler(event) {
+    event.preventDefault();
+    const email = getobj('emailLogin').value;
+    const password = getobj('passwordLogin').value;
+
+    const response = await fetch('api/users/login', {
+        method:'post',
+        body: JSON.stringify({
+            email,
+            password
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if(response.ok) {
+        document.location.replace('/');
+    } else {
+        alert(response.statusText);
+    }
+}
+
 getobj('signupForm').addEventListener('submit', signupFormHandler);
+getobj('loginForm').addEventListener('submit', loginFormHandler);
