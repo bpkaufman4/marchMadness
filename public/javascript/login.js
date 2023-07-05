@@ -3,12 +3,14 @@ async function signupFormHandler(event) {
 
     const email = getobj('emailSignup').value;
     const password = getobj('passwordSignup').value;
+    const firstName = getobj('firstName').value;
 
     const response = await fetch('api/users', {
         method:'post',
         body: JSON.stringify({
             email,
-            password
+            password,
+            firstName
         }),
         headers: { 'Content-Type': 'application/json'}
     });
