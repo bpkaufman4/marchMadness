@@ -60,7 +60,7 @@ router.put('/:userId', (req, res) => {
     })
     .then(dbUserData => {
         if(!dbUserData[0]) {
-            res.status(404).jston({ message: 'No user foud with this id' });
+            res.status(404).json({ message: 'No user foud with this id' });
             return;
         }
         res.json(dbUserData);
