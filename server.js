@@ -14,6 +14,7 @@ app.set('view engine', 'handlbars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(controller);
+app.use(express.static(path.join(__dirname, 'public')));
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
