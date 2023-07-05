@@ -42,6 +42,11 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             unique: false,
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false,
         }
     },
     {
