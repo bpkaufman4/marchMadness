@@ -36,7 +36,8 @@ router.get('/:userId', (req, res) => {
 router.post('/', (req, res) => {
     User.create({
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        firstName: req.body.firstName,
     })
     .then(dbUserData => {
         req.session.save(() => {
@@ -114,5 +115,15 @@ router.post('/login', (req, res) => {
         res.json({ user: dbUserData, message: 'Login successful' });
     })
 });
+
+router.post('/logout', (req, res) => {
+    if(req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
+})
 
 module.exports = router;
