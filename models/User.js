@@ -32,11 +32,6 @@ User.init(
             validate: {
                 len: [4]
             }
-        },
-        firstName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: false,
         }
     },
     {
