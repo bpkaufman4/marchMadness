@@ -32,6 +32,11 @@ User.init(
             validate: {
                 len: [4]
             }
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+
         }
     },
     {
@@ -41,6 +46,15 @@ User.init(
                 return newUserData;
             }
         },
+        indexes:[
+            {
+                name: 'userNDX1',
+                using: 'BTREE',
+                fields: [
+                    'email'
+                ]
+            }
+        ],
         sequelize,
         timestamps: false,
         freezeTableName: true,
