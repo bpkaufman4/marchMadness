@@ -12,7 +12,7 @@ class User extends Model {
 
 User.init(
     {
-        id: {
+        userId: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false,
