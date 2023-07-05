@@ -19,7 +19,9 @@ async function signupFormHandler(event) {
         console.log('success');
         document.location.replace('/');
     } else {
-        alert(response);
+        console.log(response);
+        alert(response.statusText);
+        debugger;
     }
 }
 
