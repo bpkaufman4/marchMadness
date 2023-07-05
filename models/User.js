@@ -26,7 +26,7 @@ User.init(
                 isEmail: true
             }
         },
-        password: {
+        pwd: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -36,8 +36,23 @@ User.init(
         lastName: {
             type: DataTypes.STRING,
             allowNull: false,
-
-        }
+        },
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        created: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+        },
+        updated: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+        },
     },
     {
         hooks: {
@@ -52,6 +67,20 @@ User.init(
                 using: 'BTREE',
                 fields: [
                     'email'
+                ]
+            },
+            {
+                name: 'userNDX2',
+                using: 'BTREE',
+                fields: [
+                    'lastName'
+                ]
+            },
+            {
+                name: 'userNDX3',
+                using: 'BTREE',
+                fields: [
+                    'lastName'
                 ]
             }
         ],
