@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-const { Reference } = require('../index.js');
+const { Reference } = require('index');
 
 const sequelize = require('../config/connection');
 
