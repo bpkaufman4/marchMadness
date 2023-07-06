@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 
+const { Reference } = require('../models/index.js');
+
 const sequelize = require('../config/connection');
 
 const bcrypt = require('bcrypt');
@@ -50,6 +52,19 @@ User.init(
         statusCd: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        statusCdDisplay: {
+            type: DataTypes.VIRTUAL,
+            get() {
+                Reference.findOne({
+                    where: {
+                        referenceCd: this.statusCd
+                    }
+                })
+                .then(dbReferenceData => {
+                    return dbReferenceData.referenceMeaning;
+                })
+            }
         },
         userTypeCd: {
             type: DataTypes.STRING,
