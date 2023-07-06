@@ -12,6 +12,10 @@ Reference.init(
             allowNull: false,
             primaryKey: true
         },
+        referenceSet: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         referenceMeaning: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -29,7 +33,8 @@ Reference.init(
                 name: 'referenceNDX1',
                 using: 'BTREE',
                 fields: [
-                    'email'
+                    'referenceMeaning',
+                    'referenceSet'
                 ]
             }
         ],
