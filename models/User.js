@@ -67,6 +67,9 @@ User.init(
         lastIP: {
             type:DataTypes.STRING
         },
+        primaryPhone: {
+            type: DataTypes.STRING
+        },
         cellPhone: {
             type: DataTypes.STRING
         },
