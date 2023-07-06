@@ -45,14 +45,6 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        created: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
-        },
-        updated: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
-        },
         statusCd: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -61,42 +53,18 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        lastLoginDate: {
-            type: DataTypes.DATE,
-        },
-        lastIP: {
-            type:DataTypes.STRING
-        },
-        primaryPhone: {
-            type: DataTypes.STRING
-        },
-        cellPhone: {
-            type: DataTypes.STRING
-        },
-        state: {
-            type: DataTypes.STRING
-        },
-        zip: {
-            type: DataTypes.STRING
-        },
-        emailVerifyGUID: {
-            type: DataTypes.STRING
-        },
-        emailVerifyExpire: {
-            type: DataTypes.DATE
-        },
-        timeZoneId: {
-            type: DataTypes.STRING
-        },
-        lastActiveDateTime: {
-            type: DataTypes.INTEGER
-        },
-        profilePictureURL: {
-            type: DataTypes.STRING
-        },
-        profilePictureLocal: {
-            type: DataTypes.STRING
-        }
+        lastLoginDate: DataTypes.DATE,
+        lastIP: DataTypes.STRING,
+        primaryPhone: DataTypes.STRING,
+        cellPhone: DataTypes.STRING,
+        state: DataTypes.STRING,
+        zip: DataTypes.STRING,
+        emailVerifyGUID: DataTypes.STRING,
+        emailVerifyExpire: DataTypes.DATE,
+        timeZoneId: DataTypes.STRING,
+        lastActiveDateTime: DataTypes.INTEGER,
+        profilePictureURL: DataTypes.STRING,
+        profilePictureLocal: DataTypes.STRING
     },
     {
         hooks: {
@@ -129,7 +97,9 @@ User.init(
             }
         ],
         sequelize,
-        timestamps: false,
+        timestamps: true,
+        createdAt: 'created',
+        updatedAt: 'updated',
         freezeTableName: true,
         underscored: false,
         modelName: 'user'
