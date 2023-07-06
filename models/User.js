@@ -53,19 +53,6 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        statusCdDisplay: {
-            type: DataTypes.VIRTUAL,
-            get() {
-                Reference.findOne({
-                    where: {
-                        referenceCd: this.statusCd
-                    }
-                })
-                .then(dbReferenceData => {
-                    return dbReferenceData.referenceMeaning;
-                })
-            }
-        },
         userTypeCd: {
             type: DataTypes.STRING,
             allowNull: false
