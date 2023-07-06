@@ -53,6 +53,47 @@ User.init(
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
         },
+        statusCd: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        userTypeCd: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        lastLoginDate: {
+            type: DataTypes.DATE,
+        },
+        lastIP: {
+            type:DataTypes.STRING
+        },
+        cellPhone: {
+            type: DataTypes.STRING
+        },
+        state: {
+            type: DataTypes.STRING
+        },
+        zip: {
+            type: DataTypes.STRING
+        },
+        emailVerifyGUID: {
+            type: DataTypes.STRING
+        },
+        emailVerifyExpire: {
+            type: DataTypes.DATE
+        },
+        timeZoneId: {
+            type: DataTypes.STRING
+        },
+        lastActiveDateTime: {
+            type: DataTypes.INTEGER
+        },
+        profilePictureURL: {
+            type: DataTypes.STRING
+        },
+        profilePictureLocal: {
+            type: DataTypes.STRING
+        }
     },
     {
         hooks: {
