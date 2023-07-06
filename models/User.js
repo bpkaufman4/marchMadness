@@ -92,7 +92,7 @@ User.init(
                 name: 'userNDX3',
                 using: 'BTREE',
                 fields: [
-                    'lastName'
+                    'emailVerifyGUID'
                 ]
             }
         ],
@@ -102,7 +102,8 @@ User.init(
         updatedAt: 'updated',
         freezeTableName: true,
         underscored: false,
-        modelName: 'user'
+        modelName: 'user',
+        paranoid: true
     }
 );
 
