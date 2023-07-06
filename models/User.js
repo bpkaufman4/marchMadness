@@ -42,8 +42,10 @@ User.init(
             allowNull: false,
         },
         fullName: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: DataTypes.VIRTUAL,
+            get() {
+                return `${this.firstName} ${this.lastName}`;
+            }
         },
         statusCd: {
             type: DataTypes.STRING,
