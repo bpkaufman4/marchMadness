@@ -106,7 +106,7 @@ router.post('/login', (req, res) => {
             res.status(404).json({ message: 'No user foud with this email'});
             return;
         }
-        const validPassword = dbUserData.checkPassword(req.body.password);
+        const validPassword = dbUserData.checkPassword(req.body.psd);
         if(!validPassword) {
             res.status(404).json({ message: 'Incorrect password' });
             return;
