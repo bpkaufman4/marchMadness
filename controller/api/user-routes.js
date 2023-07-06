@@ -38,6 +38,7 @@ router.post('/', (req, res) => {
         email: req.body.email,
         lastName: req.body.lastName,
         firstName: req.body.firstName,
+        fullName: req.body.firstName + ' ' + req.body.lastName,
         statusCd: req.body.statusCd,
         userTypeCd: req.body.userTypeCd,
         pwd: req.body.pwd,
