@@ -25,6 +25,7 @@ ReferenceSet.init(
         sequelize,
         timestamps: true,
         createdAt: 'created',
+        updatedAt: false,
         freezeTableName: true,
         underscored: false,
         modelName: 'referenceSets'
