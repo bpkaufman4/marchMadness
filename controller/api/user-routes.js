@@ -10,9 +10,11 @@ router.get('/', (req, res) => {
         include: [
             {
                 model:Reference,
-                where: {
-                    referenceCd: sequelize.col('reference.statusCd')
-                }
+                as: 'userStatus'
+            },
+            {
+                model:Reference,
+                as: 'userType'
             }
         ]
     })
