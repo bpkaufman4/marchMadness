@@ -28,13 +28,13 @@ async function signupFormHandler(event) {
 async function loginFormHandler(event) {
     event.preventDefault();
     const email = getobj('emailLogin').value;
-    const password = getobj('passwordLogin').value;
+    const pwd = getobj('passwordLogin').value;
 
     const response = await fetch('api/users/login', {
         method:'post',
         body: JSON.stringify({
             email,
-            password
+            pwd
         }),
         headers: { 'Content-Type': 'application/json' }
     });
