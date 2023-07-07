@@ -4,10 +4,9 @@ const { sequelize } = require('../../config/connection.js');
 
 router.get('/', (req, res) => {
     User.findAll({
-        attributes: {
-            exclude: ['password'],
-        },
-        [sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)', 'statusCdDisplay')]
+        attributes: [
+            [sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)', 'statusCdDisplay')]
+        ],
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
