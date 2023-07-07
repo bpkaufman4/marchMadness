@@ -122,6 +122,9 @@ router.post('/login', (req, res) => {
         });
 
         res.json({ user: dbUserData, message: 'Login successful' });
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     })
 });
 
