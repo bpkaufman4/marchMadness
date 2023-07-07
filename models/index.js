@@ -2,8 +2,6 @@ const User = require('../models/User');
 const Reference = require('../models/Reference');
 const ReferenceSet = require('../models/ReferenceSet');
 
-User.hasOne(Reference, {
-    foreignKey: 'statusCd'
-});
+User.hasOne(Reference);
 Reference.belongsTo(User, {foreignKey: 'statusCd'});
 module.exports = { User, Reference, ReferenceSet };
