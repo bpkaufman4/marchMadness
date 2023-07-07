@@ -5,7 +5,7 @@ const { Sequelize } = require('sequelize');
 router.get('/', (req, res) => {
     User.findAll({
         attributes: [
-            fullName,
+            'fullName',
             [Sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)'), 'statusCdDisplay']
         ],
     })
