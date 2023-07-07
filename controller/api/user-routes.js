@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
         attributes: {
             exclude: ['password'],
         },
-        include: Reference
+        [sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)', 'statusCdDisplay')]
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
