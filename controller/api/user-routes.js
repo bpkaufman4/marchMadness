@@ -4,13 +4,10 @@ const { Sequelize } = require('sequelize');
 
 router.get('/', (req, res) => {
     User.findAll({
-        attributes: {
-            include: [
-                [Sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)'), 'statusCdDisplay'],
-                [Sequelize.literal('(SELECT status.referenceMeaning from reference status where status.referenceCd = user.statusCd)'), 'statusCdMeaning'],
-            ]
-        },
-        include: {model: Reference, as: 'userType'}
+        include: [
+            {model: Reference, as: 'userType'},
+            {model: Reference, as: 'userStatus'}
+        ]
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
