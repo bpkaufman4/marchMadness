@@ -8,9 +8,9 @@ router.get('/', (req, res) => {
             include: [
                 [Sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)'), 'statusCdDisplay'],
                 [Sequelize.literal('(SELECT status.referenceMeaning from reference status where status.referenceCd = user.statusCd)'), 'statusCdMeaning'],
-                {model: Reference, as: 'userType'}
             ]
         },
+        include: {model: Reference, as: 'userType'}
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
