@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const { User, Reference } = require('../../models');
-const { sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 router.get('/', (req, res) => {
     User.findAll({
         attributes: [
-            [sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)', 'statusCdDisplay')]
+            [Sequelize.literal('(SELECT status.display from reference status where status.referenceCd = user.statusCd)', 'statusCdDisplay')]
         ],
     })
     .then(dbUserData => res.json(dbUserData))
