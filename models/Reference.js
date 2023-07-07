@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
+const ReferenceSet = require('../models/ReferenceSet');
 
 class Reference extends Model {};
 
@@ -19,6 +20,10 @@ Reference.init(
         referenceMeaning: {
             type: DataTypes.STRING,
             allowNull: false,
+            references: {
+                model: ReferenceSet,
+                key: 'referenceSet'
+            }
         },
         display: {
             type: DataTypes.STRING,
