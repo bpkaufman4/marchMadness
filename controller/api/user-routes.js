@@ -5,12 +5,12 @@ router.get('/', (req, res) => {
     User.findAll({
         attributes: {
             exclude: ['password'],
-            include: [
-                {
-                    model:Reference,
-                }
-            ]
-        }
+        },
+        include: [
+            {
+                model:Reference,
+            }
+        ]
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
