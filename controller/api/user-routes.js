@@ -5,7 +5,6 @@ router.get('/', (req, res) => {
     User.findAll({
         attributes: {
             exclude: ['password'],
-            include: 'reference'
         }
     })
     .then(dbUserData => res.json(dbUserData))
