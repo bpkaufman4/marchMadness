@@ -50,6 +50,10 @@ User.init(
         statusCd: {
             type: DataTypes.STRING,
             allowNull: false,
+            references: {
+                model: Reference,
+                key: 'referenceCd'
+            }
         },
         userTypeCd: {
             type: DataTypes.STRING,
