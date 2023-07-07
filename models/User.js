@@ -1,7 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 
-const { Reference } = require('./Reference.js');
-
 const sequelize = require('../config/connection');
 
 const bcrypt = require('bcrypt');
