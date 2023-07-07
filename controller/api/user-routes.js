@@ -4,10 +4,7 @@ const { Sequelize } = require('sequelize');
 
 router.get('/', (req, res) => {
     User.findAll({
-        include: [
-            {model: Reference, as: 'userType'},
-            {model: Reference, as: 'userStatus'}
-        ]
+        include: ['userType', 'userStatus']
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
