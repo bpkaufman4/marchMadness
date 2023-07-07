@@ -11,10 +11,6 @@ router.get('/', (req, res) => {
             {
                 model:Reference,
                 as: 'userStatus'
-            },
-            {
-                model:Reference,
-                as: 'userType'
             }
         ]
     })
