@@ -58,7 +58,7 @@ User.init(
             }
         },
         userTypeCd: {
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
             allowNull: false,
             references: {
                 model: Reference,
