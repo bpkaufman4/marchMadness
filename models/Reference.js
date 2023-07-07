@@ -16,14 +16,14 @@ Reference.init(
         referenceSet: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        referenceMeaning: {
-            type: DataTypes.STRING,
-            allowNull: false,
             references: {
                 model: ReferenceSet,
                 key: 'referenceSet'
             }
+        },
+        referenceMeaning: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         display: {
             type: DataTypes.STRING,
