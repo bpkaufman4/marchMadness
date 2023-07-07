@@ -59,7 +59,11 @@ User.init(
         },
         userTypeCd: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: Reference,
+                key: 'referenceCd'
+            }
         },
         lastLoginDate: DataTypes.DATE,
         lastIP: DataTypes.STRING,
