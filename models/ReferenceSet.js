@@ -29,7 +29,7 @@ ReferenceSet.init(
         updatedAt: false,
         freezeTableName: true,
         underscored: false,
-        modelName: 'referenceSets'
+        modelName: 'referenceSet'
     }
 );
 
