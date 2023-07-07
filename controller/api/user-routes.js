@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
             {
                 model:Reference,
                 where: {
-                    referenceCd: sequelize.col('statusCd')
+                    referenceCd: sequelize.col('reference.statusCd')
                 }
             }
         ]
