@@ -7,7 +7,12 @@ router.get('/', (req, res) => {
         attributes: {
             exclude: ['password'],
         },
-        include: Reference
+        include: [
+            {
+                model:Reference,
+                as: 'userStatus'
+            }
+        ]
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
