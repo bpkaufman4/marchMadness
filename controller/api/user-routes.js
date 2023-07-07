@@ -110,8 +110,10 @@ router.post('/login', (req, res) => {
             return;
         }
 
-        User.update({lastLoginDate: DataTypes.NOW },{
-
+        User.update({lastLoginDate: new Date() },{
+            where: {
+                userId: dbUserData.userId
+            }
         })
 
         req.session.save(() => {
