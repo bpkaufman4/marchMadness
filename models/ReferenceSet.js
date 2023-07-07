@@ -15,6 +15,7 @@ ReferenceSet.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        description: type: DataTypes.STRING,
         deletableInd: {
             type: DataTypes.INTEGER,
             allowNull: false,
