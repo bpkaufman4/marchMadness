@@ -305,7 +305,9 @@ INSERT INTO `reference` (`referenceCd`, `referenceSet`, `referenceMeaning`, `dis
 ('f58666ba-0c52-11ee-b217-3ddb965f1651', 'PATCHEXCLUSIONS', NULL, '.ftp-deploy-sync-state.json', NULL, 1, '2023-06-16 14:34:54'),
 ('f5c6cc2c-5489-11ec-aa40-dc9e7fa4b6a4', 'PATCHEXCLUSIONS', NULL, '.htaccess', NULL, 1, '2021-12-03 22:40:05'),
 ('fdda3322-b16a-11ea-8da0-d412da13d0d7', 'APPLICATIONSETTINGS', 'EXAMPLESETTING1', 'Example Setting 1', 'description goes here', 1, '2020-06-18 13:52:47');
+ALTER reference SET updated = created;
 COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
