@@ -6,5 +6,5 @@ User.hasOne(Reference, {
     foreignKey: 'statusCd',
     as: 'userStatus'
 });
-Reference.belongsTo(User, {foreignKey: 'statusCd'});
+Reference.belongsToMany(User, {foreignKey: 'statusCd'});
 module.exports = { User, Reference, ReferenceSet };
