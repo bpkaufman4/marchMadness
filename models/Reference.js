@@ -22,7 +22,7 @@ Reference.init(
             }
         },
         referenceMeaning: {
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
             allowNull: false,
         },
         display: {
