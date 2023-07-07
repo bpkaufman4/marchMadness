@@ -37,7 +37,6 @@ router.post('/', (req, res) => {
         email: req.body.email,
         lastName: req.body.lastName,
         firstName: req.body.firstName,
-        fullName: req.body.firstName + ' ' + req.body.lastName,
         statusCd: req.body.statusCd,
         userTypeCd: req.body.userTypeCd,
         pwd: req.body.pwd,
@@ -110,6 +109,10 @@ router.post('/login', (req, res) => {
             res.status(404).json({ message: 'Incorrect password' });
             return;
         }
+
+        User.update({lastLoginDate: DataTypes.NOW },{
+
+        })
 
         req.session.save(() => {
             req.session.userId = dbUserData.userId;
