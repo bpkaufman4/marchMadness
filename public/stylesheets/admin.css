@@ -1,0 +1,70 @@
+:root {
+    --lightBG: #f4f7fe;
+    --border: #ddd solid 1px;
+    --padding: 20px;
+    --tableRowBG: #eee;
+    --primaryColor: #3591f2;
+    --fontxSmall: 12px;
+    --fontSmall: 14px;
+    --fontMedium: 16px;
+    --fontLarge: 18px;
+    --fontxLarge: 22px;
+    --borderRadius: 5px;
+    --h1Font: open-sans;
+    --h2Font: open-sans;
+    --h3Font: open-sans;
+    --h4Font: open-sans;
+    --h5Font: open-sans;
+    --spanFont: open-sans;
+    --pFont: open-sans;
+    --labelFont: open-sans;
+    --boxShadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    --tableHeadColor: #E8ECF2;
+    --tableCellPadding: 5px 0px;
+}
+::-webkit-scrollbar {width: 5px;}
+::-webkit-scrollbar-thumb {background: #555; border-radius: 5px;}
+::-webkit-scrollbar-track {background: #E3F2FD;}
+/* Change the white to any color  gets rid of autofull Blue background*/input:-webkit-autofill,input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active{ -webkit-box-shadow: 0 0 0 30px white inset !important;}
+/*	h1, h2, h3, h4, h5 {font-family: open Sans;}
+span {font-family: open Sans;}
+p {font-family: open Sans;}
+label {font-family: open Sans;}*/
+/*Start Front end helper  classes*/
+/*End front end helper classes*/
+/*global Button styles*/
+/*end global Button styles*/
+.dashboardCont {width: calc(100vw - 250px); height: 100vh; left: 250px; position: fixed; overflow: hidden; box-sizing: border-box; z-index: 0; padding: 30px 50px; background:var(--lightBG) !important; overflow-y: auto !important;}
+/* Start global table styles */
+/*end global table styles*/
+/*Fancy and standard input classes*/
+/*end fancy and standard input classes*/
+@media only screen and (max-width: 1200px) {
+    .ql-toolbar.ql-snow .ql-formats:nth-child(1){display:none !important;}
+    .ql-toolbar.ql-snow .ql-formats:nth-child(3){display:none !important;}
+    .ql-toolbar.ql-snow .ql-formats:nth-child(5){display:none !important;}
+    .ql-toolbar.ql-snow .ql-formats:nth-child(8){display:none !important;}
+    .ql-toolbar.ql-snow .ql-formats:nth-child(9){display:none !important;}
+    .ql-toolbar.ql-snow .ql-formats:nth-child(11){display:none !important;}
+}	
+@media only screen and (max-width: 1000px) {
+    header p {display: none;}
+    .adminHeader {width: 80px !important;  background: #fff;}
+    .adminHeader img {display: none;}
+    .adminHeaderItem i {margin-left: 0px; margin-right: 0; text-align: center; float: unset;}
+    #temp {text-align: center;}
+    .editorContent {width: 100% !important; margin: 0 0 !important;}
+    .dashboardCont { float: left; margin: 0 0; left: 80px; width: calc(100% - 80px);}
+}
+@media only screen and (max-width: 900px) {
+    .selector {width: 100px;}
+} 
+/*Loader*/
+.dashboardCont[data-more-to-get="1"] .loading {padding: 20px 0; text-align: center;}
+.dashboardCont[data-more-to-get="0"] .loading {display: none;}
+.dashboardCont[data-more-to-get="1"] .loading  div {background: none; height: 20px; width: 20px; float: unset; display: inline-block;animation: rotation 2s infinite linear;  border: double 5px var(--primaryColor); border-image: linear-gradient(to right, var(--primaryColor) 100%, transparent 100%) 100% -1; border-radius: 100px; background-origin: border-box; background-clip: content-box, border-box; background: linear-gradient(to right, #fff 0%, #fff 40%, var(--primaryColor) 40%, var(--primaryColor) 60%, #fff 60%, #fff 100%);}
+@keyframes rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
+/*end Loader*/
