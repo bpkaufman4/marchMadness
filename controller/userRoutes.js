@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
         include: ['userType', 'userStatus']
     })
     .then(dbUserData => {
-        console.log(dbUserData);
         const users = dbUserData.map(user => user.get({ plain: true }));
+        console.log(users);
         res.render('users', { users });
     })
     .catch(err => {
