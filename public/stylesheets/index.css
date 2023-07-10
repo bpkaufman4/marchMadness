@@ -42,7 +42,6 @@ button { border:none; cursor:pointer; }
 a { cursor:pointer; } 
 body { margin:0; padding:0;  background:#f4f7fe; font-family:Open Sans; width: 100%; height: 100%;}
 .container { position: relative; width: 1200px; left: 50%; margin-left: -600px; }
-resize: none; box-sizing: border-box; padding: 10px 12px; margin-bottom: 10px; font-family: Roboto;}
 .dashboardCont {width: calc(100vw - 250px); height: 100vh; left: 250px; position: fixed; overflow: hidden; box-sizing: border-box; z-index: 0; padding: 30px 50px; background:var(--lightBG) !important; overflow-y: auto !important;}
 .material-icons {cursor: pointer;}
 body {color: #333;}
@@ -166,7 +165,6 @@ input:focus, select:focus, textarea:focus-within {border-color: var(--primaryCol
 .tableFilterRight {margin-left: auto;}
 /* Empty Table */
 .mainTable[data-fetching-data="0"]:has(tbody:empty)::after, .mainTable:has(tbody[data-fetching-data="0"]:empty)::after {content: 'No Rows'; float: left; width: 100%; margin: 0 auto; padding: 15px 0px; background: #fff; text-align: center;}
- {content: 'No Rows'; float: left; width: 100%; margin: 0 auto; padding: 15px 0px; background: #fff; text-align: center;}
 /* Table Loading */
 .mainTable[data-fetching-data="1"]::after, .mainTable:has(tbody[data-fetching-data="1"])::after {content: ''; background: none; height: 20px; width: 20px; display: block; margin: 20px auto; animation: rotation 2s infinite linear;  border: double 5px var(--primaryColor); border-image: linear-gradient(to right, var(--primaryColor) 100%, transparent 100%) 100% -1; border-radius: 100px; background-origin: border-box; background-clip: content-box, border-box; background: linear-gradient(to right, #fff 0%, #fff 40%, var(--primaryColor) 40%, var(--primaryColor) 60%, #fff 60%, #fff 100%);}
 
@@ -181,7 +179,7 @@ input:focus, select:focus, textarea:focus-within {border-color: var(--primaryCol
 
 .mainTable[data-more-to-get="1"] .loading {padding: 20px 0; text-align: center;}
 .mainTable[data-more-to-get="0"] .loading {display: none;}
-.mainTable[data-more-to-get="1"] .loading  div {background: none; height: 20px; width: 20px; float: unset; display: inline-block;animation: rotation 2s infinite linear;  border: double 5px var(--primaryColor); border-image: linear-gradient(to right, var(--primaryColor) 100%, transparent 100%) 100% -1; border-radius: 100px; background-origin: border-box; background-clip: content-box, border-box; background: linear-gradient(to right, #fff 0%, #fff 40%, var(--primaryColor) 40%, var(--primaryColor) 60%, #fff 60%, #fff 100%);}
+.mainTable[data-more-to-get="1"] .loading  div {background: none; height: 20px; width: 20px; float: unset; animation: rotation 2s infinite linear;  border: double 5px var(--primaryColor); border-image: linear-gradient(to right, var(--primaryColor) 100%, transparent 100%) 100% -1; border-radius: 100px; background-origin: border-box; background-clip: content-box, border-box; background: linear-gradient(to right, #fff 0%, #fff 40%, var(--primaryColor) 40%, var(--primaryColor) 60%, #fff 60%, #fff 100%);}
 
 .tableTab.showColumnsList {padding: 9px 10px; padding-bottom: 8px;}
 .tableTab.showColumnsList i {float: left; width: 100%; box-sizing: border-box; padding: 0 0; border: none !Important;}
@@ -229,7 +227,7 @@ input:focus, select:focus, textarea:focus-within {border-color: var(--primaryCol
 .standardPopup .standardButton {float: right;}
 .standardPopup label, .standardPopup ul, .standardPopup li, .standardPopup textarea, .standardPopup input, .standardPopup select {width: 100%; float: left; box-sizing: border-box;}
 .standardPopup label {margin: 2px 0; margin-top: 10px;}
-.standardPopup input {-webkit-appearance:none; outline: none; border:  var(--primaryBorder);}
+.standardPopup input {outline: none; border:  var(--primaryBorder);}
 .standardPopup textarea, .standardPopup select {resize:none; outline: none; border-bottom:  var(--primaryBorder);}
 .standardPopup p, .standardPopup h1 {float: left; width: 100%; margin: 0 0; padding: 0 0; font-size: 18px;}
 .standardPopup ul p {margin-top: 10px; margin-bottom: 5px;}
