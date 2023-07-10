@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     })
     .then(dbUserData => {
         const users = dbUserData.map(user => user.get({ plain: true }));
-        res.render('users', { users });
+        res.render('users', {layout:'admin', users });
     })
     .catch(err => {
         console.log(err);
