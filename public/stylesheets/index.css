@@ -30,7 +30,6 @@
 }
 /* Change the white to any color  gets rid of auto fill Blue background*/input:-webkit-autofill,input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active{ -webkit-box-shadow: 0 0 0 30px white inset !important;}
 ::-webkit-scrollbar {width: 3px; background: #f0f0f0;}
-::-webkit-scrollbar-track {}
 ::-webkit-scrollbar-thumb {border-radius: 10px; background: #888;}
 /*global*/
 input, select {padding:10px 12px; box-sizing:border-box; float:left; width:100%; border: var(--primaryBorder); border-radius:5px; outline:none; margin:10px 0; outline:none;}
@@ -158,8 +157,6 @@ input:focus, select:focus, textarea:focus-within {border-color: var(--primaryCol
 .mainTable thead { background: var(--tableHeadColor);  top: 0; z-index: 1;}
 .mainTable th { font-weight:600; text-transform:uppercase; background: var(--tableHeadColor); padding-top: 10px;}
 .mainTable th[onclick] {text-decoration: underline;}
-.mainTable tr:nth-child(2n + 1):not(.mainTable thead tr) {}
-.mainTable tr:nth-child(2n) {}
 .mainTable tr {background: #fff;}
 .mainTable th, .mainTable td {font-size: var(--fontSmall);}
 .mainTable thead th:nth-child(1) {border-top-left-radius: 5px;}
