@@ -14,7 +14,7 @@
     <tbody>
         {{#each users as |user|}}
         <tr>
-            <td>{{user.fullName}}</td>
+            <td>{{user.firstName}} {{user.lastName}}</td>
             <td>{{user.email}}</td>
             <td>{{user.userType.display}}</td>
             <td>{{user.userStatus.display}}</td>
