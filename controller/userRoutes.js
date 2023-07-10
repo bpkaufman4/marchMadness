@@ -6,7 +6,8 @@ const { User } =  require('../models');
 router.get('/', (req, res) => {
     User.findAll({
         attributes: [
-            'fullName',
+            'firstName',
+            'lastName',
             'email',
             'userId'
         ],
