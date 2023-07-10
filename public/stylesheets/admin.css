@@ -35,6 +35,17 @@ label {font-family: open Sans;}*/
 /*global Button styles*/
 /*end global Button styles*/
 .dashboardCont {width: calc(100vw - 250px); height: 100vh; left: 250px; position: fixed; overflow: hidden; box-sizing: border-box; z-index: 0; padding: 30px 50px; background:var(--lightBG) !important; overflow-y: auto !important;}
+
+.adminHeader { padding: 10px 25px; z-index: 100; width: 250px; height: 100vh; position: fixed; left: 0; top: 0; box-sizing: border-box;}
+.adminHeaderItem.active{color:#5570f1;}
+.adminHeaderItem {font-size: 13px !important; font-weight: 600; color: #333; padding:16px 0px !important; width: 100%;float:left;}
+.adminHeaderItem p { margin:0; }
+img.logo {height: unset; margin-left: 2px; margin: 0 0; margin-left:-3px; }
+.iconMove {float: left;margin-right: 8px;margin-top:-3px;}
+.logoutButton {margin-top: auto; margin-bottom: 0;  position: absolute; bottom: 20px; left: 25px; }
+#temp {height: 100vh;  }
+.mobLogo {height: unset; width: 28px; cursor: pointer; }
+.users {margin-top: 10px;}
 /* Start global table styles */
 /*end global table styles*/
 /*Fancy and standard input classes*/
