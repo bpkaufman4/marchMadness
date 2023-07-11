@@ -4,3 +4,5 @@ router.get('/', {
     title: 'Hello',
     message: 'world'
 });
+
+module.exports = router;
