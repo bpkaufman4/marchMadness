@@ -4,9 +4,7 @@ const controller = require('./controller');
 const sequelize = require('./config/connection');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const path = require('path');
-const exphbs = require('express-handlebars');
-const hbs = exphbs.create({});
+const path = require('path');;
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -21,9 +19,6 @@ const sess = {
 };
 
 app.use(session(sess));
-app.engine('handlebars', hbs.engine);
-
-app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -34,4 +29,4 @@ sequelize.sync({ alter: false }).then(() => {
         console.log(`listening on port ${PORT}`);
     });
 })
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
