@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
+router.get('/adminUsers', (req, res) => {
     res.render('users');
 });
 
