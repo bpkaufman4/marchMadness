@@ -1,10 +1,12 @@
 
 const express = require('express');
-const sequelize = require('./config/connection');
 const controller = require('./controller');
+const sequelize = require('./config/connection');
 const app = express();
 const PORT = process.env.PORT || 3001;
-const path = require('path');;
+const path = require('path');
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create({});
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -19,14 +21,17 @@ const sess = {
 };
 
 app.use(session(sess));
-app.set('view engine', 'pug');
+app.engine('handlebars', hbs.engine);
+
+app.set('view engine', 'handlebars');
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(controller);
-sequelize.sync({ alter: false }).then(() => {
+sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
     });
 })
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
