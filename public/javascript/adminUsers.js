@@ -534,6 +534,7 @@ function getUsers(){
 			row.appendChild(deleteColumn);
 			
 			usersTable.appendChild(row);
+			userPage++;
 		});
 	});
 }
