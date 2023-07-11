@@ -475,6 +475,7 @@ function getUsers(){
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName'];
 	const joins = ['userType', 'userStatus'];
 	const limit = 25;
+	const page = userPage;
 
 	fetch('api/users/getUsers', {
         method:'post',
@@ -482,7 +483,7 @@ function getUsers(){
             columnsToReturn,
 			joins,
 			limit,
-			userPage
+			page
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then(response => response.json())
