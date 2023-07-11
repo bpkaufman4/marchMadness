@@ -473,7 +473,7 @@ async function getUsers(){
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email'];
 
 	const response = await fetch('api/users/', {
-        method:'get',
+        method:'post',
         body: JSON.stringify({
             columnsToReturn
         }),
