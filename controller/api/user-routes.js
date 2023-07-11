@@ -8,7 +8,7 @@ router.post('/getUsers', (req, res) => {
     })
     .then(dbUserData => {
         console.log(dbUserData);
-        res.json({message: 'hello'})
+        res.json(dbUserData)
     })
     .catch(err => {
         console.log(err);
