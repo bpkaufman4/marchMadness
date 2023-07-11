@@ -478,3 +478,5 @@ function getUsers(){
 	request['useCaseId']='284d9c31-5c4a-11ed-8b2d-17cec369c293';
 	loadTable('usersLoadTable','model/getUser.php', request, 25, 'processGetUsers');
 }
+
+getUsers();
