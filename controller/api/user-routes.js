@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, Reference } = require('../../models');
 const { Sequelize } = require('sequelize');
 
-router.get('/', (req, res) => {
+router.post('/getUsers', (req, res) => {
     User.findAll({
         include: req.body.columnsToReturn
     })
