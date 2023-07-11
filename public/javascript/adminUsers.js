@@ -476,7 +476,8 @@ function getUsers(){
 	fetch('api/users/getUsers', {
         method:'post',
         body: JSON.stringify({
-            columnsToReturn
+            columnsToReturn,
+			joins
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then(response => response.json())
