@@ -150,7 +150,6 @@ function saveNewTableView(id='') {
 	request['useCaseId']='54e01d99-f8a0-11ed-99a3-895f422f262e';
 	request['tableName'] = getobj('newTableName').value;
 	request['tableUseCaseId'] = '284d9c31-5c4a-11ed-8b2d-17cec369c293';
-	request['userId'] = <?php echo(json_encode($_SESSION[$config['variablePrefix'].'UserId'])); ?>;
 	loadTable('saveNewTable', 'model/putCustomTable.php', request, 0, processFunction);
 	
 	getobj('newTableName').value = '';
