@@ -470,7 +470,7 @@ function getUsers(){
 	var request={};
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
-	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email'];
+	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName'];
 	const joins = ['userType'];
 
 	fetch('api/users/getUsers', {
