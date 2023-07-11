@@ -468,7 +468,8 @@ globals['columnInputs'].forEach(inp => {
 
 var userPage = 1;
 
-function getUsers(){
+function getUsers(reset = false){
+	if(reset) userPage = 1;
 	var request={};
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
