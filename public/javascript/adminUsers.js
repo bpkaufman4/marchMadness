@@ -472,7 +472,7 @@ async function getUsers(){
 	getobj('allUsersDiv').style.display='block';
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email'];
 
-	const response = await fetch('api/users/', {
+	const response = await fetch('api/users/getUsers', {
         method:'post',
         body: JSON.stringify({
             columnsToReturn
