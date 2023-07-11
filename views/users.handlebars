@@ -74,9 +74,7 @@
 				<div id="exportSelect" onclick="exportTable();" class="globalButton" >Export as CSV</div>
 			</div>
 		</div>
-		<div class="mainTable" onscroll="getMoreUsers(this);" id="usersLoadTable">                      
-            {{#if users.length}}
-
+		<div class="mainTable" onscroll="getMoreUsers(this);" id="usersLoadTable">
             <table>
                 <thead>
                     <tr>
@@ -89,8 +87,6 @@
                 <tbody id="usersTable">
                 </tbody>
             </table>
-
-            {{/if}}
 			<div class="loading"><div class=""></div></div>
 		</div>
 	</div>
