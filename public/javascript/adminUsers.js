@@ -480,7 +480,7 @@ async function getUsers(){
         headers: { 'Content-Type': 'application/json' }
     });
 
-	console.log(response);
+	console.log(response.json);
 }
 
 getUsers();
