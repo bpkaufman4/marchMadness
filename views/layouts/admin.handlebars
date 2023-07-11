@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="stylesheets/index.css">
+        <link rel="stylesheet" href="stylesheets/admin.css">
+	</head> 
+	<body> 
+        <header>
+            <div class="adminHeader" id="secondaryNav">
+                <nav class="fw" id="temp">
+                    <a class="adminHeaderItem ">
+                        <i class="material-icons iconMove">people</i>
+                        <p>Users</p>
+                    </a>			
+                    <a class="adminHeaderItem notificationsAdmin">
+                        <i class="material-icons iconMove secondOne">email</i>
+                        <p>Templates</p>
+                    </a>
+                    <a class="adminHeaderItem pages">
+                        <i class="material-icons iconMove pagesmove">layers</i>
+                        <p>Pages</p>
+                    </a>
+                    <a class="adminHeaderItem applicationSettings">
+                        <i class="material-icons iconMove">settings</i>
+                        <p>Settings</p>
+                    </a>
+                    <a class="adminHeaderItem logoutButton">
+                        <i class="material-icons iconMove">exit_to_app</i>
+                        <p>Sign out</p>
+                    </a>
+                </nav>
+            </div>
+        </header>
+		<div class="dashboardCont">
+			<div class="standardTableView dark roboto">
+				{{{ body }}}
+			</div> 
+		</div> 
+	</body>
+</html>
