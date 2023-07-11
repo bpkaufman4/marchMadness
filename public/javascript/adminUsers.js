@@ -466,17 +466,21 @@ globals['columnInputs'].forEach(inp => {
 	})
 })
 
-function getUsers(){
+async function getUsers(){
 	var request={};
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
-	request['orderBy']=getobj('sortSelect').value;
-	request['searchStr']=getobj('searchStr').value;
-	request['includeDeleted']=(getobj('includeDeleted').checked)?1:0;
-	if (getobj('showActiveOnly').checked) request['statusCdMeaning']='ACTIVE';
-	getobj('currentUsersTable').innerHTML='';
-	request['useCaseId']='284d9c31-5c4a-11ed-8b2d-17cec369c293';
-	loadTable('usersLoadTable','model/getUser.php', request, 25, 'processGetUsers');
+	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email'];
+
+	const response = await fetch('api/users/', {
+        method:'get',
+        body: JSON.stringify({
+            columnsToReturn
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+	console.log(response);
 }
 
 getUsers();
