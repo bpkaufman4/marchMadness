@@ -471,7 +471,7 @@ function getUsers(){
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName'];
-	const joins = ['userType'];
+	const joins = ['userType', 'userStatus'];
 
 	fetch('api/users/getUsers', {
         method:'post',
