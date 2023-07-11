@@ -6,7 +6,7 @@ router.post('/getUsers', (req, res) => {
     User.findAll({
         attributes: req.body.columnsToReturn
     })
-    .then(dbUserData => res.json(dbUserData))
+    .then(dbUserData => res.send(dbUserData))
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
