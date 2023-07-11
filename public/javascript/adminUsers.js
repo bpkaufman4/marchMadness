@@ -466,18 +466,23 @@ globals['columnInputs'].forEach(inp => {
 	})
 })
 
+var userPage = 1;
+
 function getUsers(){
 	var request={};
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName'];
 	const joins = ['userType', 'userStatus'];
+	const limit = 25;
 
 	fetch('api/users/getUsers', {
         method:'post',
         body: JSON.stringify({
             columnsToReturn,
-			joins
+			joins,
+			limit,
+			userPage
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then(response => response.json())
