@@ -466,21 +466,22 @@ globals['columnInputs'].forEach(inp => {
 	})
 })
 
-async function getUsers(){
+function getUsers(){
 	var request={};
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email'];
 
-	const response = await fetch('api/users/getUsers', {
+	fetch('api/users/getUsers', {
         method:'post',
         body: JSON.stringify({
             columnsToReturn
         }),
         headers: { 'Content-Type': 'application/json' }
-    });
-
-	console.log(response.json());
+    }).then(response => response.json())
+	.then(data => {
+		console.log(data);
+	});
 }
 
 getUsers();
