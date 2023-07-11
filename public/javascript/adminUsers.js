@@ -491,7 +491,6 @@ function getUsers(){
 			const deleteUser = 'addUser(\'DELETE\', \''+u.userId+'\');';
 			
 			const name = makeElem('td');
-			setColumnDisplay('fullName', name);
 			name.classList.add('fullNameHide', 'SHOWALL');
 			name.setAttribute('tabindex', 0);
 			name.setAttribute('onclick', editUser);
@@ -499,21 +498,18 @@ function getUsers(){
 			row.appendChild(name);
 			
 			const email = makeElem('td');
-			setColumnDisplay('email', email);
 			email.classList.add('emailHide', 'SHOWALL');
 			email.setAttribute('onclick', editUser);
 			email.innerText = u.email;
 			row.appendChild(email);
 			
 			const userType = makeElem('td');
-			setColumnDisplay('userTypeCdMeaning', userType);
 			userType.classList.add('userTypeCdMeaningHide', 'SHOWALL')
 			userType.setAttribute('onclick', editUser);
 			userType.innerText = u.userTypeCdDisplay;
 			row.appendChild(userType);
 			
 			const userStatus = makeElem('td');
-			setColumnDisplay('statusCdMeaning', userStatus);
 			userStatus.classList.add('statusCdMeaningHide', 'SHOWALL');
 			userStatus.setAttribute('onclick', editUser);
 			userStatus.innerText = u.statusCdDisplay;
