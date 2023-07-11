@@ -3,9 +3,12 @@ const { User, Reference } = require('../../models');
 const { Sequelize } = require('sequelize');
 
 router.post('/getUsers', (req, res) => {
+    let request = req.body;
     User.findAll({
-        attributes: req.body.columnsToReturn,
-        include: req.body.joins
+        attributes: request.columnsToReturn,
+        include: request.joins,
+        limit: request.limit,
+        offset:((request.page - 1)*limit)
     })
     .then(dbUserData => {
         console.log(dbUserData);
