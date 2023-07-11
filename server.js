@@ -1,6 +1,7 @@
 
 const express = require('express');
 const sequelize = require('./config/connection');
+const controller = require('../controller');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const path = require('path');;
@@ -18,7 +19,7 @@ const sess = {
 };
 
 app.use(session(sess));
-
+app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
