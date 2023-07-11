@@ -8,7 +8,7 @@ router.post('/getUsers', (req, res) => {
         attributes: request.columnsToReturn,
         include: request.joins,
         limit: request.limit,
-        offset:((request.page - 1)*limit)
+        offset:((request.page - 1)*request.limit)
     })
     .then(dbUserData => {
         console.log(dbUserData);
