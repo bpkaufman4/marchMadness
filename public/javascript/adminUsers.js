@@ -482,6 +482,7 @@ function getUsers(){
         headers: { 'Content-Type': 'application/json' }
     }).then(response => response.json())
 	.then(data => {
+		console.log(data);
 		data.forEach(u => {
 			const row = makeElem('tr');
 			row.id=u.userId;
