@@ -4,7 +4,7 @@ const { Sequelize } = require('sequelize');
 
 router.post('/getUsers', (req, res) => {
     User.findAll({
-        include: req.body.columnsToReturn
+        attributes: req.body.columnsToReturn
     })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
