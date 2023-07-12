@@ -1,9 +1,24 @@
 const router = require('express').Router();
 const { User, Reference } = require('../../models');
 const { Sequelize } = require('sequelize');
-const { getUnusedUserPerma } = require('./helpers');
+
 
 router.post('/', (req, res) => {
+
+    const getUnusedUserPerma = function(seed) {
+        User.findOne({
+            where: {
+                perma: seed
+            }
+        }).then(userData => {
+            if(userData) {
+                return (getUnusedUserPerma(seed+'1'));
+            } else {
+                return seed;
+            }
+        });
+    }
+
     var userPerma = getUnusedUserPerma(req.body.firstName+req.body.lastName);
     console.log(userPerma);
     res.json({ message: userPerma });
