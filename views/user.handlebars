@@ -1,3 +1,72 @@
-<div>{{{ user.fullName }}}</div>
+<div class="CTAbtns">
+		<button class="globalButton whiteButton" onclick="addUser('CANCEL');"id="cancelBtn">Back</button>
+		<button class="globalButton fright " onclick="addUser('SAVE');" >Save</button> 
+		<button id="passwordResetButton" class="globalButton fright margRight" onclick="addUser('PASSWORD');" >Send Password Reset Email</button>
+	</div>
+	<div class="editorContent">
+		<div class="user-info-header">
+			<h1 class="largeFont hidden">Add a new user</h1>
+		</div> 
+		<input id="userId" type="hidden">
+		<input id="fullName" type="hidden" value="{{{ user.fullName }}}">
+		<div class="seconds margRight ">
+			<div class="fancyInput width1">
+				<label >First Name</label>
+				<input id="firstName" type="text" class="" value="{{{ user.firstName }}}">
+			</div>
+		</div>
+		<div class="seconds noMarg">
+			<div class="fancyInput width1">
+				<label >Last Name</label>
+				<input id="lastName" type="text" class="" value="{{{ user.lastName }}}">
+			</div>
+		</div>
+		<div class=" margRight  margTop ">
+			<div class="fancyInput width1">
+				<label>Email</label>
+				<input id="email" type="text" class="" value="{{{ user.email }}}">
+			</div>
+		</div>
+		<div class="width1 margTop">
+			<div class="seconds  margRight">
+				<div class="fancyInput width1">
+					<label >Password</label>
+					<input id="password" type="password" >
+				</div>
+			</div>
+			<div class="seconds ">
+				<div class="fancyInput width1 ">
+					<label >Confirm Password</label>
+					<input id="confirmPassword" type="password" >
+				</div>
+			</div>
+		</div>
+		<div class="checkboxContainer">
+			<div class="seconds margTop fancySelect margRight" >
+			<span>User status</span>
+				<div>
+					<select id="userStatusSelect" value="{{{ user.userStatus.display }}}">
+						<option value='ACTIVE'>Active</option>
+						<option value='DELETED'>Deleted</option>
+						<option value='REJECTED'>Rejected</option>
+					</select>	
+				</div>
+			</div>
+			<div class="seconds margTop fancySelect">
+			<span>User type</span>
+				<div>
+					<select id="userTypeSelect" value="{{{ user.userType.display }}}">
+						<option value='USER'>User</option>
+						<option value='ADMINISTRATOR'>Administrator</option>
+					</select>		
+				</div>
+			</div> 
+		</div>
+		<div id="profilePhotoURL" class="sectionHolder ">
+			<span>Upload profile picture</span> 
+			<i class="material-icons">add_a_photo</i>
+		</div>
+		<form action="model/uploadFile.php" id="profilePictureUpload" class="dropzone FcolorS Fsml hidden"></form>
+	</div> 
 <link rel="stylesheet" href="../../stylesheets/index.css">
 <link rel="stylesheet" href="../../stylesheets/admin.css">
