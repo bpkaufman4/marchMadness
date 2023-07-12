@@ -14,9 +14,9 @@ const getUnusedUserPerma = function(seed) {
         } else {
             newSeed = seed;
         }
+        console.log(newSeed);
+        return newSeed;
     });
-    console.log(newSeed);
-    return newSeed;
 }
 
 module.exports = { getUnusedUserPerma };
