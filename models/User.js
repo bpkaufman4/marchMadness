@@ -1,7 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 
-const getUnusedUserPerma = require('./helpers');
-
 const sequelize = require('../config/connection');
 
 const bcrypt = require('bcrypt');
@@ -88,7 +86,6 @@ User.init(
         hooks: {
             async beforeCreate(newUserData) {
                 newUserData.pwd = await bcrypt.hash(newUserData.pwd, 10);
-                newUserData.perma = getUnusedUserPerma(newUserData.firstName+newUserData.lastName);
                 return newUserData;
             }
         },
