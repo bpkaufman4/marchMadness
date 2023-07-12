@@ -11,14 +11,41 @@ const getUnusedUserPerma = function(seed) {
         }
     }).then(userData => {
         console.log(userData);
+        return userData;
         if(userData) {
             seed = getUnusedUserPerma(seed+'1');
         } else {
             seed = seed
         }
-    })
-    return seed;
+    });
 }
+
+router.post('/', (req, res) => {
+    res.json(getUnusedUserPerma(req.body.firstName+req.body.lastName));
+    /*
+    User.create({
+        email: req.body.email,
+        lastName: req.body.lastName,
+        firstName: req.body.firstName,
+        statusCd: req.body.statusCd,
+        userTypeCd: req.body.userTypeCd,
+        pwd: req.body.pwd,
+        firstName: req.body.firstName,
+        perma: getUnusedUserPerma(req.body.firstName+req.body.lastName)
+    })
+    .then(dbUserData => {
+        req.session.save(() => {
+            req.session.userId = dbUserData.userId;
+            req.session.loggedIn = true;
+
+            res.json(dbUserData);
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+}*/);
 
 router.post('/getUsers', (req, res) => {
     let request = req.body;
@@ -68,30 +95,6 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
-    User.create({
-        email: req.body.email,
-        lastName: req.body.lastName,
-        firstName: req.body.firstName,
-        statusCd: req.body.statusCd,
-        userTypeCd: req.body.userTypeCd,
-        pwd: req.body.pwd,
-        firstName: req.body.firstName,
-        perma: getUnusedUserPerma(req.body.firstName+req.body.lastName)
-    })
-    .then(dbUserData => {
-        req.session.save(() => {
-            req.session.userId = dbUserData.userId;
-            req.session.loggedIn = true;
-
-            res.json(dbUserData);
-        })
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
 
 router.put('/:userId', (req, res) => {
     User.update(req.body, {
