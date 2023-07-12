@@ -4,8 +4,8 @@ const { Sequelize } = require('sequelize');
 
 
 router.post('/', (req, res) => {
-    let existingUser = true;
-    let perma = req.body.firstName+req.body.lastName;
+    var existingUser = true;
+    var perma = req.body.firstName+req.body.lastName;
     do {
         User.findOne({
             where: {
