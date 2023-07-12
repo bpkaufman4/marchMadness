@@ -19,8 +19,6 @@ const getUnusedUserPerma = function(seed) {
 }
 
 router.post('/', (req, res) => {
-    res.json(getUnusedUserPerma(req.body.firstName+req.body.lastName));
-    /*
     User.create({
         email: req.body.email,
         lastName: req.body.lastName,
@@ -43,7 +41,7 @@ router.post('/', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
-}*/});
+});
 
 router.post('/getUsers', (req, res) => {
     let request = req.body;
