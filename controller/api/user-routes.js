@@ -3,6 +3,7 @@ const { User, Reference } = require('../../models');
 const { Sequelize } = require('sequelize');
 
 const getUnusedUserPerma = function(seed) {
+    console.log(seed);
     User.findOne({
         where: {
             perma: seed
