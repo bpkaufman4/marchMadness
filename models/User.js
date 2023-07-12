@@ -69,10 +69,7 @@ User.init(
         },
         perma: {
             type: DataTypes.STRING,
-            allowNull: false,
-            set() {
-                this.setDataValue('perma', getUnusedUserPerma(this.firstName+this.lastName));
-            }
+            allowNull: false
         },
         lastLoginDate: DataTypes.DATE,
         lastIP: DataTypes.STRING,
@@ -91,6 +88,7 @@ User.init(
         hooks: {
             async beforeCreate(newUserData) {
                 newUserData.pwd = await bcrypt.hash(newUserData.pwd, 10);
+                newUserData.perma = getUnusedUserPerma(newUserData.firstName+newUserData.lastName);
                 return newUserData;
             }
         },
