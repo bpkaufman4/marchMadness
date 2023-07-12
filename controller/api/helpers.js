@@ -1,5 +1,5 @@
 
-const User = require('../../models');
+const { User } = require('../../models');
 
 const getUnusedUserPerma = function(seed) {
     console.log(seed);
@@ -20,4 +20,4 @@ const getUnusedUserPerma = function(seed) {
     return newSeed;
 }
 
-module.exports = getUnusedUserPerma;
+module.exports = { getUnusedUserPerma };
