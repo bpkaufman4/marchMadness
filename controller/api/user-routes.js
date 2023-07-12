@@ -5,6 +5,8 @@ const { getUnusedUserPerma } = require('./helpers');
 
 router.post('/', (req, res) => {
     var userPerma = getUnusedUserPerma(req.body.firstName+req.body.lastName);
+    res.json({ message: userPerma });
+    return;
     if(userPerma > '') {
         User.create({
             email: req.body.email,
