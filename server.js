@@ -20,6 +20,8 @@ const sess = {
     })
 };
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session(sess));
 app.engine('handlebars', hbs.engine);
 
@@ -33,4 +35,3 @@ sequelize.sync({ alter: false }).then(() => {
         console.log(`listening on port ${PORT}`);
     });
 })
-app.use(express.static(path.join(__dirname, 'public')));
