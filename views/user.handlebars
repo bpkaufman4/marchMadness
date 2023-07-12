@@ -45,7 +45,7 @@
 			<div class="seconds margTop fancySelect margRight" >
 			<span>User status</span>
 				<div>
-					<select id="userStatusSelect" value="{{{ user.userStatus.display }}}">
+					<select id="userStatusSelect" value="{{{ user.userStatus.referenceMeaning }}}">
 						<option value='ACTIVE'>Active</option>
 						<option value='DELETED'>Deleted</option>
 						<option value='REJECTED'>Rejected</option>
@@ -55,7 +55,7 @@
 			<div class="seconds margTop fancySelect">
 			<span>User type</span>
 				<div>
-					<select id="userTypeSelect" value="{{{ user.userType.display }}}">
+					<select id="userTypeSelect" value="{{{ user.userType.referenceMeaning }}}">
 						<option value='USER'>User</option>
 						<option value='ADMINISTRATOR'>Administrator</option>
 					</select>		
