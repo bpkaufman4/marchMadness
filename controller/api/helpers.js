@@ -10,12 +10,10 @@ const getUnusedUserPerma = function(seed) {
         }
     }).then(userData => {
         if(userData) {
-            newSeed = getUnusedUserPerma(seed+'1');
+            return (getUnusedUserPerma(seed+'1'));
         } else {
-            newSeed = seed;
+            return seed;
         }
-        console.log(newSeed);
-        return newSeed;
     });
 }
 
