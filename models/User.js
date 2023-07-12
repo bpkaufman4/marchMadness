@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 
+const getUnusedUserPerma = require('./helpers');
+
 const sequelize = require('../config/connection');
 
 const bcrypt = require('bcrypt');
@@ -63,6 +65,13 @@ User.init(
             references: {
                 model: Reference,
                 key: 'referenceCd'
+            }
+        },
+        perma: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            set() {
+                this.setDataValue('perma', getUnusedUserPerma(this.firstName+this.lastName));
             }
         },
         lastLoginDate: DataTypes.DATE,
