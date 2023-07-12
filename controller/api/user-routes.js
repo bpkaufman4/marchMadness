@@ -4,24 +4,24 @@ const { Sequelize } = require('sequelize');
 
 
 router.post('/', (req, res) => {
-
-    const getUnusedUserPerma = function(seed) {
+    let existingUser = true;
+    let perma = req.body.firstName+req.body.lastName;
+    do {
         User.findOne({
             where: {
-                perma: seed
+                perma: perma
             }
         }).then(userData => {
-            if(userData) {
-                return (getUnusedUserPerma(seed+'1'));
+            if(!userData) {
+                existingUser = false;
             } else {
-                return seed;
+                perma = perma+'1';
             }
         });
-    }
+    } while (existingUser) 
 
-    var userPerma = getUnusedUserPerma(req.body.firstName+req.body.lastName);
-    console.log(userPerma);
-    res.json({ message: userPerma });
+    console.log(perma);
+    res.json({ message: perma });
     // if(userPerma > '') {
     //     User.create({
     //         email: req.body.email,
