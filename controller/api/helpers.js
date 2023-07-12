@@ -17,6 +17,7 @@ const getUnusedUserPerma = function(seed) {
             newSeed = seed;
         }
     });
+    return newSeed;
 }
 
 module.exports = getUnusedUserPerma;
