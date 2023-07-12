@@ -14,7 +14,6 @@ const getUnusedUserPerma = function(seed) {
         } else {
             newSeed = seed;
         }
-        console.log(newSeed);
         return newSeed;
     });
 }
