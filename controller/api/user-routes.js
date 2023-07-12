@@ -6,31 +6,30 @@ const { getUnusedUserPerma } = require('./helpers');
 router.post('/', (req, res) => {
     var userPerma = getUnusedUserPerma(req.body.firstName+req.body.lastName);
     res.json({ message: userPerma });
-    return;
-    if(userPerma > '') {
-        User.create({
-            email: req.body.email,
-            lastName: req.body.lastName,
-            firstName: req.body.firstName,
-            statusCd: req.body.statusCd,
-            userTypeCd: req.body.userTypeCd,
-            pwd: req.body.pwd,
-            firstName: req.body.firstName,
-            perma: userPerma
-        })
-        .then(dbUserData => {
-            req.session.save(() => {
-                req.session.userId = dbUserData.userId;
-                req.session.loggedIn = true;
+    // if(userPerma > '') {
+    //     User.create({
+    //         email: req.body.email,
+    //         lastName: req.body.lastName,
+    //         firstName: req.body.firstName,
+    //         statusCd: req.body.statusCd,
+    //         userTypeCd: req.body.userTypeCd,
+    //         pwd: req.body.pwd,
+    //         firstName: req.body.firstName,
+    //         perma: userPerma
+    //     })
+    //     .then(dbUserData => {
+    //         req.session.save(() => {
+    //             req.session.userId = dbUserData.userId;
+    //             req.session.loggedIn = true;
     
-                res.json(dbUserData);
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-    }
+    //             res.json(dbUserData);
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).json(err);
+    //     });
+    // }
 });
 
 router.post('/getUsers', (req, res) => {
