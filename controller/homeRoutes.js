@@ -13,7 +13,8 @@ router.get('/adminUser/:userId', (req, res) => {
     User.findOne({
         where: {
             userId: req.params.userId
-        }
+        },
+        include: ['userType', 'userStatus']
     })
     .then(dbUserData => {
         if(!dbUserData) {
