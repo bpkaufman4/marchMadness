@@ -4,49 +4,28 @@ const { Sequelize } = require('sequelize');
 
 
 router.post('/', (req, res) => {
-    var existingUser = true;
-    var perma = req.body.firstName+req.body.lastName;
-    do {
-        User.findOne({
-            where: {
-                perma: perma
-            }
-        }).then(userData => {
-            if(!userData) {
-                existingUser = false;
-            } else {
-                perma = perma+'1';
-            }
-        });
-        console.log(perma);
-    } while (existingUser);
+    User.create({
+        email: req.body.email,
+        lastName: req.body.lastName,
+        firstName: req.body.firstName,
+        statusCd: req.body.statusCd,
+        userTypeCd: req.body.userTypeCd,
+        pwd: req.body.pwd,
+        firstName: req.body.firstName,
+        perma: userPerma
+    })
+    .then(dbUserData => {
+        req.session.save(() => {
+            req.session.userId = dbUserData.userId;
+            req.session.loggedIn = true;
 
-    console.log(perma);
-    res.json({ message: perma });
-    // if(userPerma > '') {
-    //     User.create({
-    //         email: req.body.email,
-    //         lastName: req.body.lastName,
-    //         firstName: req.body.firstName,
-    //         statusCd: req.body.statusCd,
-    //         userTypeCd: req.body.userTypeCd,
-    //         pwd: req.body.pwd,
-    //         firstName: req.body.firstName,
-    //         perma: userPerma
-    //     })
-    //     .then(dbUserData => {
-    //         req.session.save(() => {
-    //             req.session.userId = dbUserData.userId;
-    //             req.session.loggedIn = true;
-    
-    //             res.json(dbUserData);
-    //         })
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //         res.status(500).json(err);
-    //     });
-    // }
+            res.json(dbUserData);
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 router.post('/getUsers', (req, res) => {
