@@ -4,17 +4,17 @@ const { Sequelize } = require('sequelize');
 
 const getUnusedUserPerma = function(seed) {
     console.log(seed);
+
     User.findOne({
         where: {
             perma: seed
         }
     }).then(userData => {
         if(!userData) {
-            return seed;
-        } else {
-            return getUnusedUserPerma(seed+'1');
+            seed = getUnusedUserPerma(seed+'1');
         }
     })
+    return seed;
 }
 
 router.post('/getUsers', (req, res) => {
