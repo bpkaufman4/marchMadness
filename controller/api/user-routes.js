@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
-}*/);
+}*/});
 
 router.post('/getUsers', (req, res) => {
     let request = req.body;
