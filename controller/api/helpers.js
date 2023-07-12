@@ -2,7 +2,6 @@
 const { User } = require('../../models');
 
 const getUnusedUserPerma = function(seed) {
-    console.log(seed);
     var newSeed;
 
     User.findOne({
