@@ -65,10 +65,6 @@ User.init(
                 key: 'referenceCd'
             }
         },
-        perma: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         lastLoginDate: DataTypes.DATE,
         lastIP: DataTypes.STRING,
         primaryPhone: DataTypes.STRING,
