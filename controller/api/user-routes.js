@@ -11,11 +11,9 @@ const getUnusedUserPerma = function(seed) {
         }
     }).then(userData => {
         console.log(userData);
-        /*
-        if(!userData) {
+        if(userData) {
             seed = getUnusedUserPerma(seed+'1');
         }
-        */
     })
     return seed;
 }
