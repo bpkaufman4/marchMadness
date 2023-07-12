@@ -2,6 +2,20 @@ const router = require('express').Router();
 const { User, Reference } = require('../../models');
 const { Sequelize } = require('sequelize');
 
+const getUnusedUserPerma = function(seed) {
+    User.findOne({
+        where: {
+            perma: seed
+        }
+    }).then(userData => {
+        if(!userData) {
+            return seed;
+        } else {
+            return getUnusedUserPerma(seed+'1');
+        }
+    })
+}
+
 router.post('/getUsers', (req, res) => {
     let request = req.body;
     User.findAll({
@@ -48,6 +62,7 @@ router.post('/', (req, res) => {
         userTypeCd: req.body.userTypeCd,
         pwd: req.body.pwd,
         firstName: req.body.firstName,
+        perma: getUnusedUserPerma(req.body.firstName, req.body.lastName)
     })
     .then(dbUserData => {
         req.session.save(() => {
