@@ -13,6 +13,8 @@ const getUnusedUserPerma = function(seed) {
         console.log(userData);
         if(userData) {
             seed = getUnusedUserPerma(seed+'1');
+        } else {
+            seed = seed
         }
     })
     return seed;
