@@ -9,7 +9,7 @@ router.get('/userUsers', (req, res) => {
     res.render('users');
 });
 
-router.get('/adminUser/:id', (req, res) => {
+router.get('/adminUser/:userId', (req, res) => {
     User.findOne({
         where: {
             userId: req.params.userId
