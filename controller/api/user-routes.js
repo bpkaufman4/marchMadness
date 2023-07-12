@@ -17,8 +17,8 @@ router.post('/', (req, res) => {
             } else {
                 perma = perma+'1';
             }
-            console.log(perma);
         });
+        console.log(perma);
     } while (existingUser);
 
     console.log(perma);
