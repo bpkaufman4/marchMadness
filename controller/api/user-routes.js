@@ -63,7 +63,7 @@ router.post('/', (req, res) => {
         userTypeCd: req.body.userTypeCd,
         pwd: req.body.pwd,
         firstName: req.body.firstName,
-        perma: getUnusedUserPerma(req.body.firstName, req.body.lastName)
+        perma: getUnusedUserPerma(req.body.firstName+req.body.lastName)
     })
     .then(dbUserData => {
         req.session.save(() => {
