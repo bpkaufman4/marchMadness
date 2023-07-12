@@ -11,8 +11,7 @@ router.post('/', (req, res) => {
         statusCd: req.body.statusCd,
         userTypeCd: req.body.userTypeCd,
         pwd: req.body.pwd,
-        firstName: req.body.firstName,
-        perma: userPerma
+        firstName: req.body.firstName
     })
     .then(dbUserData => {
         req.session.save(() => {
