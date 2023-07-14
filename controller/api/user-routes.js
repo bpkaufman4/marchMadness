@@ -24,6 +24,8 @@ router.post('/', (req, res) => {
                 break;
         }
     }
+    console.log(newRequest);
+    return;
     User.create(newRequest)
     .then(dbUserData => {
         req.session.save(() => {
