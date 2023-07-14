@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
                         referenceMeaning: request[key]
                     }
                 }).then(dbRefData => {
-                    newRequest['statusCd'] = dbRefData.referenceMeaning;
+                    newRequest['statusCd'] = dbRefData.referenceCd;
                 })
             case 'userTypeCdMeaning':
                 Reference.findOne({
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
                         referenceMeaning: request[key]
                     }
                 }).then(dbRefData => {
-                    newRequest['statusCd'] = dbRefData.referenceMeaning;
+                    newRequest['userTypeCd'] = dbRefData.referenceCd;
                 })
         }
     }
