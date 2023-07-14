@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Reference } = require('../../models');
 const { Sequelize, QueryTypes } = require('sequelize');
+const sequelize = require('../../config/connection');
 
 // Create User 
 router.post('/', (req, res) => {
@@ -15,17 +16,16 @@ router.post('/', (req, res) => {
                 newRequest[key] = request[key];
                 break;
             case 'statusCdMeaning':
-                newRequest['statusCd'] = Sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERSTATUS'", {type: QueryTypes.SELECT });
+                newRequest['statusCd'] = sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERSTATUS'", {type: QueryTypes.SELECT });
                 console.log(newRequest['statusCd']);
                 break;  
             case 'userTypeCdMeaning':
-                newRequest['userTypeCd'] = Sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERTYPE'", {type: QueryTypes.SELECT });
+                newRequest['userTypeCd'] = sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERTYPE'", {type: QueryTypes.SELECT });
                 console.log(newRequest['userTypeCd']);
                 break;
         }
     }
     console.log(newRequest);
-    return;
     User.create(newRequest)
     .then(dbUserData => {
         req.session.save(() => {
