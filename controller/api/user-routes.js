@@ -1,18 +1,39 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Reference } = require('../../models');
 const { Sequelize } = require('sequelize');
 
-
+// Create User 
 router.post('/', (req, res) => {
-    User.create({
-        email: req.body.email,
-        lastName: req.body.lastName,
-        firstName: req.body.firstName,
-        statusCd: req.body.statusCd,
-        userTypeCd: req.body.userTypeCd,
-        pwd: req.body.pwd,
-        firstName: req.body.firstName
-    })
+    const request = req.body;
+    let newRequest = {};
+    for(const key in request) {
+        switch(key) {
+            case 'email':
+            case 'lastName':
+            case 'firstName':
+            case 'pwd':
+                newRequest[key] = request[key];
+            case 'statusCdMeaning':
+                Reference.findOne({
+                    where: {
+                        referenceSet: 'USERSTATUS',
+                        referenceMeaning: request[key]
+                    }
+                }).then(dbRefData => {
+                    newRequest['statusCd'] = dbRefData.referenceMeaning;
+                })
+            case 'userTypeCdMeaning':
+                Reference.findOne({
+                    where: {
+                        referenceSet: 'USERTYPE',
+                        referenceMeaning: request[key]
+                    }
+                }).then(dbRefData => {
+                    newRequest['statusCd'] = dbRefData.referenceMeaning;
+                })
+        }
+    }
+    User.create(newRequest)
     .then(dbUserData => {
         req.session.save(() => {
             req.session.userId = dbUserData.userId;
