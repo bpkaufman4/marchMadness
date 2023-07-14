@@ -16,9 +16,11 @@ router.post('/', (req, res) => {
                 break;
             case 'statusCdMeaning':
                 newRequest['statusCd'] = Sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERSTATUS'", {type: QueryTypes.SELECT });
-                break;
+                console.log(newRequest['statusCd']);
+                break;  
             case 'userTypeCdMeaning':
-                newRequest['statusCd'] = Sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERTYPE'", {type: QueryTypes.SELECT });
+                newRequest['userTypeCd'] = Sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERTYPE'", {type: QueryTypes.SELECT });
+                console.log(newRequest['userTypeCd']);
                 break;
         }
     }
