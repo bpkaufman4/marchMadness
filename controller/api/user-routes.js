@@ -15,9 +15,9 @@ router.post('/getUsers', (req, res) => {
                 case 'statusCdDisplay':
                     newColumnsToReturn.push(sequelize.literal('(select display from reference where referenceCd = user.statusCd) statusCdDisplay'));
                     break;
-                case 'statusCdMeaning':
+                case 'userTypeCdMeaning':
                     newColumnsToReturn.push(sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd) userTypeCdMeaning'));
-                case 'statusCdDisplay':
+                case 'userTypeCdDisplay':
                     newColumnsToReturn.push(sequelize.literal('(select display from reference where referenceCd = user.userTypeCd) userTypeCdDisplay'));
                     break;
                 default:
