@@ -8,7 +8,7 @@ router.post('/getUsers', (req, res) => {
     let request = req.body;
     var newColumnsToReturn = [];
     var includes = {};
-    if(columnsToReturn.length > 0) {
+    if(request.columnsToReturn.length > 0) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'statusCdMeaning':
