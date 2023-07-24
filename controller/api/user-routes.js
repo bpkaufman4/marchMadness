@@ -29,7 +29,7 @@ router.post('/getUsers', (req, res) => {
 
     User.findAll({
         attributes: newColumnsToReturn,
-        include: includes,
+        include: request.includes,
         limit: request.limit,
         offset:((request.page - 1)*request.limit)
     })
