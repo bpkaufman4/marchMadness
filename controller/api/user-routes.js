@@ -33,7 +33,6 @@ router.post('/getUsers', (req, res) => {
         offset:((request.page - 1)*request.limit)
     })
     .then(dbUserData => {
-        console.log(dbUserData);
         res.json(dbUserData)
     })
     .catch(err => {
