@@ -3,6 +3,45 @@ const { User, Reference } = require('../../models');
 const { Sequelize, QueryTypes } = require('sequelize');
 const sequelize = require('../../config/connection');
 
+
+router.post('/getUsers', (req, res) => {
+    let request = req.body;
+    var newColumnsToReturn = [];
+    var includes = {};
+    if(columnsToReturn.length > 0) {
+        for(let i = 0; i < request.columnsToReturn.length; i++) {
+            switch(request.columnsToReturn[i]) {
+                case 'statusCdMeaning':
+                case 'statusCdDisplay':
+                    if(!includes.includes('statusCd')) includes.push('statusCd');
+                    break;
+                case 'userTypeCdMeaning':
+                case 'userTypeCdDisplay':
+                    if(!includes.includes('userType')) includes.push('userType');
+                    break;
+                default:
+                    newColumnsToReturn.push(request.columnsToReturn[i]);
+                    break;
+            }
+        }
+    }
+
+    User.findAll({
+        attributes: newColumnsToReturn,
+        include: includes,
+        limit: request.limit,
+        offset:((request.page - 1)*request.limit)
+    })
+    .then(dbUserData => {
+        console.log(dbUserData);
+        res.json(dbUserData)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+});
+
 // Create User 
 router.post('/', (req, res) => {
     const request = req.body;
@@ -39,24 +78,6 @@ router.post('/', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
-});
-
-router.post('/getUsers', (req, res) => {
-    let request = req.body;
-    User.findAll({
-        attributes: request.columnsToReturn,
-        include: request.joins,
-        limit: request.limit,
-        offset:((request.page - 1)*request.limit)
-    })
-    .then(dbUserData => {
-        console.log(dbUserData);
-        res.json(dbUserData)
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    })
 });
 
 router.get('/:userId', (req, res) => {
