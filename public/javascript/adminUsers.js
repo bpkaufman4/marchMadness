@@ -478,7 +478,6 @@ function getUsers(reset = false){
 	const limit = 25;
 	const page = userPage;
 	request = {columnsToReturn, joins, limit, page};
-	fetchTable()
 
 	fetch('api/users/getUsers', {
         method:'post',
