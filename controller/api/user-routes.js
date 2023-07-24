@@ -7,7 +7,7 @@ const sequelize = require('../../config/connection');
 router.post('/getUsers', (req, res) => {
     let request = req.body;
     var newColumnsToReturn = [];
-    var includes = {};
+    var includes = [];
     if(request.columnsToReturn.length > 0) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
