@@ -7,19 +7,18 @@ const sequelize = require('../../config/connection');
 router.post('/getUsers', (req, res) => {
     let request = req.body;
     var newColumnsToReturn = [];
-    var includes = [];
     if(request.columnsToReturn.length > 0) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'statusCdMeaning':
-                    includes.push(sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd'));
+                    newColumnsToReturn.push(sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd'));
                 case 'statusCdDisplay':
-                    includes.push(sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay');
+                    newColumnsToReturn.push(sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay');
                     break;
                 case 'statusCdMeaning':
-                    includes.push(sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd'), 'userTypeCdMeaning');
+                    newColumnsToReturn.push(sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd'), 'userTypeCdMeaning');
                 case 'statusCdDisplay':
-                    includes.push(sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay');
+                    newColumnsToReturn.push(sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay');
                     break;
                 default:
                     newColumnsToReturn.push(request.columnsToReturn[i]);
