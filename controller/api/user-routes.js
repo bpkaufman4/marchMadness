@@ -40,7 +40,6 @@ router.post('/getUsers', (req, res) => {
     })
     .then(dbUserData => {
         res.json(dbUserData)
-        console.log(dbUserData);
     })
     .catch(err => {
         console.log(err);
