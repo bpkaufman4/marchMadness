@@ -7,7 +7,6 @@ const sequelize = require('../../config/connection');
 router.post('/getUsers', (req, res) => {
     let request = req.body;
     let newRequest = {
-        include: includes,
         limit: request.limit,
         offset:((request.page - 1)*request.limit)
     };
