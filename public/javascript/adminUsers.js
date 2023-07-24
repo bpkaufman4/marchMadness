@@ -476,7 +476,7 @@ function getUsers(reset = false){
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning'];
 	const limit = 25;
 	const page = userPage;
-	request = {columnsToReturn, joins, limit, page};
+	request = {columnsToReturn, limit, page};
 
 	fetch('api/users/getUsers', {
         method:'post',
