@@ -13,7 +13,7 @@ router.post('/getUsers', (req, res) => {
             switch(request.columnsToReturn[i]) {
                 case 'statusCdMeaning':
                 case 'statusCdDisplay':
-                    if(!includes.includes('statusCd')) includes.push('statusCd');
+                    if(!includes.includes('userStatus')) includes.push('userStatus');
                     break;
                 case 'userTypeCdMeaning':
                 case 'userTypeCdDisplay':
