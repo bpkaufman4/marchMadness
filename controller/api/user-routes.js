@@ -34,10 +34,11 @@ router.post('/getUsers', (req, res) => {
         newRequest['attrubutes'] = newColumnsToReturn;
     }
 
+    console.log(newRequest);
+
     User.findAll(newRequest)
     .then(dbUserData => {
         res.json(dbUserData)
-        console.log(dbUserData);
     })
     .catch(err => {
         console.log(err);
