@@ -474,7 +474,6 @@ function getUsers(reset = false){
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
 	const columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning'];
-	const joins = ['userType', 'userStatus'];
 	const limit = 25;
 	const page = userPage;
 	request = {columnsToReturn, joins, limit, page};
