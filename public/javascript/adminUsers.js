@@ -509,13 +509,13 @@ function getUsers(reset = false){
 			const userType = makeElem('td');
 			userType.classList.add('userTypeCdMeaningHide', 'SHOWALL')
 			userType.setAttribute('onclick', editUser);
-			userType.innerText = u.userType.display;
+			userType.innerText = u.userTypeCdDisplay;
 			row.appendChild(userType);
 			
 			const userStatus = makeElem('td');
 			userStatus.classList.add('statusCdMeaningHide', 'SHOWALL');
 			userStatus.setAttribute('onclick', editUser);
-			userStatus.innerText = u.userStatus.display;
+			userStatus.innerText = u.userStatusCdDisplay;
 			row.appendChild(userStatus);
 			
 			const deleteColumn = makeElem('td');
