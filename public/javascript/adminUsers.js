@@ -515,7 +515,7 @@ function getUsers(reset = false){
 			const userStatus = makeElem('td');
 			userStatus.classList.add('statusCdMeaningHide', 'SHOWALL');
 			userStatus.setAttribute('onclick', editUser);
-			userStatus.innerText = u.userStatusCdDisplay;
+			userStatus.innerText = u.statusCdDisplay;
 			row.appendChild(userStatus);
 			
 			const deleteColumn = makeElem('td');
