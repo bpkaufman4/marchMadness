@@ -12,12 +12,14 @@ router.post('/getUsers', (req, res) => {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'statusCdMeaning':
+                    includes.push(sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd'));
                 case 'statusCdDisplay':
-                    if(!includes.includes('userStatus')) includes.push('userStatus');
+                    includes.push(sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay');
                     break;
-                case 'userTypeCdMeaning':
-                case 'userTypeCdDisplay':
-                    if(!includes.includes('userType')) includes.push('userType');
+                case 'statusCdMeaning':
+                    includes.push(sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd'), 'userTypeCdMeaning');
+                case 'statusCdDisplay':
+                    includes.push(sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay');
                     break;
                 default:
                     newColumnsToReturn.push(request.columnsToReturn[i]);
