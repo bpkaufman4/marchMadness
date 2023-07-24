@@ -6,11 +6,9 @@ const sequelize = require('../../config/connection');
 
 router.post('/getUsers', (req, res) => {
     let request = req.body;
-    let newRequest = {
-        limit: request.limit,
-        offset:((request.page - 1)*request.limit)
-    };
+    let newRequest = {};
     let newColumnsToReturn = [];
+    let includes = [];
     if(request.columnsToReturn.length > 0) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
@@ -34,11 +32,15 @@ router.post('/getUsers', (req, res) => {
         newRequest['attrubutes'] = newColumnsToReturn;
     }
 
-    console.log(newRequest);
-
-    User.findAll(newRequest)
+    User.findAll({
+        attributes: newColumnsToReturn,
+        include: includes,
+        limit: request.limit,
+        offset:((request.page - 1)*request.limit)
+    })
     .then(dbUserData => {
         res.json(dbUserData)
+        console.log(dbUserData);
     })
     .catch(err => {
         console.log(err);
