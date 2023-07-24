@@ -3,6 +3,62 @@ function getobj(elementId){
 	return document.getElementById(elementId);
 }
 
+function fetchTable(elementId, endpoint, request, pageSize) {
+	//Store parameters
+	const dataStore = document.getElementById(elementId);
+	dataStore.dataset.currentTop = "0";
+	dataStore.dataset.modelFile = endpoint;
+	dataStore.dataset.pageSize = pageSize;
+	dataStore.dataset.request = JSON.stringify(request);
+
+	//Reformat request
+	let composedRequest = {
+		currentTop: dataStore.dataset.currentTop,
+		pageSize: dataStore.dataset.pageSize,
+		unEncryptedRequest: JSON.parse(dataStore.dataset.request),
+	}
+
+	return new Promise((resolve, reject) => {
+		fetch(endpoint, {
+			method: 'POST',
+			headers: {
+				"Accept": "application/json, text/javascript, */*; q=0.01",
+				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+				"x-requested-with": "fetch",
+			},
+			body: $.param(composedRequest),
+		})
+		.then(response => {
+			resolve(response.json())
+		})
+	})
+}
+
+function updateFetchTable(elementId, pageSizeIncrease) {
+	const dataStore = document.getElementById(elementId);
+	const composedRequest = {
+		currentTop: parseInt(dataStore.dataset.currentTop) + parseInt(dataStore.dataset.pageSize),
+		pageSize: pageSizeIncrease,
+		unEncryptedRequest: JSON.parse(dataStore.dataset.request),
+	}
+
+	dataStore.dataset.currentTop = parseInt(dataStore.dataset.currentTop) + pageSizeIncrease;
+
+	return new Promise((resolve, reject) => {
+		fetch(dataStore.dataset.modelFile, {
+			method: 'POST',
+			headers: {
+				"Accept": "application/json, text/javascript, */*; q=0.01",
+				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+				"x-requested-with": "fetch",
+			},
+			body: $.param(composedRequest),
+		})
+		.then(response => {
+			resolve(response.json())
+		})
+	})
+}
 
 function isnull(inValue){
 	if (inValue===null){
