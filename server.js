@@ -9,6 +9,7 @@ const exphbs = require('express-handlebars');
 const hbs = exphbs.create({});
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const helmet = require('helmet');
 
 const sess = {
     secret: process.env.SECRET,
@@ -22,6 +23,7 @@ const sess = {
 
 
 app.use(session(sess));
+app.use(helmet());
 app.engine('handlebars', hbs.engine);
 
 app.set('view engine', 'handlebars');
@@ -34,4 +36,4 @@ sequelize.sync({ alter: false }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
     });
-})
+});

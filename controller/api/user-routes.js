@@ -1,12 +1,13 @@
 const router = require('express').Router();
-const { User, Reference } = require('../../models');
-const { Sequelize, QueryTypes } = require('sequelize');
+const { User } = require('../../models');
+const { QueryTypes } = require('sequelize');
 const sequelize = require('../../config/connection');
 
 
 router.post('/getUsers', (req, res) => {
+    console.log(req.ip);
     let request = req.body;
-    let newRequest = {};
+    console.log(request);
     let newColumnsToReturn = [];
     let includes = [];
     if(request.columnsToReturn.length > 0) {
@@ -29,14 +30,13 @@ router.post('/getUsers', (req, res) => {
                     break;
             }
         }
-        newRequest['attrubutes'] = newColumnsToReturn;
     }
 
     User.findAll({
         attributes: newColumnsToReturn,
         include: includes,
-        limit: request.limit,
-        offset:((request.page - 1)*request.limit)
+        limit: Number(request.pageSize),
+        offset:((Number(request.page) - 1)*Number(request.pageSize))
     })
     .then(dbUserData => {
         res.json(dbUserData)

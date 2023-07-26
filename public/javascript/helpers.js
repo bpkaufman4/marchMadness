@@ -6,56 +6,40 @@ function getobj(elementId){
 function fetchTable(elementId, endpoint, request, pageSize) {
 	//Store parameters
 	const dataStore = document.getElementById(elementId);
-	dataStore.dataset.currentTop = "0";
-	dataStore.dataset.modelFile = endpoint;
+	dataStore.dataset.page = 0;
+	dataStore.dataset.endpoint = endpoint;
 	dataStore.dataset.pageSize = pageSize;
 	dataStore.dataset.request = JSON.stringify(request);
-
-	//Reformat request
-	let composedRequest = {
-		currentTop: dataStore.dataset.currentTop,
-		pageSize: dataStore.dataset.pageSize,
-		unEncryptedRequest: JSON.parse(dataStore.dataset.request),
-	}
+	dataStore.dataset.moreToGet = true;
 
 	return new Promise((resolve, reject) => {
-		fetch(endpoint, {
-			method: 'POST',
-			headers: {
-				"Accept": "application/json, text/javascript, */*; q=0.01",
-				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-				"x-requested-with": "fetch",
-			},
-			body: $.param(composedRequest),
-		})
-		.then(response => {
-			resolve(response.json())
-		})
+		resolve(updateFetchTable(elementId));
 	})
 }
 
-function updateFetchTable(elementId, pageSizeIncrease) {
+function updateFetchTable(elementId) {
 	const dataStore = document.getElementById(elementId);
-	const composedRequest = {
-		currentTop: parseInt(dataStore.dataset.currentTop) + parseInt(dataStore.dataset.pageSize),
-		pageSize: pageSizeIncrease,
-		unEncryptedRequest: JSON.parse(dataStore.dataset.request),
-	}
-
-	dataStore.dataset.currentTop = parseInt(dataStore.dataset.currentTop) + pageSizeIncrease;
+	dataStore.dataset.page = Number(dataStore.dataset.page) + 1;
+	let request = JSON.parse(dataStore.dataset.request);
+	request.page = Number(dataStore.dataset.page);
+	request.pageSize = Number(dataStore.dataset.pageSize);
 
 	return new Promise((resolve, reject) => {
-		fetch(dataStore.dataset.modelFile, {
+		fetch('api/'+dataStore.dataset.endpoint, {
 			method: 'POST',
 			headers: {
-				"Accept": "application/json, text/javascript, */*; q=0.01",
-				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-				"x-requested-with": "fetch",
+				"Content-Type": "application/json"
 			},
-			body: $.param(composedRequest),
+			body: JSON.stringify(request),
 		})
 		.then(response => {
-			resolve(response.json())
+			return response.json();
+		}).then(json => {
+			console.log(request.pageSize);
+			if(json.length < request.pageSize) {
+				dataStore.dataset.moreToGet = false;
+			}
+			resolve(json);
 		})
 	})
 }
