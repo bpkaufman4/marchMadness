@@ -3,6 +3,7 @@
 		<button class="globalButton fright " onclick="addUser('SAVE');" >Save</button> 
 		<button id="passwordResetButton" class="globalButton fright margRight" onclick="addUser('PASSWORD');" >Send Password Reset Email</button>
 	</div>
+	<input type="hidden" id="userId" value="{{{ user.userId }}}">
 	<div class="editorContent">
 		<div class="user-info-header">
 			<h1 class="largeFont hidden">Add a new user</h1>
@@ -68,5 +69,7 @@
 		</div>
 		<form action="model/uploadFile.php" id="profilePictureUpload" class="dropzone FcolorS Fsml hidden"></form>
 	</div> 
+	<script src="../../javascript/adminUser.js"></script>
+	<script src="../../javascript/helpers.js"></script>
 <link rel="stylesheet" href="../../stylesheets/index.css">
 <link rel="stylesheet" href="../../stylesheets/admin.css">

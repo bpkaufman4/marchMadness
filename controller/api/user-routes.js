@@ -116,13 +116,35 @@ router.get('/', (req, res) => {
 })
 
 
-router.put('/:userId', (req, res) => {
-    User.update(req.body, {
+router.post('/updateUser', (req, res) => {
+    const request = req.body;
+    let newRequest = {};
+    for(const key in request) {
+        switch(key) {
+            case 'email':
+            case 'lastName':
+            case 'firstName':
+            case 'pwd':
+                newRequest[key] = request[key];
+                break;
+            case 'statusCdMeaning':
+                newRequest['statusCd'] = sequelize.literal("(select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERSTATUS')");
+                console.log(newRequest['statusCd']);
+                break;  
+            case 'userTypeCdMeaning':
+                newRequest['userTypeCd'] = sequelize.literal("(select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERTYPE')");
+                console.log(newRequest['userTypeCd']);
+                break;
+        }
+    }
+    console.log(newRequest);
+    User.update(newRequest, {
         where: {
-            userId: req.params.userId
+            userId: request.userId
         }
     })
     .then(dbUserData => {
+        console.log(dbUserData);
         if(!dbUserData[0]) {
             res.status(404).json({ message: 'No user foud with this id' });
             return;
