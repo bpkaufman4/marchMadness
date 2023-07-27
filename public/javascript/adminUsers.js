@@ -71,7 +71,7 @@ function getUsers(){
 	getobj('usersTable').innerHTML='';
 	
 	var request={};
-	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay'];
+	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay', 'bksTestColumn'];
 
 	fetchTable('allUsersDiv', 'users/getUser', request, 2)
 	.then(data => {
