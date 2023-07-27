@@ -9,24 +9,14 @@ router.get('/userUsers', (req, res) => {
     res.render('users');
 });
 
-router.get('/adminUser/:userId', (req, res) => {
-    User.findOne({
-        where: {
-            userId: req.params.userId
-        },
-        include: ['userType', 'userStatus']
-    })
-    .then(dbUserData => {
-        if(!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id' });
-            return;
-        }
-        const user = dbUserData.get({ plain: true });
-        res.render('user', { user, layout: 'admin' });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
+router.get('/login', (req, res) => {
+    res.render('login');
+});
+
+router.get('/', (req, res) => {
+    const templateData = {
+        session: req.session
+    }
+    res.render('homepage', templateData);
 });
 module.exports = router;
