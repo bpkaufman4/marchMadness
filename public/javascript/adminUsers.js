@@ -76,7 +76,7 @@ function getUsers(){
 	fetchTable('allUsersDiv', 'users/getUser', request, 2)
 	.then(data => {
 		processUsers(data);
-		console.log(data)
+		console.log(data);
 	});
 }
 
