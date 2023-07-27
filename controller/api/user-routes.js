@@ -1,10 +1,9 @@
 const router = require('express').Router();
 const { User } = require('../../models');
-const { QueryTypes } = require('sequelize');
 const sequelize = require('../../config/connection');
 
 
-router.post('/getUsers', (req, res) => {
+router.post('/getUser', (req, res) => {
     console.log(req.ip);
     let request = req.body;
     console.log(request);
@@ -47,76 +46,9 @@ router.post('/getUsers', (req, res) => {
     })
 });
 
-// Create User 
-router.post('/', (req, res) => {
-    const request = req.body;
-    let newRequest = {};
-    for(const key in request) {
-        switch(key) {
-            case 'email':
-            case 'lastName':
-            case 'firstName':
-            case 'pwd':
-                newRequest[key] = request[key];
-                break;
-            case 'statusCdMeaning':
-                newRequest['statusCd'] = sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERSTATUS'", {type: QueryTypes.SELECT });
-                console.log(newRequest['statusCd']);
-                break;  
-            case 'userTypeCdMeaning':
-                newRequest['userTypeCd'] = sequelize.query("select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERTYPE'", {type: QueryTypes.SELECT });
-                console.log(newRequest['userTypeCd']);
-                break;
-        }
-    }
-    console.log(newRequest);
-    User.create(newRequest)
-    .then(dbUserData => {
-        req.session.save(() => {
-            req.session.userId = dbUserData.userId;
-            req.session.loggedIn = true;
+// put user
 
-            res.json(dbUserData);
-        })
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
-
-router.get('/:userId', (req, res) => {
-    User.findOne({
-        where: {
-            userId: req.params.userId
-        }
-    })
-    .then(dbUserData => {
-        if(!dbUserData) {
-            res.status(404).json({ message: 'No user found with this id' });
-            return;
-        }
-        res.json(dbUserData);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
-
-router.get('/', (req, res) => {
-    User.findAll()
-    .then(dbUserData => {
-        res.json(dbUserData)
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    })
-})
-
-
-router.post('/updateUser', (req, res) => {
+router.post('/putUser', (req, res) => {
     const request = req.body;
     let newRequest = {};
     for(const key in request) {

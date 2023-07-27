@@ -28,5 +28,5 @@ router.get('/adminUser/:userId', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
-})
+});
 module.exports = router;
