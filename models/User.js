@@ -76,7 +76,8 @@ User.init(
         timeZoneId: DataTypes.STRING,
         lastActiveDateTime: DataTypes.INTEGER,
         profilePictureURL: DataTypes.STRING,
-        profilePictureLocal: DataTypes.STRING
+        profilePictureLocal: DataTypes.STRING,
+        bksTestColumn: DataTypes.STRING,
     },
     {
         hooks: {
