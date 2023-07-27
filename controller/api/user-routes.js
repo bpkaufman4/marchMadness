@@ -69,24 +69,39 @@ router.post('/putUser', (req, res) => {
                 break;
         }
     }
-    console.log(newRequest);
-    User.update(newRequest, {
-        where: {
-            userId: request.userId
-        }
-    })
-    .then(dbUserData => {
-        console.log(dbUserData);
-        if(!dbUserData[0]) {
-            res.status(404).json({ message: 'No user foud with this id' });
-            return;
-        }
-        res.json(dbUserData);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    })
+    if(request.userId) {
+        User.update(newRequest, {
+            where: {
+                userId: request.userId
+            }
+        })
+        .then(dbUserData => {
+            console.log(dbUserData);
+            if(!dbUserData[0]) {
+                res.status(404).json({ message: 'No user foud with this id' });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    } else {
+        User.create(newRequest)
+        .then(dbUserData => {
+            console.log(dbUserData);
+            if(!dbUserData) {
+                res.status(400).json({ message: 'Something went wrong' });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    }
 });
 
 router.delete('/:userId', (req, res) => {
