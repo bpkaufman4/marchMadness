@@ -2,11 +2,7 @@ const router = require('express').Router();
 const { User } = require('../../models');
 const sequelize = require('../../config/connection');
 
-
-router.post('/getUser', (req, res) => {
-    console.log(req.ip);
-    let request = req.body;
-    console.log(request);
+function getUserFunction(request) {
     let newColumnsToReturn = [];
     let includes = [];
     if(request.columnsToReturn.length > 0) {
@@ -30,13 +26,23 @@ router.post('/getUser', (req, res) => {
             }
         }
     }
-
-    User.findAll({
-        attributes: newColumnsToReturn,
-        include: includes,
-        limit: Number(request.pageSize),
-        offset:((Number(request.page) - 1)*Number(request.pageSize))
+    return new Promise((resolve, reject) => {
+        User.findAll({
+            attributes: newColumnsToReturn,
+            include: includes,
+            limit: Number(request.pageSize),
+            offset:((Number(request.page) - 1)*Number(request.pageSize))
+        }).then(dbUserData => {
+            resolve(dbUserData)
+        })
     })
+}
+
+router.post('/getUser', (req, res) => {
+    console.log(req.ip);
+    let request = req.body;
+
+    getUserFunction(request)
     .then(dbUserData => {
         res.json(dbUserData)
     })
@@ -169,4 +175,4 @@ router.post('/logout', (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router, getUserFunction;
