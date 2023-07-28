@@ -1,9 +1,9 @@
+
 const router = require('express').Router();
 const { putUserFunction, getUserFunction, deleteUserFunction } = require('../functions/userFunctions');
 
 
 router.post('/getUser', (req, res) => {
-    console.log(req.ip);
     let request = req.body;
 
     getUserFunction(request)
@@ -86,3 +86,4 @@ router.post('/logout', (req, res) => {
 });
 
 module.exports = router;
+    

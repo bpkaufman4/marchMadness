@@ -1,4 +1,3 @@
-
 const { User } = require('../../models');
 const sequelize = require('../../config/connection');
 
@@ -9,9 +8,9 @@ function getUserFunction(request) {
             switch(request.columnsToReturn[i]) {
                 case 'userId':
                 case 'email':
+                case 'pwd':
                 case 'lastName':
                 case 'firstName':
-                case 'fullName':
                 case 'statusCd':
                 case 'userTypeCd':
                 case 'lastLoginDate':
@@ -22,11 +21,15 @@ function getUserFunction(request) {
                 case 'zip':
                 case 'emailVerifyGUID':
                 case 'emailVerifyExpire':
-                case 'timezoneId':
+                case 'timeZoneId':
                 case 'lastActiveDateTime':
                 case 'profilePictureURL':
                 case 'profilePictureLocal':
+                case 'created':
+                case 'updated':
+                case 'deletedAt':
                 case 'bksTestColumn':
+                
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 case 'statusCdMeaning':
@@ -35,12 +38,13 @@ function getUserFunction(request) {
                 case 'statusCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
                     break;
-                case 'userTypeCdMeaning':
+                    case 'userTypeCdMeaning':
                     newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
                     break;
                 case 'userTypeCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
                     break;
+                    
             }
         }
     }
@@ -51,16 +55,11 @@ function getUserFunction(request) {
     for(key in request) {
         switch(key) {
             case 'userId':
-            case 'email':
+                        case 'email':
+                        case 'lastName':
+                        case 'emailVerifyGUID':
+                        
                 whereRequest[key] = request[key];
-                break;
-            case 'statusCdMeaning':
-                whereRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'USERSTATUS') = user.statusCd `);
-                binds[key] = request[key];
-                break;
-            case 'userTypeCdMeaning':
-                whereRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'USERTYPE') = user.userTypeCd `);
-                binds[key] = request[key];
                 break;
         }
     }
@@ -74,13 +73,12 @@ function getUserFunction(request) {
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         User.findAll(findRequest)
-        .then(dbUserData => {
-            resolve(dbUserData)
+        .then(dbData => {
+            resolve(dbData)
         })
     })
 }
 
-// delete user
 function deleteUserFunction(request) {
     return new Promise((resolve, reject) => {
         User.destroy({
@@ -88,31 +86,45 @@ function deleteUserFunction(request) {
                 userId: request.userId
             }
         })
-        .then(dbUserData => {
-            resolve(dbUserData);
+        .then(dbData => {
+            resolve(dbData);
         })
     });
 }
 
-// put user
 function putUserFunction(request) {
     let newRequest = {};
     for(const key in request) {
         switch(key) {
-            case 'email':
-            case 'lastName':
-            case 'firstName':
             case 'pwd':
-                newRequest[key] = request[key];
-                break;
+                        case 'firstName':
+                        case 'lastLoginDate':
+                        case 'lastIP':
+                        case 'primaryPhone':
+                        case 'cellPhone':
+                        case 'state':
+                        case 'zip':
+                        case 'emailVerifyExpire':
+                        case 'timeZoneId':
+                        case 'lastActiveDateTime':
+                        case 'profilePictureURL':
+                        case 'profilePictureLocal':
+                        case 'created':
+                        case 'updated':
+                        case 'deletedAt':
+                        case 'bksTestColumn':
+                        
+            newRequest[key] = request[key];
+            break;
             case 'statusCdMeaning':
-                newRequest['statusCd'] = sequelize.literal("(select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERSTATUS')");
-                console.log(newRequest['statusCd']);
-                break;  
-            case 'userTypeCdMeaning':
-                newRequest['userTypeCd'] = sequelize.literal("(select referenceCd from reference where referenceMeaning = '"+request[key]+"' and referenceSet = 'USERTYPE')");
-                console.log(newRequest['userTypeCd']);
-                break;
+                        whereRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.statusCd `);
+                        binds[key] = request[key];
+                        break;
+                        case 'userTypeCdMeaning':
+                        whereRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.userTypeCd `);
+                        binds[key] = request[key];
+                        break;
+                        
         }
     }
     return new Promise((resolve, reject) => {
@@ -122,16 +134,16 @@ function putUserFunction(request) {
                     userId: request.userId
                 }
             })
-            .then(dbUserData => {
-                resolve(dbUserData);
+            .then(dbData => {
+                resolve(dbData);
             });
         } else {
             User.create(newRequest)
-            .then(dbUserData => {
-                resolve(dbUserData);
+            .then(dbData => {
+                resolve(dbData);
             });
         }
     })
 }
 
-module.exports = { getUserFunction, putUserFunction, deleteUserFunction };
+module.exports = { getUserFunction, deleteUserFunction, putUserFunction };

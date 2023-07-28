@@ -1,14 +1,12 @@
-function generateRoutesFile(table) {
-    const snakeCase = table.charAt(0).toUpperCase() + table.slice(1);
-    return `
+
 const router = require('express').Router();
-const { put${snakeCase}Function, get${snakeCase}Function, delete${snakeCase}Function } = require('../functions/${table}Functions');
+const { putReferenceSetsFunction, getReferenceSetsFunction, deleteReferenceSetsFunction } = require('../functions/referenceSetsFunctions');
 
 
-router.post('/get${snakeCase}', (req, res) => {
+router.post('/getReferenceSets', (req, res) => {
     let request = req.body;
 
-    get${snakeCase}Function(request)
+    getReferenceSetsFunction(request)
     .then(returnValue => {
         res.json(returnValue)
     })
@@ -18,9 +16,9 @@ router.post('/get${snakeCase}', (req, res) => {
     })
 });
 
-router.post('/put${snakeCase}', (req, res) => {
+router.post('/putReferenceSets', (req, res) => {
     const request = req.body;
-    put${snakeCase}Function(request)
+    putReferenceSetsFunction(request)
     .then(returnValue => {
         res.json(returnValue);
     })
@@ -30,9 +28,9 @@ router.post('/put${snakeCase}', (req, res) => {
     })
 });
 
-router.post('/delete${snakeCase}', (req, res) => {
+router.post('/deleteReferenceSets', (req, res) => {
     const request = req.body;
-    delete${snakeCase}Function(request)
+    deleteReferenceSetsFunction(request)
     .then(returnValue => {
         res.json(returnValue);
     }).catch(err => {
@@ -42,8 +40,4 @@ router.post('/delete${snakeCase}', (req, res) => {
 });
 
 module.exports = router;
-    `
-}
-
-
-module.exports = generateRoutesFile;
+    
