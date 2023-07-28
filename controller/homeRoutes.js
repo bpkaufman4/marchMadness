@@ -14,7 +14,6 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    console.log(req);
     const templateData = {
         session: req.session
     }
