@@ -72,7 +72,7 @@ function getUsers(){
 	
 	var request={};
 	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay', 'bksTestColumn'];
-
+	request.statusCdMeaning = 'ACTIVE';
 	fetchTable('allUsersDiv', 'users/getUser', request, 2)
 	.then(data => {
 		processUsers(data);
