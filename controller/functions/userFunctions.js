@@ -29,7 +29,6 @@ function getUserFunction(request) {
                 case 'updated':
                 case 'deletedAt':
                 case 'bksTestColumn':
-                
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 case 'statusCdMeaning':
@@ -55,11 +54,10 @@ function getUserFunction(request) {
     for(key in request) {
         switch(key) {
             case 'userId':
-                        case 'email':
-                        case 'lastName':
-                        case 'emailVerifyGUID':
-                        
-                whereRequest[key] = request[key];
+            case 'email':
+            case 'lastName':
+            case 'emailVerifyGUID':
+                if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
     }
