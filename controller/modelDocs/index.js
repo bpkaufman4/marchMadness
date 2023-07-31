@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const userModelDoc = require('./userModelDoc');
+const userModelDoc = require('./userModelDocs');
 
 router.use('/user', userModelDoc);
 
