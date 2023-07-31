@@ -30,7 +30,8 @@ function createModelFunctionsFile(request) {
             let modelDocRequest = {
                 get: [],
                 put: [],
-                delete: []
+                delete: [],
+                tableName: request.tableName
             };
             let tableName = request.tableName;
             tableColumns.forEach(column => {
