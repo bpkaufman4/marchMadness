@@ -214,7 +214,7 @@ function generateModelDoc(request) {
         const endpoint = '${request.tableName}/delete${snakeCase}';
         const renderData = {requestFields, endpoint};
 
-        res.render('modelFileExercisot', renderData);
+        res.render('modelFileExercisor', renderData);
     })
 
     module.exports = router;
