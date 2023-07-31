@@ -3,7 +3,10 @@ const sequelize = require('../../config/connection');
 
 function getReferenceSetsFunction(request) {
     let newColumnsToReturn = [];
-    if(request.columnsToReturn.length > 0) {
+    if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
+        newColumnsToReturn.push('referenceSet', 'display', 'description', 'deletableInd', 'created')
+            
+    } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'referenceSet':
@@ -26,12 +29,14 @@ function getReferenceSetsFunction(request) {
         switch(key) {
             case 'referenceSet':
                         
-                whereRequest[key] = request[key];
+                if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
     }
 
     return new Promise((resolve, reject) => {
+        if(!request.pageSize) request.pageSize = 100;
+        if(!request.page) request.page = 1;
         let findRequest = {
             attributes: newColumnsToReturn,
             limit: Number(request.pageSize),
@@ -62,6 +67,7 @@ function deleteReferenceSetsFunction(request) {
 function putReferenceSetsFunction(request) {
     let newRequest = {};
     for(const key in request) {
+        if(request.key == '') continue;
         switch(key) {
             case 'display':
                         case 'description':
