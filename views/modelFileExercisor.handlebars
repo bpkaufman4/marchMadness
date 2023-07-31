@@ -8,14 +8,14 @@
 <button onclick="executeRequest()">Execute Request</button>
 <div id="resultsCatch"></div>
 <script>
-    function executeRequest() {
+    async function executeRequest() {
         var request = {};
         const fields = document.querySelectorAll('#fieldsCatch input');
         fields.forEach(elem => {
            request[elem.name] = elem.value; 
         });
 
-        fetch('../../../api/{{endpoint}}', {
+        await fetch('../../../api/{{endpoint}}', {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json"
