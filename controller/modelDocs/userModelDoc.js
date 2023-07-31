@@ -8,4 +8,7 @@ router.get('/get', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
+router.get('/put', (req, res) => {
+    const requestFields = []
+})
 module.exports = router;
