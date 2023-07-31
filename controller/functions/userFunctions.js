@@ -66,7 +66,7 @@ function getUserFunction(request) {
                         case 'lastName':
                         case 'emailVerifyGUID':
                         
-                whereRequest[key] = request[key];
+                if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
     }

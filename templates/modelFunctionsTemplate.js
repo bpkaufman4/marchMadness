@@ -109,8 +109,8 @@ function get${snakeCase}Function(request) {
     }
 
     return new Promise((resolve, reject) => {
-        if(Number(request.pageSize) == NaN) request.pageSize = 100;
-        if(Number(request.page) == NaN) request.page = 1;
+        if(!request.pageSize) request.pageSize = 100;
+        if(!request.page) request.page = 1;
         let findRequest = {
             attributes: newColumnsToReturn,
             limit: Number(request.pageSize),
