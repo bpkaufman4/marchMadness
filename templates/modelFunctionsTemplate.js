@@ -185,19 +185,34 @@ module.exports = { get${snakeCase}Function, delete${snakeCase}Function, put${sna
 
 function generateModelDoc(request) {
     console.log(request);
+    
+    const snakeCase = request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1);
     const template = `const router = require('express').Router();
 
     router.get('/get', (req, res) => {
-        const requestFields = ['email', 'userId', 'emailVerifyGUID'];
-        const endpoint = 'users/getUser';
+        const requestFields = ['${request.get.join("', '")}'];
+        const endpoint = '${request.tableName}/get';
         const renderData = {requestFields, endpoint};
     
         res.render('modelFileExercisor', renderData);
     });
     
     router.get('/put', (req, res) => {
-        const requestFields = []
+        const requestFields = ['${request.put.join("', '")}'];
+        const endpoint = '${request.tableName}/put';
+        const renderData = {requestFields, endpoint};
+
+        res.render('modelFileExercisor', renderData);
     })
+
+    router.get('/delete', (req, res) => {
+        const requestFields = ['${request.delete.join("', '")}'];
+        const endpoint = '${request.tableName}/delete';
+        const renderData = {requestFields, endpoint};
+
+        res.render('modelFileExercisot', renderData);
+    })
+
     module.exports = router;
     `;
 }
