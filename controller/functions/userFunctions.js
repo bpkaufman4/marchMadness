@@ -6,9 +6,9 @@ function getUserFunction(request) {
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
-                    newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
+        newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
-                    newColumnsToReturn.push('userId', 'email', 'pwd', 'lastName', 'firstName', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn')
+        newColumnsToReturn.push('userId', 'email', 'pwd', 'lastName', 'firstName', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn')
             
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
@@ -45,13 +45,13 @@ function getUserFunction(request) {
                 case 'statusCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
                     break;
-                    case 'userTypeCdMeaning':
+        case 'userTypeCdMeaning':
                     newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
                     break;
                 case 'userTypeCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
                     break;
-                    
+        
             }
         }
     }
@@ -62,9 +62,9 @@ function getUserFunction(request) {
     for(key in request) {
         switch(key) {
             case 'userId':
-            case 'email':
-            case 'lastName':
-            case 'emailVerifyGUID':
+                        case 'email':
+                        case 'lastName':
+                        case 'emailVerifyGUID':
                         
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
@@ -129,11 +129,11 @@ function putUserFunction(request) {
                         whereRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.statusCd `);
                         binds[key] = request[key];
                         break;
-                        case 'userTypeCdMeaning':
+            case 'userTypeCdMeaning':
                         whereRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.userTypeCd `);
                         binds[key] = request[key];
                         break;
-                        
+            
         }
     }
     return new Promise((resolve, reject) => {

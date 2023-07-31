@@ -80,7 +80,7 @@ function createModelFunctionsFile(request) {
             const fileContents = generateModelFunctionsFile(functionRequest);
             const fileName = `controller/functions/${request.tableName}Functions.js`
             fs.appendFile(fileName, fileContents, function (err) {
-                console.log(success);
+                console.log('success');
             });
 
             const modelDocContents = generateModelDoc(modelDocRequest);
