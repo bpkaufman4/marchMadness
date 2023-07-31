@@ -8,7 +8,7 @@ function getUserFunction(request) {
         newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
-        newColumnsToReturn.push(['userId','email','pwd','lastName','firstName','statusCd','userTypeCd','lastLoginDate','lastIP','primaryPhone','cellPhone','state','zip','emailVerifyGUID','emailVerifyExpire','timeZoneId','lastActiveDateTime','profilePictureURL','profilePictureLocal','created','updated','deletedAt','bksTestColumn']);
+        newColumnsToReturn.push('userId','email','pwd','lastName','firstName','statusCd','userTypeCd','lastLoginDate','lastIP','primaryPhone','cellPhone','state','zip','emailVerifyGUID','emailVerifyExpire','timeZoneId','lastActiveDateTime','profilePictureURL','profilePictureLocal','created','updated','deletedAt','bksTestColumn');
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
