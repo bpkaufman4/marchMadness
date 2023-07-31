@@ -80,13 +80,13 @@ function createModelFunctionsFile(request) {
             functionRequest = {getSwitch, whereSwitch, putSwitch, tableName, primaryKey, referenceGetSwitch, referencePutSwitch, allColumnsSection};
             const fileContents = generateModelFunctionsFile(functionRequest);
             const fileName = `controller/functions/${request.tableName}Functions.js`
-            fs.appendFile(fileName, fileContents, function (err) {
+            fs.writeFile(fileName, fileContents, function (err) {
                 console.log('success');
             });
 
             const modelDocName = `controller/modelDocs/${request.tableName}ModelDocs.js`;
             const modelDocContents = generateModelDoc(modelDocRequest);
-            fs.appendFile(modelDocName, modelDocContents, function (err) {
+            fs.writeFile(modelDocName, modelDocContents, function (err) {
                 return({message: 'success'});
             })
         });
