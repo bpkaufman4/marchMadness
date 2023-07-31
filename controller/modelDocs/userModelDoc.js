@@ -5,7 +5,7 @@ router.get('/get', (req, res) => {
     const endPoint = 'user/getUser';
     const renderData = {requestFields, endPoint};
 
-    res.render('modelFiltExercisor', renderData);
+    res.render('modelFileExercisor', renderData);
 });
 
 module.exports = router;
