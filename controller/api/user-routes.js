@@ -1,7 +1,6 @@
 
 const router = require('express').Router();
 const { putUserFunction, getUserFunction, deleteUserFunction } = require('../functions/userFunctions');
-const { User } = require('../../models');
 
 
 router.post('/getUser', (req, res) => {
