@@ -68,10 +68,10 @@ function getUserFunction(request) {
         if(!request.page) request.page = 1;
         if(!request.pageSize) request.pageSize = 100;
         let findRequest = {
-            attributes: newColumnsToReturn,
             limit: Number(request.pageSize),
             offset:((Number(request.page) - 1)*Number(request.pageSize))
         };
+        if(newColumnsToReturn.length > 0) findRequest['attributes'] = newColumnsToReturn;
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         User.findAll(findRequest)
