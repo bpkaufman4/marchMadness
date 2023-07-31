@@ -14,9 +14,16 @@
         fields.forEach(elem => {
            request[elem.name] = elem.value; 
         });
-        fetchTable('resultsCatch', '{{endpoint}}', request, 0)
-        .then(result => {
-            console.log(result);
-        });
+
+        fetch('../../../api/{{endpoint}}', {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(request),
+		})
+		.then(response => {
+            console.log(response);
+		})
     }
 </script>
