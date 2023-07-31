@@ -6,7 +6,7 @@ const functionsRoutes = require('./functions-routes');
 const referenceRoutes = require('./reference-routes');
 const referenceSetsRoutes = require('./referenceSets-routes');
 
-router.use('/users', userRoutes);
+router.use('/user', userRoutes);
 router.use('/routes', routesRoutes);
 router.use('/functions', functionsRoutes);
 router.use('/reference', referenceRoutes);
