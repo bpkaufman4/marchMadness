@@ -62,7 +62,7 @@ function createModelFunctionsFile(request) {
                         putSwitch += `case '${column.COLUMN_NAME}':
                         `
                     }
-                    allPhysicalColumns.push(column);
+                    allPhysicalColumns.push(column.COLUMN_NAME);
                 }
             })
             allColumnsSection += `newColumnsToReturn.push('${allPhysicalColumns.join("', '")}')
