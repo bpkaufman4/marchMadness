@@ -27,6 +27,11 @@ function createModelFunctionsFile(request) {
             let referencePutSwitch = '';
             let allColumnsSection = '';
             let allPhysicalColumns = [];
+            let modelDocRequest = {
+                get: [],
+                put: [],
+                delete: []
+            };
             let tableName = request.tableName;
             tableColumns.forEach(column => {
                 getSwitch += `case '${column.COLUMN_NAME}':
@@ -50,19 +55,23 @@ function createModelFunctionsFile(request) {
                         binds[key] = request[key];
                         break;
             `
-
+                    modelDocRequest.put.push(column.COLUMN_NAME, column.COLUMN_NAME+'Meaning');
                 } else {
                     if(column.COLUMN_KEY > '') {
                         if(column.COLUMN_KEY === 'PRI') {
-                            primaryKey = column.COLUMN_NAME
+                            primaryKey = column.COLUMN_NAME;
+                            modelDocRequest.delete.push(column.COLUMN_NAME);
+                            modelDocRequest.primaryKey = COLUMN_NAME;
                         }
                         whereSwitch += `case '${column.COLUMN_NAME}':
-                        `;    
+                        `;
+                        modelDocRequest.get.push(column.COLUMN_NAME);
                     } else {
                         putSwitch += `case '${column.COLUMN_NAME}':
                         `
                     }
                     allPhysicalColumns.push(column.COLUMN_NAME);
+                    modelDocRequest.put.push(column.COLUMN_NAME);
                 }
             })
             allColumnsSection += `newColumnsToReturn.push('${allPhysicalColumns.join("', '")}')
@@ -71,8 +80,10 @@ function createModelFunctionsFile(request) {
             const fileContents = generateModelFunctionsFile(functionRequest);
             const fileName = `controller/functions/${request.tableName}Functions.js`
             fs.appendFile(fileName, fileContents, function (err) {
-                return {message: 'Success'};
-            })
+                console.log(success);
+            });
+
+            const modelDocContents = generateModelDoc(modelDocRequest);
         });
     })
 }
@@ -169,6 +180,10 @@ function put${snakeCase}Function(request) {
 
 module.exports = { get${snakeCase}Function, delete${snakeCase}Function, put${snakeCase}Function };
 `
+}
+
+function generateModelDoc(request) {
+    console.log(request);
 }
 
 module.exports = createModelFunctionsFile;
