@@ -17,7 +17,7 @@ ChangeLog.init(
             allowNull: false
         },
         changeDateTime: {
-            type: DataTypes.DATETIME,
+            type: DataTypes.DATE,
             allowNull: false,
             defaultValue: sequelize.literal('NOW()'),
         },
