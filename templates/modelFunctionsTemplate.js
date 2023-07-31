@@ -103,7 +103,7 @@ function get${snakeCase}Function(request) {
     for(key in request) {
         switch(key) {
             ${request.whereSwitch}
-                whereRequest[key] = request[key];
+                if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
     }
