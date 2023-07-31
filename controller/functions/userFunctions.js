@@ -3,7 +3,14 @@ const sequelize = require('../../config/connection');
 
 function getUserFunction(request) {
     let newColumnsToReturn = [];
-    if(request.columnsToReturn && request.columnsToReturn.length > 0) {
+    if(!request.columnsToReturn) {
+        newColumnsToReturn.push(sequelize.literal('*'));
+        newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
+        newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
+        newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
+        newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
+    }
+    if(request.columnsToReturn.length > 0) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'userId':
@@ -37,7 +44,7 @@ function getUserFunction(request) {
                 case 'statusCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
                     break;
-                    case 'userTypeCdMeaning':
+                case 'userTypeCdMeaning':
                     newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
                     break;
                 case 'userTypeCdDisplay':
@@ -66,10 +73,10 @@ function getUserFunction(request) {
         if(!request.page) request.page = 1;
         if(!request.pageSize) request.pageSize = 100;
         let findRequest = {
+            attributes: newColumnsToReturn,
             limit: Number(request.pageSize),
             offset:((Number(request.page) - 1)*Number(request.pageSize))
         };
-        if(newColumnsToReturn.length > 0) findRequest['attributes'] = newColumnsToReturn;
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         User.findAll(findRequest)
