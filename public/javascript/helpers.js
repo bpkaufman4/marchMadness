@@ -25,7 +25,7 @@ function updateFetchTable(elementId) {
 	request.pageSize = Number(dataStore.dataset.pageSize);
 
 	return new Promise((resolve, reject) => {
-		fetch(window.location.host+'/api/'+dataStore.dataset.endpoint, {
+		fetch('api/'+dataStore.dataset.endpoint, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json"
