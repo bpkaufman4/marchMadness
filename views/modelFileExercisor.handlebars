@@ -1,5 +1,22 @@
 <div>Model File Exercisor</div>
-{{#each requestFields as | field |}}
-<label for="{{field}}">{{field}}</label>
-<input type="text" name="{{field}}" id="{{field}}">
-{{/each}}
+<div id="fieldsCatch">
+    {{#each requestFields as | field |}}
+    <label for="{{field}}">{{field}}</label>
+    <input type="text" name="{{field}}" id="{{field}}">
+    {{/each}}
+</div>
+<button onclick="executeRequest()">Execute Request</button>
+<div id="resultsCatch"></div>
+<script>
+    function executeRequest() {
+        var request = {};
+        const fields = document.querySelectorAll('#fieldsCatch input');
+        fields.forEach(elem => {
+           request[elem.name] = elem.value; 
+        });
+        fetchTable('resultsCatch', '{{endpoint}}', request, 0)
+        .then(result => {
+            console.log(result);
+        });
+    }
+</script>
