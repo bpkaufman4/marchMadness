@@ -1,1 +1,5 @@
 <div>Model File Exercisor</div>
+{{#each requestFields as | field |}}
+<label for="{{field}}">{{field}}</label>
+<input type="text" name="{{field}}" id="{{field}}">
+{{/each}}
