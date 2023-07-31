@@ -84,7 +84,11 @@ function createModelFunctionsFile(request) {
                 console.log('success');
             });
 
+            const modelDocName = `controller/modelDocs/${request.tableName}ModelDocs.js`;
             const modelDocContents = generateModelDoc(modelDocRequest);
+            fs.appendFile(modelDocName, modelDocContents, function (err) {
+                return({message: 'success'});
+            })
         });
     })
 }
@@ -191,7 +195,7 @@ function generateModelDoc(request) {
 
     router.get('/get', (req, res) => {
         const requestFields = ['${request.get.join("', '")}'];
-        const endpoint = '${request.tableName}/get';
+        const endpoint = '${request.tableName}/get${snakeCase}';
         const renderData = {requestFields, endpoint};
     
         res.render('modelFileExercisor', renderData);
@@ -199,7 +203,7 @@ function generateModelDoc(request) {
     
     router.get('/put', (req, res) => {
         const requestFields = ['${request.put.join("', '")}'];
-        const endpoint = '${request.tableName}/put';
+        const endpoint = '${request.tableName}/put${snakeCase}';
         const renderData = {requestFields, endpoint};
 
         res.render('modelFileExercisor', renderData);
@@ -207,7 +211,7 @@ function generateModelDoc(request) {
 
     router.get('/delete', (req, res) => {
         const requestFields = ['${request.delete.join("', '")}'];
-        const endpoint = '${request.tableName}/delete';
+        const endpoint = '${request.tableName}/delete${snakeCase}';
         const renderData = {requestFields, endpoint};
 
         res.render('modelFileExercisot', renderData);
@@ -215,6 +219,7 @@ function generateModelDoc(request) {
 
     module.exports = router;
     `;
+    return template;
 }
 
 module.exports = createModelFunctionsFile;
