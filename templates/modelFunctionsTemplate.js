@@ -67,6 +67,8 @@ function createModelFunctionsFile(request) {
                         whereSwitch += `case '${column.COLUMN_NAME}':
                         `;
                         modelDocRequest.get.push(column.COLUMN_NAME);
+                        putSwitch += `case '${column.COLUMN_NAME}':
+                        `
                     } else {
                         putSwitch += `case '${column.COLUMN_NAME}':
                         `
