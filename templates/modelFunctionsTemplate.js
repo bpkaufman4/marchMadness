@@ -158,6 +158,7 @@ function put${snakeCase}Function(request) {
     let newRequest = {};
     for(const key in request) {
         switch(key) {
+            if(request.key == '') continue;
             ${request.putSwitch}
             newRequest[key] = request[key];
             break;
