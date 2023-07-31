@@ -3,14 +3,13 @@ const sequelize = require('../../config/connection');
 
 function getUserFunction(request) {
     let newColumnsToReturn = [];
-    if(!request.columnsToReturn) {
+    if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push(sequelize.literal('*'));
         newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
         newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
-    }
-    if(request.columnsToReturn.length > 0) {
+    } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'userId':
