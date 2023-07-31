@@ -25,11 +25,14 @@ function createModelFunctionsFile(request) {
             let putSwitch = '';
             let referenceGetSwitch = '';
             let referencePutSwitch = '';
+            let allColumnsSection = '';
+            let allPhysicalColumns = [];
             let tableName = request.tableName;
             tableColumns.forEach(column => {
                 getSwitch += `case '${column.COLUMN_NAME}':
                 `;
                 if(column.COLUMN_NAME.slice(-2) === 'Cd' && column.COLUMN_KEY != 'PRI'){
+
                     referenceGetSwitch += `case '${column.COLUMN_NAME}Meaning':
                     newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Meaning']);
                     break;
@@ -37,11 +40,17 @@ function createModelFunctionsFile(request) {
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
                     break;
                     `;
+
+                    allColumnsSection += `newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Meaning']);
+                    newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
+                    `;
+
                     referencePutSwitch += `case '${column.COLUMN_NAME}Meaning':
                         whereRequest['${column.COLUMN_NAME}'] = sequelize.literal(\` (select referenceCd from reference where referenceMeaning = $\${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = ${request.tableName}.${column.COLUMN_NAME} \`);
                         binds[key] = request[key];
                         break;
                         `
+
                 } else {
                     if(column.COLUMN_KEY > '') {
                         if(column.COLUMN_KEY === 'PRI') {
@@ -53,9 +62,12 @@ function createModelFunctionsFile(request) {
                         putSwitch += `case '${column.COLUMN_NAME}':
                         `
                     }
+                    allPhysicalColumns.push(column);
                 }
             })
-            functionRequest = {getSwitch, whereSwitch, putSwitch, tableName, primaryKey, referenceGetSwitch, referencePutSwitch};
+            allColumnsSection += `newColumnsToReturn.push('${allPhysicalColumns.join("', '")}')
+            `;
+            functionRequest = {getSwitch, whereSwitch, putSwitch, tableName, primaryKey, referenceGetSwitch, referencePutSwitch, allColumnsSection};
             const fileContents = generateModelFunctionsFile(functionRequest);
             const fileName = `controller/functions/${request.tableName}Functions.js`
             fs.appendFile(fileName, fileContents, function (err) {
@@ -72,7 +84,9 @@ const sequelize = require('../../config/connection');
 
 function get${snakeCase}Function(request) {
     let newColumnsToReturn = [];
-    if(request.columnsToReturn.length > 0) {
+    if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
+        ${request.allColumnsSection}
+    } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 ${request.getSwitch}
