@@ -75,7 +75,8 @@ function putStaticContentFunction(request) {
     for(const key in request) {
         if(request.key == '') continue;
         switch(key) {
-            case 'title':
+            case 'contentType':
+                        case 'title':
                         case 'permalink':
                         case 'content':
                         case 'SEOTitle':

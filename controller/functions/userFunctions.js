@@ -106,7 +106,10 @@ function putUserFunction(request) {
     for(const key in request) {
         if(request.key == '') continue;
         switch(key) {
-            case 'pwd':
+            case 'userId':
+                        case 'email':
+                        case 'pwd':
+                        case 'lastName':
                         case 'firstName':
                         case 'lastLoginDate':
                         case 'lastIP':
@@ -114,6 +117,7 @@ function putUserFunction(request) {
                         case 'cellPhone':
                         case 'state':
                         case 'zip':
+                        case 'emailVerifyGUID':
                         case 'emailVerifyExpire':
                         case 'timeZoneId':
                         case 'lastActiveDateTime':

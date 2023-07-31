@@ -69,7 +69,8 @@ function putReferenceSetsFunction(request) {
     for(const key in request) {
         if(request.key == '') continue;
         switch(key) {
-            case 'display':
+            case 'referenceSet':
+                        case 'display':
                         case 'description':
                         case 'deletableInd':
                         case 'created':

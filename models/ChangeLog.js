@@ -6,10 +6,10 @@ class ChangeLog extends Model {};
 
 ChangeLog.init(
     {
-        changeLogId: {
+        changeLogId:{
             type: DataTypes.UUID,
-            allowNull: false,
             defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
             primaryKey: true
         },
         changeDetails: {

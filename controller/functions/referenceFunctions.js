@@ -74,7 +74,10 @@ function putReferenceFunction(request) {
     for(const key in request) {
         if(request.key == '') continue;
         switch(key) {
-            case 'display':
+            case 'referenceCd':
+                        case 'referenceSet':
+                        case 'referenceMeaning':
+                        case 'display':
                         case 'description':
                         case 'activeInd':
                         case 'created':

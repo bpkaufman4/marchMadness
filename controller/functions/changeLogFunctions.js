@@ -74,8 +74,10 @@ function putChangeLogFunction(request) {
     for(const key in request) {
         if(request.key == '') continue;
         switch(key) {
-            case 'changeDetails':
+            case 'changeLogId':
+                        case 'changeDetails':
                         case 'changeDateTime':
+                        case 'userId':
                         case 'parentId':
                         case 'parentName':
                         case 'templateType':
