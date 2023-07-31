@@ -9,6 +9,7 @@ router.post('/getUser', (req, res) => {
 
     getUserFunction(request)
     .then(returnValue => {
+        console.log(returnValue);
         res.json(returnValue)
     })
     .catch(err => {
