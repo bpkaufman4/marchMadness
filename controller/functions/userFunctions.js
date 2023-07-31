@@ -104,8 +104,8 @@ function deleteUserFunction(request) {
 function putUserFunction(request) {
     let newRequest = {};
     for(const key in request) {
-        if(request[key] == '') continue;
         switch(key) {
+            if(request.key == '') continue;
             case 'pwd':
                         case 'firstName':
                         case 'lastLoginDate':

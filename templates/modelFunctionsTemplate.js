@@ -157,8 +157,8 @@ function delete${snakeCase}Function(request) {
 function put${snakeCase}Function(request) {
     let newRequest = {};
     for(const key in request) {
+        if(request.key == '') continue;
         switch(key) {
-            if(request.key == '') continue;
             ${request.putSwitch}
             newRequest[key] = request[key];
             break;
