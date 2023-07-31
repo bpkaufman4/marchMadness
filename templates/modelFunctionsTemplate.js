@@ -61,7 +61,7 @@ function createModelFunctionsFile(request) {
                         if(column.COLUMN_KEY === 'PRI') {
                             primaryKey = column.COLUMN_NAME;
                             modelDocRequest.delete.push(column.COLUMN_NAME);
-                            modelDocRequest.primaryKey = COLUMN_NAME;
+                            modelDocRequest.primaryKey = column.COLUMN_NAME;
                         }
                         whereSwitch += `case '${column.COLUMN_NAME}':
                         `;
