@@ -39,17 +39,17 @@ function createModelFunctionsFile(request) {
                 case '${column.COLUMN_NAME}Display':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
                     break;
-                    `;
+        `;
 
                     allColumnsSection += `newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Meaning']);
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
-                    `;
+        `;
 
                     referencePutSwitch += `case '${column.COLUMN_NAME}Meaning':
                         whereRequest['${column.COLUMN_NAME}'] = sequelize.literal(\` (select referenceCd from reference where referenceMeaning = $\${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = ${request.tableName}.${column.COLUMN_NAME} \`);
                         binds[key] = request[key];
                         break;
-                        `
+            `
 
                 } else {
                     if(column.COLUMN_KEY > '') {
