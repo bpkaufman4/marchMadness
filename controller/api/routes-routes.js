@@ -6,7 +6,7 @@ router.post('/generateRoutesFile', (req, res) => {
     const request = req.body;
     const fileContents = generateRoutesFile(request.tableName);
     const fileName = `controller/api/${request.tableName}-routes.js`
-    fs.appendFile(fileName, fileContents, function (err) {
+    fs.writeFile(fileName, fileContents, function (err) {
         if (err) {
             res.status(500).json(err);
             return;
