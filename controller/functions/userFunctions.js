@@ -72,6 +72,8 @@ function getUserFunction(request) {
     }
 
     return new Promise((resolve, reject) => {
+        if(!request.pageSize) request.pageSize = 100;
+        if(!request.page) request.page = 1;
         let findRequest = {
             attributes: newColumnsToReturn,
             limit: Number(request.pageSize),
