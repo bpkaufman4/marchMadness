@@ -3,7 +3,7 @@ const sequelize = require('../../config/connection');
 
 function getUserFunction(request) {
     let newColumnsToReturn = [];
-    if(request.columnsToReturn.length > 0) {
+    if(request.columnsToReturn && request.columnsToReturn.length > 0) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'userId':
