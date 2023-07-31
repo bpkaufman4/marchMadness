@@ -1,6 +1,7 @@
 
 const router = require('express').Router();
 const { putUserFunction, getUserFunction, deleteUserFunction } = require('../functions/userFunctions');
+const { User } = require('../../models');
 
 
 router.post('/getUser', (req, res) => {
@@ -40,10 +41,10 @@ router.post('/deleteUser', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    User.findOne({
-        where: {
-            email: req.body.email
-        }
+    getUserFunction({
+        email: req.body.email,
+        columnsToReturn: ['userId', 'userTypeCdMeaning'
+    ]
     }).then(dbUserData => {
         console.log(dbUserData);
         if(!dbUserData) {
