@@ -5,7 +5,7 @@ async function executeRequest() {
        request[elem.name] = elem.value; 
     });
     const endpoint = getobj('endpoint').value;
-    loadTable('fieldsCatch', endpoint, request, 25)
+    fetchTable('fieldsCatch', endpoint, request, 25)
     .then(reply => {
         console.log(reply);
     })
