@@ -4,7 +4,7 @@ async function executeRequest() {
     fields.forEach(elem => {
        request[elem.name] = elem.value; 
     });
-    const endpoint = getobj('endpoint').value;
+    const endpoint = '../../../api/'+getobj('endpoint').value;
     fetchTable('fieldsCatch', endpoint, request, 25)
     .then(reply => {
         console.log(reply);
