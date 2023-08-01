@@ -2,6 +2,29 @@
 const router = require('express').Router();
 const { putStaticContentFunction, getStaticContentFunction, deleteStaticContentFunction } = require('../functions/staticContentFunctions');
 
+router.get('/getStaticContent', (req, res) => {
+    const requestFields = ['contentType'];
+    const endpoint = 'staticContent/getStaticContent';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+});
+
+router.get('/putStaticContent', (req, res) => {
+    const requestFields = ['contentType', 'title', 'permalink', 'content', 'SEOTitle', 'SEOKeywords', 'SEODescription', 'articleData', 'parsedElements', 'created', 'updated'];
+    const endpoint = 'staticContent/putStaticContent';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+})
+
+router.get('/deleteStaticContent', (req, res) => {
+    const requestFields = ['contentType'];
+    const endpoint = 'staticContent/deleteStaticContent';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+})
 
 router.post('/getStaticContent', (req, res) => {
     let request = req.body;
