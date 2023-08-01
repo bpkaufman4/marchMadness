@@ -52,8 +52,7 @@ function createModelFunctionsFile(request) {
         `;
 
                     referencePutSwitch += `case '${column.COLUMN_NAME}Meaning':
-                        newRequest['${column.COLUMN_NAME}'] = sequelize.literal(\` (select referenceCd from reference where referenceMeaning = $\${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = ${request.tableName}.${column.COLUMN_NAME} \`);
-                        binds[key] = request[key];
+                        newRequest['${column.COLUMN_NAME}'] = sequelize.literal(\` (select referenceCd from reference where referenceMeaning = '\${request[key]}' and referenceSet = 'INSERT_REFERENCE_SET_HERE') \`);
                         break;
             `
                     modelDocRequest.put.push(column.COLUMN_NAME, column.COLUMN_NAME+'Meaning');
