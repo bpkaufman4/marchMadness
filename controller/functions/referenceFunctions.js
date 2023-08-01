@@ -72,7 +72,6 @@ function deleteReferenceFunction(request) {
 function putReferenceFunction(request) {
     let newRequest = {};
     for(const key in request) {
-        if(request.key == '') continue;
         switch(key) {
             case 'referenceCd':
                         case 'referenceSet':
@@ -83,7 +82,7 @@ function putReferenceFunction(request) {
                         case 'created':
                         case 'updated':
                         
-            newRequest[key] = request[key];
+            if(request[key] > '') newRequest[key] = request[key];
             break;
             
         }

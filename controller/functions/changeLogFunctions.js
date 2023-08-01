@@ -72,7 +72,6 @@ function deleteChangeLogFunction(request) {
 function putChangeLogFunction(request) {
     let newRequest = {};
     for(const key in request) {
-        if(request.key == '') continue;
         switch(key) {
             case 'changeLogId':
                         case 'changeDetails':
@@ -84,7 +83,7 @@ function putChangeLogFunction(request) {
                         case 'created':
                         case 'updated':
                         
-            newRequest[key] = request[key];
+            if(request[key] > '') newRequest[key] = request[key];
             break;
             
         }

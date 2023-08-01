@@ -73,7 +73,6 @@ function deleteStaticContentFunction(request) {
 function putStaticContentFunction(request) {
     let newRequest = {};
     for(const key in request) {
-        if(request.key == '') continue;
         switch(key) {
             case 'contentType':
                         case 'title':
@@ -87,7 +86,7 @@ function putStaticContentFunction(request) {
                         case 'created':
                         case 'updated':
                         
-            newRequest[key] = request[key];
+            if(request[key] > '') newRequest[key] = request[key];
             break;
             
         }

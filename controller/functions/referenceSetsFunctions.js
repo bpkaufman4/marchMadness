@@ -67,7 +67,6 @@ function deleteReferenceSetsFunction(request) {
 function putReferenceSetsFunction(request) {
     let newRequest = {};
     for(const key in request) {
-        if(request.key == '') continue;
         switch(key) {
             case 'referenceSet':
                         case 'display':
@@ -75,7 +74,7 @@ function putReferenceSetsFunction(request) {
                         case 'deletableInd':
                         case 'created':
                         
-            newRequest[key] = request[key];
+            if(request[key] > '') newRequest[key] = request[key];
             break;
             
         }
