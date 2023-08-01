@@ -132,11 +132,11 @@ function putUserFunction(request) {
                 newRequest[key] = request[key];
                 break;
                 case 'statusCdMeaning':
-                        newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.statusCd `);
+                        newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = :${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.statusCd `);
                         binds[key] = request[key];
                         break;
             case 'userTypeCdMeaning':
-                        newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.userTypeCd `);
+                        newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = :${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.userTypeCd `);
                         binds[key] = request[key];
                         break;
             
@@ -149,7 +149,7 @@ function putUserFunction(request) {
                 where: {
                     userId: request.userId
                 },
-                bind: binds
+                replacements: binds
             })
             .then(dbData => {
                 resolve(dbData);
