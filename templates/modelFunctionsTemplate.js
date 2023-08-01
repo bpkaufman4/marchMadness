@@ -209,29 +209,7 @@ function generateModelDoc(request) {
     const snakeCase = request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1);
     const template = `const router = require('express').Router();
 
-    router.get('/get', (req, res) => {
-        const requestFields = ['${request.get.join("', '")}'];
-        const endpoint = '${request.tableName}/get${snakeCase}';
-        const renderData = {requestFields, endpoint};
-    
-        res.render('modelFileExercisor', renderData);
-    });
-    
-    router.get('/put', (req, res) => {
-        const requestFields = ['${request.put.join("', '")}'];
-        const endpoint = '${request.tableName}/put${snakeCase}';
-        const renderData = {requestFields, endpoint};
-
-        res.render('modelFileExercisor', renderData);
-    })
-
-    router.get('/delete', (req, res) => {
-        const requestFields = ['${request.delete.join("', '")}'];
-        const endpoint = '${request.tableName}/delete${snakeCase}';
-        const renderData = {requestFields, endpoint};
-
-        res.render('modelFileExercisor', renderData);
-    })
+   
 
     module.exports = router;
     `;
