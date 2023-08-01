@@ -4,7 +4,7 @@ const { putStaticContentFunction, getStaticContentFunction, deleteStaticContentF
 
 router.get('/get', (req, res) => {
     const requestFields = ['contentType'];
-    const endpoint = 'staticContent/getStaticContent';
+    const endpoint = 'staticContent/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -12,7 +12,7 @@ router.get('/get', (req, res) => {
 
 router.get('/put', (req, res) => {
     const requestFields = ['contentType', 'title', 'permalink', 'content', 'SEOTitle', 'SEOKeywords', 'SEODescription', 'articleData', 'parsedElements', 'created', 'updated'];
-    const endpoint = 'staticContent/putStaticContent';
+    const endpoint = 'staticContent/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -20,7 +20,7 @@ router.get('/put', (req, res) => {
 
 router.get('/delete', (req, res) => {
     const requestFields = ['contentType'];
-    const endpoint = 'staticContent/deleteStaticContent';
+    const endpoint = 'staticContent/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);

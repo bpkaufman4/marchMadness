@@ -4,7 +4,7 @@ const { putReferenceFunction, getReferenceFunction, deleteReferenceFunction } = 
 
 router.get('/get', (req, res) => {
     const requestFields = ['referenceCd', 'referenceSet', 'referenceMeaning'];
-    const endpoint = 'reference/getReference';
+    const endpoint = 'reference/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -12,7 +12,7 @@ router.get('/get', (req, res) => {
 
 router.get('/put', (req, res) => {
     const requestFields = ['referenceCd', 'referenceSet', 'referenceMeaning', 'display', 'description', 'activeInd', 'created', 'updated'];
-    const endpoint = 'reference/putReference';
+    const endpoint = 'reference/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -20,7 +20,7 @@ router.get('/put', (req, res) => {
 
 router.get('/delete', (req, res) => {
     const requestFields = ['referenceCd'];
-    const endpoint = 'reference/deleteReference';
+    const endpoint = 'reference/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);

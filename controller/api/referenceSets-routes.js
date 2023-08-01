@@ -4,7 +4,7 @@ const { putReferenceSetsFunction, getReferenceSetsFunction, deleteReferenceSetsF
 
 router.get('/get', (req, res) => {
     const requestFields = ['referenceSet'];
-    const endpoint = 'referenceSets/getReferenceSets';
+    const endpoint = 'referenceSets/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -12,7 +12,7 @@ router.get('/get', (req, res) => {
 
 router.get('/put', (req, res) => {
     const requestFields = ['referenceSet', 'display', 'description', 'deletableInd', 'created'];
-    const endpoint = 'referenceSets/putReferenceSets';
+    const endpoint = 'referenceSets/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -20,7 +20,7 @@ router.get('/put', (req, res) => {
 
 router.get('/delete', (req, res) => {
     const requestFields = ['referenceSet'];
-    const endpoint = 'referenceSets/deleteReferenceSets';
+    const endpoint = 'referenceSets/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
