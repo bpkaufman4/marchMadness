@@ -4,7 +4,7 @@ function generateRoutesFile(request) {
 const router = require('express').Router();
 const { put${snakeCase}Function, get${snakeCase}Function, delete${snakeCase}Function } = require('../functions/${request.tableName}Functions');
 
-router.get('/get', (req, res) => {
+router.get('/get${snakeCase}', (req, res) => {
     const requestFields = ['${request.get.join("', '")}'];
     const endpoint = '${request.tableName}/get${snakeCase}';
     const renderData = {requestFields, endpoint};
@@ -12,7 +12,7 @@ router.get('/get', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
-router.get('/put', (req, res) => {
+router.get('/put${snakeCase}', (req, res) => {
     const requestFields = ['${request.put.join("', '")}'];
     const endpoint = '${request.tableName}/put${snakeCase}';
     const renderData = {requestFields, endpoint};
@@ -20,7 +20,7 @@ router.get('/put', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.get('/delete', (req, res) => {
+router.get('/delete${snakeCase}', (req, res) => {
     const requestFields = ['${request.delete.join("', '")}'];
     const endpoint = '${request.tableName}/delete${snakeCase}';
     const renderData = {requestFields, endpoint};

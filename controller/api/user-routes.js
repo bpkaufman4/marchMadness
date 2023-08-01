@@ -2,13 +2,35 @@
 const router = require('express').Router();
 const { putUserFunction, getUserFunction, deleteUserFunction } = require('../functions/userFunctions');
 
+router.get('/get', (req, res) => {
+    const requestFields = ['userId', 'email', 'lastName', 'emailVerifyGUID'];
+    const endpoint = 'user/getUser';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+});
+
+router.get('/put', (req, res) => {
+    const requestFields = ['userId', 'email', 'pwd', 'lastName', 'firstName', 'statusCd', 'statusCdMeaning', 'userTypeCd', 'userTypeCdMeaning', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn'];
+    const endpoint = 'user/putUser';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+})
+
+router.get('/delete', (req, res) => {
+    const requestFields = ['userId'];
+    const endpoint = 'user/deleteUser';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+})
 
 router.post('/getUser', (req, res) => {
     let request = req.body;
 
     getUserFunction(request)
     .then(returnValue => {
-        console.log(returnValue);
         res.json(returnValue)
     })
     .catch(err => {
@@ -38,52 +60,6 @@ router.post('/deleteUser', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     })
-});
-
-router.post('/login', (req, res) => {
-    getUserFunction({
-        email: req.body.email,
-        columnsToReturn: ['userId', 'userTypeCdMeaning'
-    ]
-    }).then(dbUserData => {
-        console.log(dbUserData);
-        if(!dbUserData) {
-            res.status(404).json({ message: 'No user foud with this email'});
-            return;
-        }
-        const validPassword = dbUserData.checkPassword(req.body.pwd);
-        console.log(validPassword);
-        if(!validPassword) {
-            res.status(404).json({ message: 'Incorrect password' });
-            return;
-        }
-
-        User.update({lastLoginDate: new Date() },{
-            where: {
-                userId: dbUserData.userId
-            }
-        })
-
-        req.session.userId = dbUserData.userId;
-        req.session.loggedIn = true;
-        
-        console.log(dbUserData);
-
-        res.json({ user: dbUserData, message: 'Login successful' });
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    })
-});
-
-router.post('/logout', (req, res) => {
-    if(req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    } else {
-        res.status(204).end();
-    }
 });
 
 module.exports = router;
