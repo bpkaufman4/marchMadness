@@ -1,7 +1,7 @@
 const sequelize = require('../config/connection');
 const fs = require('fs');
 const { QueryTypes } = require('sequelize');
-const generateRoutesFile = require('../controller/functions/')
+const generateRoutesFile = require('./routes-template');
 
 function createModelFile(request) {
     let primaryKey;
