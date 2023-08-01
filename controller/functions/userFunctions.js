@@ -85,6 +85,9 @@ function getUserFunction(request) {
         .then(dbData => {
             resolve(dbData)
         })
+        .catch(err => {
+            resolve({status: 'FAIL'})
+        })
     })
 }
 
@@ -97,6 +100,9 @@ function deleteUserFunction(request) {
         })
         .then(dbData => {
             resolve(dbData);
+        })
+        .catch(err => {
+            resolve({status: 'FAIL'})
         })
     });
 }
