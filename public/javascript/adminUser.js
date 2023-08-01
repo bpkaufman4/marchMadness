@@ -9,7 +9,7 @@ function addUser(mode) {
             request.statusCdMeaning = getobj('userStatusSelect').value;
             request.userTypeCdMeaning = getobj('userTypeSelect').value;
 
-            fetchTable('passwordResetButton', 'users/updateUser', request, 1)
+            fetchTable('passwordResetButton', 'api/users/updateUser', request, 1)
             .then(response => {
                 console.log(response);
             });
