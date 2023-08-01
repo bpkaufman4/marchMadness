@@ -6,7 +6,7 @@ const referenceSetsModelDoc = require('./referenceSetsModelDocs');
 const staticContentModelDoc = require('./staticContentModelDocs');
 const changeLogModelDoc = require('./changeLogModelDocs');
 
-router.use('/user', userModelDoc);
+router.use('user', userModelDoc);
 router.use('/reference', referenceModelDoc);
 router.use('/staticContent', staticContentModelDoc);
 router.use('/referenceSets', referenceSetsModelDoc);
