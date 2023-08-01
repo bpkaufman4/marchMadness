@@ -1,8 +1,9 @@
 const sequelize = require('../config/connection');
 const fs = require('fs');
 const { QueryTypes } = require('sequelize');
+const generateRoutesFile = require('../controller/functions/')
 
-function createModelFunctionsFile(request) {
+function createModelFile(request) {
     let primaryKey;
     sequelize.query('select database() table_schema')
     .then(([tableSchema, metadata]) => {
@@ -79,17 +80,22 @@ function createModelFunctionsFile(request) {
             allColumnsSection += `newColumnsToReturn.push('${allPhysicalColumns.join("', '")}')
             `;
             functionRequest = {getSwitch, whereSwitch, putSwitch, tableName, primaryKey, referenceGetSwitch, referencePutSwitch, allColumnsSection};
-            const fileContents = generateModelFunctionsFile(functionRequest);
-            const fileName = `controller/functions/${request.tableName}Functions.js`
-            fs.writeFile(fileName, fileContents, function (err) {
-                console.log('success');
-            });
-
-            const modelDocName = `controller/modelDocs/${request.tableName}ModelDocs.js`;
-            const modelDocContents = generateModelDoc(modelDocRequest);
-            fs.writeFile(modelDocName, modelDocContents, function (err) {
-                return({message: 'success'});
-            })
+            if(request.createFunctionsFile == '1') {
+                const fileContents = generateModelFunctionsFile(functionRequest);
+                const fileName = `controller/functions/${request.tableName}Functions.js`
+                fs.writeFile(fileName, fileContents, function (err) {
+                    console.log('success');
+                });
+            }
+            
+            if(request.createRoutesFile == '1') {
+                const modelDocName = `controller/api/${request.tableName}-routes.js`;
+                const modelDocContents = generateRoutesFile(modelDocRequest);
+                fs.writeFile(modelDocName, modelDocContents, function (err) {
+                    console.log('success')
+                })
+            }
+            return({message: 'success'});
         });
     })
 }
@@ -203,17 +209,4 @@ module.exports = { get${snakeCase}Function, delete${snakeCase}Function, put${sna
 `
 }
 
-function generateModelDoc(request) {
-    console.log(request);
-    
-    const snakeCase = request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1);
-    const template = `const router = require('express').Router();
-
-   
-
-    module.exports = router;
-    `;
-    return template;
-}
-
-module.exports = createModelFunctionsFile;
+module.exports = createModelFile;
