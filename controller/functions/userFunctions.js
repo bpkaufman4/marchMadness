@@ -103,6 +103,7 @@ function deleteUserFunction(request) {
 
 function putUserFunction(request) {
     let newRequest = {};
+    let binds = {};
     for(const key in request) {
         if(request.key == '') continue;
         switch(key) {
