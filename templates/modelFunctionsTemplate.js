@@ -139,6 +139,9 @@ function get${snakeCase}Function(request) {
         .then(dbData => {
             resolve(dbData)
         })
+        .catch(err => {
+            resolve({status: 'FAIL'})
+        })
     })
 }
 
@@ -151,6 +154,9 @@ function delete${snakeCase}Function(request) {
         })
         .then(dbData => {
             resolve(dbData);
+        })
+        .catch(err => {
+            resolve({status: 'FAIL'})
         })
     });
 }
