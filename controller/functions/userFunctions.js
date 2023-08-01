@@ -150,6 +150,9 @@ function putUserFunction(request) {
             })
             .then(dbData => {
                 resolve(dbData);
+            })
+            .catch(err => {
+                resolve({status: 'fail'})
             });
         } else {
             User.create(newRequest)
