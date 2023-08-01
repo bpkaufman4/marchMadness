@@ -104,8 +104,9 @@ function deleteUserFunction(request) {
 function putUserFunction(request) {
     let newRequest = {};
     for(const key in request) {
-        switch(key) {
-            case 'userId':
+        if(request[key] > '') {
+            switch(key) {
+                case 'userId':
                         case 'email':
                         case 'pwd':
                         case 'lastName':
@@ -127,9 +128,9 @@ function putUserFunction(request) {
                         case 'deletedAt':
                         case 'bksTestColumn':
                         
-            if(request[key] > '') newRequest[key] = request[key];
-            break;
-            case 'statusCdMeaning':
+                newRequest[key] = request[key];
+                break;
+                case 'statusCdMeaning':
                         newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.statusCd `);
                         binds[key] = request[key];
                         break;
@@ -138,6 +139,7 @@ function putUserFunction(request) {
                         binds[key] = request[key];
                         break;
             
+            }
         }
     }
     return new Promise((resolve, reject) => {

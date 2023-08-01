@@ -158,6 +158,7 @@ function delete${snakeCase}Function(request) {
 
 function put${snakeCase}Function(request) {
     let newRequest = {};
+    let binds = {};
     for(const key in request) {
         if(request[key] > '') {
             switch(key) {
