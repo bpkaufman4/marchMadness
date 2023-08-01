@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { putReferenceSetsFunction, getReferenceSetsFunction, deleteReferenceSetsFunction } = require('../functions/referenceSetsFunctions');
 
-router.get('/getReferenceSets', (req, res) => {
+router.get('/get', (req, res) => {
     const requestFields = ['referenceSet'];
     const endpoint = 'referenceSets/getReferenceSets';
     const renderData = {requestFields, endpoint};
@@ -10,7 +10,7 @@ router.get('/getReferenceSets', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
-router.get('/putReferenceSets', (req, res) => {
+router.get('/put', (req, res) => {
     const requestFields = ['referenceSet', 'display', 'description', 'deletableInd', 'created'];
     const endpoint = 'referenceSets/putReferenceSets';
     const renderData = {requestFields, endpoint};
@@ -18,7 +18,7 @@ router.get('/putReferenceSets', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.get('/deleteReferenceSets', (req, res) => {
+router.get('/delete', (req, res) => {
     const requestFields = ['referenceSet'];
     const endpoint = 'referenceSets/deleteReferenceSets';
     const renderData = {requestFields, endpoint};
@@ -26,7 +26,7 @@ router.get('/deleteReferenceSets', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.post('/getReferenceSets', (req, res) => {
+router.post('/get', (req, res) => {
     let request = req.body;
 
     getReferenceSetsFunction(request)
@@ -39,7 +39,7 @@ router.post('/getReferenceSets', (req, res) => {
     })
 });
 
-router.post('/putReferenceSets', (req, res) => {
+router.post('/put', (req, res) => {
     const request = req.body;
     putReferenceSetsFunction(request)
     .then(returnValue => {
@@ -51,7 +51,7 @@ router.post('/putReferenceSets', (req, res) => {
     })
 });
 
-router.post('/deleteReferenceSets', (req, res) => {
+router.post('/delete', (req, res) => {
     const request = req.body;
     deleteReferenceSetsFunction(request)
     .then(returnValue => {

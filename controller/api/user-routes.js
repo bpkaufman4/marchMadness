@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { putUserFunction, getUserFunction, deleteUserFunction } = require('../functions/userFunctions');
 
-router.get('/getUser', (req, res) => {
+router.get('/get', (req, res) => {
     const requestFields = ['userId', 'email', 'lastName', 'emailVerifyGUID'];
     const endpoint = 'user/getUser';
     const renderData = {requestFields, endpoint};
@@ -10,7 +10,7 @@ router.get('/getUser', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
-router.get('/putUser', (req, res) => {
+router.get('/put', (req, res) => {
     const requestFields = ['userId', 'email', 'pwd', 'lastName', 'firstName', 'statusCd', 'statusCdMeaning', 'userTypeCd', 'userTypeCdMeaning', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn'];
     const endpoint = 'user/putUser';
     const renderData = {requestFields, endpoint};
@@ -18,7 +18,7 @@ router.get('/putUser', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.get('/deleteUser', (req, res) => {
+router.get('/delete', (req, res) => {
     const requestFields = ['userId'];
     const endpoint = 'user/deleteUser';
     const renderData = {requestFields, endpoint};
@@ -26,7 +26,7 @@ router.get('/deleteUser', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.post('/getUser', (req, res) => {
+router.post('/get', (req, res) => {
     let request = req.body;
 
     getUserFunction(request)
@@ -39,7 +39,7 @@ router.post('/getUser', (req, res) => {
     })
 });
 
-router.post('/putUser', (req, res) => {
+router.post('/put', (req, res) => {
     const request = req.body;
     putUserFunction(request)
     .then(returnValue => {
@@ -51,7 +51,7 @@ router.post('/putUser', (req, res) => {
     })
 });
 
-router.post('/deleteUser', (req, res) => {
+router.post('/delete', (req, res) => {
     const request = req.body;
     deleteUserFunction(request)
     .then(returnValue => {

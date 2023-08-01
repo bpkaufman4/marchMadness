@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { putStaticContentFunction, getStaticContentFunction, deleteStaticContentFunction } = require('../functions/staticContentFunctions');
 
-router.get('/getStaticContent', (req, res) => {
+router.get('/get', (req, res) => {
     const requestFields = ['contentType'];
     const endpoint = 'staticContent/getStaticContent';
     const renderData = {requestFields, endpoint};
@@ -10,7 +10,7 @@ router.get('/getStaticContent', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
-router.get('/putStaticContent', (req, res) => {
+router.get('/put', (req, res) => {
     const requestFields = ['contentType', 'title', 'permalink', 'content', 'SEOTitle', 'SEOKeywords', 'SEODescription', 'articleData', 'parsedElements', 'created', 'updated'];
     const endpoint = 'staticContent/putStaticContent';
     const renderData = {requestFields, endpoint};
@@ -18,7 +18,7 @@ router.get('/putStaticContent', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.get('/deleteStaticContent', (req, res) => {
+router.get('/delete', (req, res) => {
     const requestFields = ['contentType'];
     const endpoint = 'staticContent/deleteStaticContent';
     const renderData = {requestFields, endpoint};
@@ -26,7 +26,7 @@ router.get('/deleteStaticContent', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.post('/getStaticContent', (req, res) => {
+router.post('/get', (req, res) => {
     let request = req.body;
 
     getStaticContentFunction(request)
@@ -39,7 +39,7 @@ router.post('/getStaticContent', (req, res) => {
     })
 });
 
-router.post('/putStaticContent', (req, res) => {
+router.post('/put', (req, res) => {
     const request = req.body;
     putStaticContentFunction(request)
     .then(returnValue => {
@@ -51,7 +51,7 @@ router.post('/putStaticContent', (req, res) => {
     })
 });
 
-router.post('/deleteStaticContent', (req, res) => {
+router.post('/delete', (req, res) => {
     const request = req.body;
     deleteStaticContentFunction(request)
     .then(returnValue => {

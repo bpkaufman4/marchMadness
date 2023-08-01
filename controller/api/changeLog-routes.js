@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { putChangeLogFunction, getChangeLogFunction, deleteChangeLogFunction } = require('../functions/changeLogFunctions');
 
-router.get('/getChangeLog', (req, res) => {
+router.get('/get', (req, res) => {
     const requestFields = ['changeLogId', 'userId'];
     const endpoint = 'changeLog/getChangeLog';
     const renderData = {requestFields, endpoint};
@@ -10,7 +10,7 @@ router.get('/getChangeLog', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
-router.get('/putChangeLog', (req, res) => {
+router.get('/put', (req, res) => {
     const requestFields = ['changeLogId', 'changeDetails', 'changeDateTime', 'userId', 'parentId', 'parentName', 'templateType', 'created', 'updated'];
     const endpoint = 'changeLog/putChangeLog';
     const renderData = {requestFields, endpoint};
@@ -18,7 +18,7 @@ router.get('/putChangeLog', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.get('/deleteChangeLog', (req, res) => {
+router.get('/delete', (req, res) => {
     const requestFields = ['changeLogId'];
     const endpoint = 'changeLog/deleteChangeLog';
     const renderData = {requestFields, endpoint};
@@ -26,7 +26,7 @@ router.get('/deleteChangeLog', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.post('/getChangeLog', (req, res) => {
+router.post('/get', (req, res) => {
     let request = req.body;
 
     getChangeLogFunction(request)
@@ -39,7 +39,7 @@ router.post('/getChangeLog', (req, res) => {
     })
 });
 
-router.post('/putChangeLog', (req, res) => {
+router.post('/put', (req, res) => {
     const request = req.body;
     putChangeLogFunction(request)
     .then(returnValue => {
@@ -51,7 +51,7 @@ router.post('/putChangeLog', (req, res) => {
     })
 });
 
-router.post('/deleteChangeLog', (req, res) => {
+router.post('/delete', (req, res) => {
     const request = req.body;
     deleteChangeLogFunction(request)
     .then(returnValue => {

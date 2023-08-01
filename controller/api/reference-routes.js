@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { putReferenceFunction, getReferenceFunction, deleteReferenceFunction } = require('../functions/referenceFunctions');
 
-router.get('/getReference', (req, res) => {
+router.get('/get', (req, res) => {
     const requestFields = ['referenceCd', 'referenceSet', 'referenceMeaning'];
     const endpoint = 'reference/getReference';
     const renderData = {requestFields, endpoint};
@@ -10,7 +10,7 @@ router.get('/getReference', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
-router.get('/putReference', (req, res) => {
+router.get('/put', (req, res) => {
     const requestFields = ['referenceCd', 'referenceSet', 'referenceMeaning', 'display', 'description', 'activeInd', 'created', 'updated'];
     const endpoint = 'reference/putReference';
     const renderData = {requestFields, endpoint};
@@ -18,7 +18,7 @@ router.get('/putReference', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.get('/deleteReference', (req, res) => {
+router.get('/delete', (req, res) => {
     const requestFields = ['referenceCd'];
     const endpoint = 'reference/deleteReference';
     const renderData = {requestFields, endpoint};
@@ -26,7 +26,7 @@ router.get('/deleteReference', (req, res) => {
     res.render('modelFileExercisor', renderData);
 })
 
-router.post('/getReference', (req, res) => {
+router.post('/get', (req, res) => {
     let request = req.body;
 
     getReferenceFunction(request)
@@ -39,7 +39,7 @@ router.post('/getReference', (req, res) => {
     })
 });
 
-router.post('/putReference', (req, res) => {
+router.post('/put', (req, res) => {
     const request = req.body;
     putReferenceFunction(request)
     .then(returnValue => {
@@ -51,7 +51,7 @@ router.post('/putReference', (req, res) => {
     })
 });
 
-router.post('/deleteReference', (req, res) => {
+router.post('/delete', (req, res) => {
     const request = req.body;
     deleteReferenceFunction(request)
     .then(returnValue => {

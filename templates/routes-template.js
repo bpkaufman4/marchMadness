@@ -6,7 +6,7 @@ const { put${snakeCase}Function, get${snakeCase}Function, delete${snakeCase}Func
 
 router.get('/get', (req, res) => {
     const requestFields = ['${request.get.join("', '")}'];
-    const endpoint = '${request.tableName}/get${snakeCase}';
+    const endpoint = '${request.tableName}/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -14,7 +14,7 @@ router.get('/get', (req, res) => {
 
 router.get('/put', (req, res) => {
     const requestFields = ['${request.put.join("', '")}'];
-    const endpoint = '${request.tableName}/put${snakeCase}';
+    const endpoint = '${request.tableName}/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -22,7 +22,7 @@ router.get('/put', (req, res) => {
 
 router.get('/delete', (req, res) => {
     const requestFields = ['${request.delete.join("', '")}'];
-    const endpoint = '${request.tableName}/delete${snakeCase}';
+    const endpoint = '${request.tableName}/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
