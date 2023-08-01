@@ -137,6 +137,7 @@ function putUserFunction(request) {
             case 'userTypeCdMeaning':
                         newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'USERTYPE') `);
                         break;
+            
             }
         }
     }
@@ -145,14 +146,13 @@ function putUserFunction(request) {
             User.update(newRequest, {
                 where: {
                     userId: request.userId
-                },
-                replacements: binds
+                }
             })
             .then(dbData => {
                 resolve(dbData);
             })
             .catch(err => {
-                resolve({status: 'fail'});
+                resolve({status: 'FAIL'});
             });
         } else {
             User.create(newRequest)
@@ -160,7 +160,7 @@ function putUserFunction(request) {
                 resolve(dbData);
             })
             .catch(err => {
-                resolve({status: 'fail'});
+                resolve({status: 'FAIL'});
             });
         }
     })
