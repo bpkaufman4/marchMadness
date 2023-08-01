@@ -177,11 +177,17 @@ function put${snakeCase}Function(request) {
             })
             .then(dbData => {
                 resolve(dbData);
+            })
+            .catch(err => {
+                resolve({status: 'FAIL'});
             });
         } else {
             ${snakeCase}.create(newRequest)
             .then(dbData => {
                 resolve(dbData);
+            })
+            .catch(err => {
+                resolve({status: 'FAIL'});
             });
         }
     })
