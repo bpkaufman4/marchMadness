@@ -159,11 +159,13 @@ function delete${snakeCase}Function(request) {
 function put${snakeCase}Function(request) {
     let newRequest = {};
     for(const key in request) {
-        switch(key) {
-            ${request.putSwitch}
-            if(request[key] > '') newRequest[key] = request[key];
-            break;
-            ${request.referencePutSwitch}
+        if(request[key] > '') {
+            switch(key) {
+                ${request.putSwitch}
+                newRequest[key] = request[key];
+                break;
+                ${request.referencePutSwitch}
+            }
         }
     }
     return new Promise((resolve, reject) => {

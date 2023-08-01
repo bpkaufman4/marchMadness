@@ -103,9 +103,7 @@ function deleteUserFunction(request) {
 
 function putUserFunction(request) {
     let newRequest = {};
-    let binds = {};
     for(const key in request) {
-        if(request.key == '') continue;
         switch(key) {
             case 'userId':
                         case 'email':
@@ -129,14 +127,14 @@ function putUserFunction(request) {
                         case 'deletedAt':
                         case 'bksTestColumn':
                         
-            newRequest[key] = request[key];
+            if(request[key] > '') newRequest[key] = request[key];
             break;
             case 'statusCdMeaning':
-                        newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'USERSTATUS') = user.statusCd `);
+                        newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.statusCd `);
                         binds[key] = request[key];
                         break;
             case 'userTypeCdMeaning':
-                        newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'USERTYPE') = user.userTypeCd `);
+                        newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = $${key} and referenceSet = 'INSERT_REFERENCE_SET_HERE') = user.userTypeCd `);
                         binds[key] = request[key];
                         break;
             
