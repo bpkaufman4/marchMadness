@@ -1,26 +1,28 @@
-
+function generateRoutesFile(request) {
+    const snakeCase = request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1);
+    return `
 const router = require('express').Router();
-const { putUserFunction, getUserFunction, deleteUserFunction } = require('../functions/userFunctions');
+const { put${snakeCase}Function, get${snakeCase}Function, delete${snakeCase}Function } = require('../functions/${request.tableName}Functions');
 
 router.get('/get', (req, res) => {
-    const requestFields = ['userId', 'email', 'lastName', 'emailVerifyGUID'];
-    const endpoint = 'user/get';
+    const requestFields = ['${request.get.join("', '")}'];
+    const endpoint = '${request.tableName}/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
 });
 
 router.get('/put', (req, res) => {
-    const requestFields = ['userId', 'email', 'pwd', 'lastName', 'firstName', 'statusCd', 'statusCdMeaning', 'userTypeCd', 'userTypeCdMeaning', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn'];
-    const endpoint = 'user/put';
+    const requestFields = ['${request.put.join("', '")}'];
+    const endpoint = '${request.tableName}/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
 })
 
 router.get('/delete', (req, res) => {
-    const requestFields = ['userId'];
-    const endpoint = 'user/delete';
+    const requestFields = ['${request.delete.join("', '")}'];
+    const endpoint = '${request.tableName}/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -29,7 +31,7 @@ router.get('/delete', (req, res) => {
 router.post('/get', (req, res) => {
     let request = req.body;
 
-    getUserFunction(request)
+    get${snakeCase}Function(request)
     .then(returnValue => {
         res.json(returnValue)
     })
@@ -41,7 +43,7 @@ router.post('/get', (req, res) => {
 
 router.post('/put', (req, res) => {
     const request = req.body;
-    putUserFunction(request)
+    put${snakeCase}Function(request)
     .then(returnValue => {
         res.json(returnValue);
     })
@@ -53,7 +55,7 @@ router.post('/put', (req, res) => {
 
 router.post('/delete', (req, res) => {
     const request = req.body;
-    deleteUserFunction(request)
+    delete${snakeCase}Function(request)
     .then(returnValue => {
         res.json(returnValue);
     }).catch(err => {
@@ -63,4 +65,8 @@ router.post('/delete', (req, res) => {
 });
 
 module.exports = router;
-    
+    `
+}
+
+
+module.exports = generateRoutesFile;

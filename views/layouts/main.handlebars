@@ -7,14 +7,19 @@
         <script src="/javascript/helpers.js"></script>
     </head>
     <body>
+        <input type="hidden" name="userId" value="{{ session.userId }}">
+        <input type="hidden" name="userType" value="{{ session.userType }}">
         <div>
             <header>
                 <h1>
                     <a href="/">Node Build</a>
                 </h1>
                 <nav>
-                    <a href="/login">Log In</a>
+                    {{#if session.loggedIn }}
                     <button id="logout">Log Out</button>
+                    {{ else }}
+                    <a href="/login">Log In</a>
+                    {{/if}}
                 </nav>
             </header>
             <main>

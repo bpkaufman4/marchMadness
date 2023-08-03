@@ -1,26 +1,26 @@
 
 const router = require('express').Router();
-const { putUserFunction, getUserFunction, deleteUserFunction } = require('../functions/userFunctions');
+const { putChangeLogFunction, getChangeLogFunction, deleteChangeLogFunction } = require('../functions/changeLogFunctions');
 
 router.get('/get', (req, res) => {
-    const requestFields = ['userId', 'email', 'lastName', 'emailVerifyGUID'];
-    const endpoint = 'user/get';
+    const requestFields = ['changeLogId', 'userId'];
+    const endpoint = 'changeLog/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
 });
 
 router.get('/put', (req, res) => {
-    const requestFields = ['userId', 'email', 'pwd', 'lastName', 'firstName', 'statusCd', 'statusCdMeaning', 'userTypeCd', 'userTypeCdMeaning', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn'];
-    const endpoint = 'user/put';
+    const requestFields = ['changeLogId', 'changeDetails', 'changeDateTime', 'userId', 'parentId', 'parentName', 'templateType', 'created', 'updated'];
+    const endpoint = 'changeLog/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
 })
 
 router.get('/delete', (req, res) => {
-    const requestFields = ['userId'];
-    const endpoint = 'user/delete';
+    const requestFields = ['changeLogId'];
+    const endpoint = 'changeLog/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -29,7 +29,7 @@ router.get('/delete', (req, res) => {
 router.post('/get', (req, res) => {
     let request = req.body;
 
-    getUserFunction(request)
+    getChangeLogFunction(request)
     .then(returnValue => {
         res.json(returnValue)
     })
@@ -41,7 +41,7 @@ router.post('/get', (req, res) => {
 
 router.post('/put', (req, res) => {
     const request = req.body;
-    putUserFunction(request)
+    putChangeLogFunction(request)
     .then(returnValue => {
         res.json(returnValue);
     })
@@ -53,7 +53,7 @@ router.post('/put', (req, res) => {
 
 router.post('/delete', (req, res) => {
     const request = req.body;
-    deleteUserFunction(request)
+    deleteChangeLogFunction(request)
     .then(returnValue => {
         res.json(returnValue);
     }).catch(err => {
