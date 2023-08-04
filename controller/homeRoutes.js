@@ -3,6 +3,7 @@ const { User } = require('../models');
 
 router.get('/adminUsers', (req, res) => {
     User.findAll().then(users => {
+        users = users.map(user => user.get({plain: true}));
         res.render('users', {layout: 'admin', users});
     });
 });
