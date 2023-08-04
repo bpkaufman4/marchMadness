@@ -28,7 +28,7 @@ function processUsers(data) {
 		name.classList.add('fullNameHide', 'SHOWALL');
 		name.setAttribute('tabindex', 0);
 		name.setAttribute('onclick', editUser);
-		name.innerText = u.fullName;
+		name.innerText = u.firstName + ' ' + u.lastName;
 		row.appendChild(name);
 		
 		const email = makeElem('td');
@@ -73,7 +73,7 @@ function getUsers(){
 	var request={};
 	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay', 'bksTestColumn'];
 	request.statusCdMeaning = 'ACTIVE';
-	fetchTable('allUsersDiv', 'api/users/getUser', request, 2)
+	fetchTable('allUsersDiv', 'api/user/get', request, 2)
 	.then(data => {
 		processUsers(data);
 		console.log(data);

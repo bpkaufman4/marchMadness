@@ -1,11 +1,13 @@
 
 const router = require('express').Router();
+const basepath = require('../index');
 const { putChangeLogFunction, getChangeLogFunction, deleteChangeLogFunction } = require('../functions/changeLogFunctions');
 
 router.get('/get', (req, res) => {
     const requestFields = ['changeLogId', 'userId'];
     const endpoint = 'changeLog/get';
-    const renderData = {requestFields, endpoint};
+    const layout = 'admin';
+    const renderData = {requestFields, endpoint, layout, basepath};
 
     res.render('modelFileExercisor', renderData);
 });
@@ -21,7 +23,7 @@ router.get('/put', (req, res) => {
 router.get('/delete', (req, res) => {
     const requestFields = ['changeLogId'];
     const endpoint = 'changeLog/delete';
-    const renderData = {requestFields, endpoint};
+    const renderData = {requestFields, endpoint, basepath};
 
     res.render('modelFileExercisor', renderData);
 })
