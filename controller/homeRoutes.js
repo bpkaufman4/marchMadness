@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../models');
-const getUserFunction = require('./functions/userFunctions');
+const { getUserFunction } = require('./functions/userFunctions');
 
 router.get('/adminUsers', (req, res) => {
     request = {};
