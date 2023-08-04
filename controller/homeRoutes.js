@@ -2,8 +2,9 @@ const router = require('express').Router();
 const { User } = require('../models');
 
 router.get('/adminUsers', (req, res) => {
-    const users = User.findAll();
-    res.render('users', {layout: 'admin', users});
+    User.findAll().then(users => {
+        res.render('users', {layout: 'admin', users});
+    });
 });
 
 router.get('/userUsers', (req, res) => {
