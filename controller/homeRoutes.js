@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const { User } = require('../models');
+const getUserFunction = require('../functions/userFunctions');
 
 router.get('/adminUsers', (req, res) => {
-    User.findAll().then(users => {
-        users = users.map(user => user.get({plain: true}));
+    request = {};
+    request.columnsToReturn ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay', 'bksTestColumn'];
+    getUserFunction(request).then(users => {
         res.render('users', {layout: 'admin', users});
     });
 });
