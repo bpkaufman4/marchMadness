@@ -89,7 +89,11 @@
                 <tbody id="usersTable">
 					{{#each users}}
 						<tr>
-							<td colspan="5">{{email}}</td>
+							<td>{{firstName}} {{lastName}}</td>
+							<td>{{email}}</td>
+							<td>{{userTypeCdDisplay}}</td>
+							<td>{{statusCdDisplay}}</td>
+							<td></td>
 						</tr>
 					{{/each}}
                 </tbody>
