@@ -1,14 +1,20 @@
 const router = require('express').Router();
 const { User } = require('../models');
+const { getUserFunction } = require('./functions/userFunctions');
 
 router.get('/adminUsers', (req, res) => {
-    res.render('users', {layout: 'admin'});
+    let request = {};
+    request.columnsToReturn = ['firstName', 'lastName'];
+    getUserFunction(request)
+    .then(users => {
+        let userData = users.map(user => user.get({plain: true}));
+        res.render('users', {users: userData, layout: 'admin'});
+    })
 });
 
 router.get('/userUsers', (req, res) => {
     User.findAll()
     .then(dbUserData => {
-        console.log(dbUserData);
         res.render('users');
     })
 });

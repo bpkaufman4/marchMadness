@@ -3,6 +3,7 @@ const sequelize = require('../../config/connection');
 
 function getUserFunction(request) {
     let newColumnsToReturn = [];
+    let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
@@ -45,13 +46,16 @@ function getUserFunction(request) {
                 case 'statusCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
                     break;
-        case 'userTypeCdMeaning':
+                case 'userTypeCdMeaning':
                     newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
                     break;
                 case 'userTypeCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
                     break;
-        
+                case 'userStatus':
+                case 'userType':
+                    includes.push(request.columnsToReturn[i]);
+                    break;
             }
         }
     }
@@ -62,10 +66,9 @@ function getUserFunction(request) {
     for(key in request) {
         switch(key) {
             case 'userId':
-                        case 'email':
-                        case 'lastName':
-                        case 'emailVerifyGUID':
-                        
+            case 'email':
+            case 'lastName':
+            case 'emailVerifyGUID':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -81,6 +84,7 @@ function getUserFunction(request) {
         };
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
+        if(Object.keys(includes).length > 0) findRequest['include'] = includes;
         User.findAll(findRequest)
         .then(dbData => {
             resolve(dbData)
