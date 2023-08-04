@@ -4,7 +4,7 @@ const getUserFunction = require('./functions/userFunctions');
 
 router.get('/adminUsers', (req, res) => {
     request = {};
-    request.columnsToReturn ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay', 'bksTestColumn'];
+    request.columnsToReturn ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay'];
     getUserFunction(request).then(users => {
         res.render('users', {layout: 'admin', users});
     });
