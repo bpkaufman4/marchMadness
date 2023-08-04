@@ -65,6 +65,7 @@ function processUsers(data) {
 }
 
 function getUsers(){
+	return;
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
 
