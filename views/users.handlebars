@@ -87,6 +87,9 @@
                     </tr>
                 </thead>
                 <tbody id="usersTable">
+					{{#each users}}
+						<td>{{email}}</td>
+					{{/each}}
                 </tbody>
             </table>
 			<div class="loading"><div class=""></div></div>
