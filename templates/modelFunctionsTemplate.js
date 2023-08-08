@@ -79,7 +79,7 @@ function createModelFile(request) {
                                 modelDocRequest.delete.push(column.COLUMN_NAME);
                                 modelDocRequest.primaryKey = column.COLUMN_NAME;
                             }
-                            if(column.COLUMN_KEY === 'FK')
+                            if(column.COLUMN_KEY === 'MUL')
                             whereSwitch += `case '${column.COLUMN_NAME}':
                             `;
                             modelDocRequest.get.push(column.COLUMN_NAME);
