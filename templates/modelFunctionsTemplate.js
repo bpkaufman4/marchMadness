@@ -20,7 +20,7 @@ function createModelFile(request) {
             sequelize.query(
                 `select column_name, referenced_table_name
                 from information_schema.KEY_COLUMN_USAGE 
-                where table_name = ? and table_schema = ? and referenced_table_name is not NULL
+                where table_schema = ? and table_name = ? and referenced_table_name is not NULL
                 order by ordinal_position;`, 
                 {
                     replacements: [tableSchema[0].table_schema, request.tableName],
