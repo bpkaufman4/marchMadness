@@ -1,23 +1,43 @@
 const { Reference } = require('../../models');
 const sequelize = require('../../config/connection');
 
+/*
+-------- Paste into models/index.js --------
+
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+--------------------------------------------
+*/
+
 function getReferenceFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push('referenceCd', 'referenceSet', 'referenceMeaning', 'display', 'description', 'activeInd', 'created', 'updated')
-            
+                
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'referenceCd':
-                case 'referenceSet':
-                case 'referenceMeaning':
-                case 'display':
-                case 'description':
-                case 'activeInd':
-                case 'created':
-                case 'updated':
-                
+                    case 'referenceSet':
+                    case 'referenceMeaning':
+                    case 'display':
+                    case 'description':
+                    case 'activeInd':
+                    case 'created':
+                    case 'updated':
+                    
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 
@@ -30,10 +50,9 @@ function getReferenceFunction(request) {
 
     for(key in request) {
         switch(key) {
-            case 'referenceCd':
-                        case 'referenceSet':
-                        case 'referenceMeaning':
-                        
+            case 'referenceSet':
+                            case 'referenceMeaning':
+                            
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -53,6 +72,9 @@ function getReferenceFunction(request) {
         .then(dbData => {
             resolve(dbData)
         })
+        .catch(err => {
+            resolve({status: 'FAIL'})
+        })
     })
 }
 
@@ -66,25 +88,31 @@ function deleteReferenceFunction(request) {
         .then(dbData => {
             resolve(dbData);
         })
+        .catch(err => {
+            resolve({status: 'FAIL'})
+        })
     });
 }
 
 function putReferenceFunction(request) {
     let newRequest = {};
+    let binds = {};
     for(const key in request) {
-        switch(key) {
-            case 'referenceCd':
-                        case 'referenceSet':
-                        case 'referenceMeaning':
-                        case 'display':
-                        case 'description':
-                        case 'activeInd':
-                        case 'created':
-                        case 'updated':
-                        
-            if(request[key] > '') newRequest[key] = request[key];
-            break;
-            
+        if(request[key] > '') {
+            switch(key) {
+                case 'referenceCd':
+                            case 'referenceSet':
+                            case 'referenceMeaning':
+                            case 'display':
+                            case 'description':
+                            case 'activeInd':
+                            case 'created':
+                            case 'updated':
+                            
+                newRequest[key] = request[key];
+                break;
+                
+            }
         }
     }
     return new Promise((resolve, reject) => {
@@ -96,11 +124,17 @@ function putReferenceFunction(request) {
             })
             .then(dbData => {
                 resolve(dbData);
+            })
+            .catch(err => {
+                resolve({status: 'FAIL'});
             });
         } else {
             Reference.create(newRequest)
             .then(dbData => {
                 resolve(dbData);
+            })
+            .catch(err => {
+                resolve({status: 'FAIL'});
             });
         }
     })

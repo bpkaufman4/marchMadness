@@ -4,8 +4,8 @@ const sequelize = require('../../config/connection');
 /*
 -------- Paste into models/index.js --------
 
-                    User.belongsTo(Reference, {foreignKey: 'statusCd', as: 'status'})
-                    User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'})
+                    User.belongsTo(Reference, {foreignKey: 'statusCd', as: 'status'});
+                    User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
 --------------------------------------------
 */
 
