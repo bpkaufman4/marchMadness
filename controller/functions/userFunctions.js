@@ -67,7 +67,7 @@ function getUserFunction(request) {
 
     for(key in request) {
         switch(key) {
-            
+                default:
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
