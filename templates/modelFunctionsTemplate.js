@@ -19,91 +19,114 @@ function createModelFile(request) {
                 type: QueryTypes.SELECT
             }
         ).then(tableColumns => {
-            let functionRequest = {};
-            console.log(tableColumns);
-            let getSwitch = '';
-            let whereSwitch = '';
-            let putSwitch = '';
-            let referenceGetSwitch = '';
-            let referencePutSwitch = '';
-            let allColumnsSection = '';
-            let allPhysicalColumns = [];
-            let modelDocRequest = {
-                get: [],
-                put: [],
-                delete: [],
-                tableName: request.tableName
-            };
-            let tableName = request.tableName;
-            tableColumns.forEach(column => {
-                getSwitch += `case '${column.COLUMN_NAME}':
-                `;
-                if(column.COLUMN_NAME.slice(-2) === 'Cd' && column.COLUMN_KEY != 'PRI'){
-
-                    referenceGetSwitch += `case '${column.COLUMN_NAME}Meaning':
-                    newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Meaning']);
-                    break;
-                case '${column.COLUMN_NAME}Display':
-                    newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
-                    break;
-        `;
-
-                    allColumnsSection += `newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Meaning']);
-                    newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
-        `;
-
-                    referencePutSwitch += `case '${column.COLUMN_NAME}Meaning':
-                        newRequest['${column.COLUMN_NAME}'] = sequelize.literal(\` (select referenceCd from reference where referenceMeaning = '\${request[key]}' and referenceSet = 'INSERT_REFERENCE_SET_HERE') \`);
-                        break;
-            `
-                    modelDocRequest.put.push(column.COLUMN_NAME, column.COLUMN_NAME+'Meaning');
-                } else {
-                    if(column.COLUMN_KEY > '') {
-                        if(column.COLUMN_KEY === 'PRI') {
-                            primaryKey = column.COLUMN_NAME;
-                            modelDocRequest.delete.push(column.COLUMN_NAME);
-                            modelDocRequest.primaryKey = column.COLUMN_NAME;
-                        }
-                        whereSwitch += `case '${column.COLUMN_NAME}':
-                        `;
-                        modelDocRequest.get.push(column.COLUMN_NAME);
-                        putSwitch += `case '${column.COLUMN_NAME}':
-                        `
-                    } else {
-                        putSwitch += `case '${column.COLUMN_NAME}':
-                        `
-                    }
-                    allPhysicalColumns.push(column.COLUMN_NAME);
-                    modelDocRequest.put.push(column.COLUMN_NAME);
+            sequelize.query(
+                `select column_name, referenced_table_name
+                from information_schema.KEY_COLUMN_USAGE 
+                where table_name = ? and table_schema = ? and referenced_table_name is not NULL
+                order by ordinal_position;`, 
+                {
+                    replacements: [tableSchema[0].table_schema, request.tableName],
+                    type: QueryTypes.SELECT
                 }
-            })
-            allColumnsSection += `newColumnsToReturn.push('${allPhysicalColumns.join("', '")}')
-            `;
-            functionRequest = {getSwitch, whereSwitch, putSwitch, tableName, primaryKey, referenceGetSwitch, referencePutSwitch, allColumnsSection};
-            if(request.createFunctionsFile == '1') {
-                const fileContents = generateModelFunctionsFile(functionRequest);
-                const fileName = `controller/functions/${request.tableName}Functions.js`
-                fs.writeFile(fileName, fileContents, function (err) {
-                    console.log('success');
-                });
-            }
-            
-            if(request.createRoutesFile == '1') {
-                const modelDocName = `controller/api/${request.tableName}-routes.js`;
-                const modelDocContents = generateRoutesFile(modelDocRequest);
-                fs.writeFile(modelDocName, modelDocContents, function (err) {
-                    console.log('success')
+            ).then(foreignKeys => {
+                foreignKeys.forEach(fk => {
+                    associations+= `
+                    ${request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1)}.belongsTo(${fk.referenced_table_name.charAt(0).toUpperCase() + fk.referenced_table_name.slice(1)}, {foreignKey: '${fk.column_name}', as: '${fk.column_name.slice(-2)}'})`
                 })
-            }
-            return({message: 'success'});
-        });
+                let associations = '';
+                let functionRequest = {};
+                console.log(tableColumns);
+                let getSwitch = '';
+                let whereSwitch = '';
+                let putSwitch = '';
+                let referenceGetSwitch = '';
+                let referencePutSwitch = '';
+                let allColumnsSection = '';
+                let allPhysicalColumns = [];
+                let modelDocRequest = {
+                    get: [],
+                    put: [],
+                    delete: [],
+                    tableName: request.tableName
+                };
+                let tableName = request.tableName;
+                tableColumns.forEach(column => {
+                    getSwitch += `case '${column.COLUMN_NAME}':
+                    `;
+                    if(column.COLUMN_NAME.slice(-2) === 'Cd' && column.COLUMN_KEY != 'PRI'){
+    
+                        referenceGetSwitch += `case '${column.COLUMN_NAME}Meaning':
+                        newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Meaning']);
+                        break;
+                    case '${column.COLUMN_NAME}Display':
+                        newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
+                        break;
+            `;
+    
+                        allColumnsSection += `newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Meaning']);
+                        newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = ${request.tableName}.${column.COLUMN_NAME})'), '${column.COLUMN_NAME}Display']);
+            `;
+    
+                        referencePutSwitch += `case '${column.COLUMN_NAME}Meaning':
+                            newRequest['${column.COLUMN_NAME}'] = sequelize.literal(\` (select referenceCd from reference where referenceMeaning = '\${request[key]}' and referenceSet = 'INSERT_REFERENCE_SET_HERE') \`);
+                            break;
+                `
+                        modelDocRequest.put.push(column.COLUMN_NAME, column.COLUMN_NAME+'Meaning');
+                    } else {
+                        if(column.COLUMN_KEY > '') {
+                            if(column.COLUMN_KEY === 'PRI') {
+                                primaryKey = column.COLUMN_NAME;
+                                modelDocRequest.delete.push(column.COLUMN_NAME);
+                                modelDocRequest.primaryKey = column.COLUMN_NAME;
+                            }
+                            if(column.COLUMN_KEY === 'FK')
+                            whereSwitch += `case '${column.COLUMN_NAME}':
+                            `;
+                            modelDocRequest.get.push(column.COLUMN_NAME);
+                            putSwitch += `case '${column.COLUMN_NAME}':
+                            `
+                        } else {
+                            putSwitch += `case '${column.COLUMN_NAME}':
+                            `
+                        }
+                        allPhysicalColumns.push(column.COLUMN_NAME);
+                        modelDocRequest.put.push(column.COLUMN_NAME);
+                    }
+                })
+                allColumnsSection += `newColumnsToReturn.push('${allPhysicalColumns.join("', '")}')
+                `;
+                functionRequest = {getSwitch, whereSwitch, putSwitch, tableName, primaryKey, referenceGetSwitch, referencePutSwitch, allColumnsSection, associations};
+                if(request.createFunctionsFile == '1') {
+                    const fileContents = generateFunctionsFile(functionRequest);
+                    const fileName = `controller/functions/${request.tableName}Functions.js`
+                    fs.writeFile(fileName, fileContents, function (err) {
+                        console.log('success');
+                    });
+                }
+                
+                if(request.createRoutesFile == '1') {
+                    const modelDocName = `controller/api/${request.tableName}-routes.js`;
+                    const modelDocContents = generateRoutesFile(modelDocRequest);
+                    fs.writeFile(modelDocName, modelDocContents, function (err) {
+                        console.log('success')
+                    })
+                }
+                return({message: 'success'});
+            })
+        })
     })
 }
 
-function generateModelFunctionsFile(request) {
+function generateFunctionsFile(request) {
     const snakeCase = request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1);
     return `const { ${snakeCase} } = require('../../models');
 const sequelize = require('../../config/connection');
+
+/*
+-------- Paste into models/index.js --------
+${request.associations}
+--------------------------------------------
+*/
 
 function get${snakeCase}Function(request) {
     let newColumnsToReturn = [];
@@ -209,4 +232,4 @@ module.exports = { get${snakeCase}Function, delete${snakeCase}Function, put${sna
 `
 }
 
-module.exports = createModelFile;
+module.exports = createModelFile, generateFunctionsFile;
