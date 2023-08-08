@@ -31,7 +31,7 @@ function createModelFile(request) {
                 console.log(foreignKeys);
                 foreignKeys.forEach(fk => {
                     associations+= `
-                    ${request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1)}.belongsTo(${fk.REFERENCED_TABLE_NAME.charAt(0).toUpperCase() + fk.REFERENCED_TABLE_NAME.slice(1)}, {foreignKey: '${fk.COLUMN_NAME}', as: '${fk.COLUMN_NAME.slice(2)}'})`
+                    ${request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1)}.belongsTo(${fk.REFERENCED_TABLE_NAME.charAt(0).toUpperCase() + fk.REFERENCED_TABLE_NAME.slice(1)}, {foreignKey: '${fk.COLUMN_NAME}', as: '${fk.COLUMN_NAME.substring(0, (fk.COLUMN_NAME.length - 2))}'})`
                 })
                 let functionRequest = {};
                 console.log(tableColumns);
