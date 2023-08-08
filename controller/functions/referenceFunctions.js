@@ -18,6 +18,7 @@ const sequelize = require('../../config/connection');
                     Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
                     Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
                     Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
 --------------------------------------------
 */
 
