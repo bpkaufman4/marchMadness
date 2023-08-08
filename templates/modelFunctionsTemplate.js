@@ -26,7 +26,7 @@ function createModelFile(request) {
                     replacements: [tableSchema[0].table_schema, request.tableName],
                     type: QueryTypes.SELECT
                 }
-            ).then(foreignKeys) => {
+            ).then(foreignKeys => {
                 console.log(foreignKeys);
                 return;
                 foreignKeys.forEach(fk => {
