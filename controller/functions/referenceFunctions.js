@@ -10,17 +10,15 @@ function getReferenceFunction(request) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'referenceCd':
-                    case 'referenceSet':
-                    case 'referenceMeaning':
-                    case 'display':
-                    case 'description':
-                    case 'activeInd':
-                    case 'created':
-                    case 'updated':
-                    
+                case 'referenceSet':
+                case 'referenceMeaning':
+                case 'display':
+                case 'description':
+                case 'activeInd':
+                case 'created':
+                case 'updated':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
-                
             }
         }
     }
