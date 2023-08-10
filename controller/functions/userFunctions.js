@@ -17,7 +17,7 @@ function getUserFunction(request) {
         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
         newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
-        includes.push({model: Post, as: request.columnsToReturn[i]});
+        includes.push({model: Post, as: 'posts'});
         newColumnsToReturn.push('userId', 'email', 'pwd', 'lastName', 'firstName', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn')
                 
     } else {
@@ -61,7 +61,7 @@ function getUserFunction(request) {
                         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
                         break;
                     case 'posts':
-                        includes.push({model: Post, as: 'posts'});
+                        includes.push({model: Post, as: request.columnsToReturn[i]});
                         break;
             
             }
