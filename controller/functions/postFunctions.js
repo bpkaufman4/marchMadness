@@ -1,13 +1,6 @@
 const { Post } = require('../../models');
 const sequelize = require('../../config/connection');
 
-/*
--------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
-
-                    Post.belongsTo(User, {foreignKey: 'userId', as: 'user'});
---------------------------------------------------------------------------------------------------------------------------------
-*/
-
 function getPostFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
