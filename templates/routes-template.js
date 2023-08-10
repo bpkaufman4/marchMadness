@@ -1,8 +1,9 @@
 function generateRoutesFile(request) {
     const snakeCase = request.tableName.charAt(0).toUpperCase() + request.tableName.slice(1);
-    return `
+    let returnValue = {};
+    returnValue.get = `
 const router = require('express').Router();
-const { put${snakeCase}Function, get${snakeCase}Function, delete${snakeCase}Function } = require('../functions/${request.tableName}Functions');
+const { get${snakeCase}Function } = require('../../functions/userFunctions');
 
 router.get('/get', (req, res) => {
     const requestFields = ['${request.get.join("', '")}'];
@@ -11,22 +12,6 @@ router.get('/get', (req, res) => {
 
     res.render('modelFileExercisor', renderData);
 });
-
-router.get('/put', (req, res) => {
-    const requestFields = ['${request.put.join("', '")}'];
-    const endpoint = '${request.tableName}/put';
-    const renderData = {requestFields, endpoint};
-
-    res.render('modelFileExercisor', renderData);
-})
-
-router.get('/delete', (req, res) => {
-    const requestFields = ['${request.delete.join("', '")}'];
-    const endpoint = '${request.tableName}/delete';
-    const renderData = {requestFields, endpoint};
-
-    res.render('modelFileExercisor', renderData);
-})
 
 router.post('/get', (req, res) => {
     let request = req.body;
@@ -41,6 +26,20 @@ router.post('/get', (req, res) => {
     })
 });
 
+module.exports = router;`;
+
+returnValue.put = `
+const router = require('express').Router();
+const { put${snakeCase}Function } = require('../../functions/userFunctions');
+
+router.get('/put', (req, res) => {
+    const requestFields = ['${request.put.join("', '")}'];
+    const endpoint = '${request.tableName}/put';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+})
+
 router.post('/put', (req, res) => {
     const request = req.body;
     put${snakeCase}Function(request)
@@ -53,6 +52,21 @@ router.post('/put', (req, res) => {
     })
 });
 
+module.exports = router;`;
+
+returnValue.delete = `
+const router = require('express').Router();
+const { delete${snakeCase}Function } = require('../../functions/userFunctions');
+
+router.get('/delete', (req, res) => {
+    const requestFields = ['${request.delete.join("', '")}'];
+    const endpoint = '${request.tableName}/delete';
+    const renderData = {requestFields, endpoint};
+
+    res.render('modelFileExercisor', renderData);
+})
+
+
 router.post('/delete', (req, res) => {
     const request = req.body;
     delete${snakeCase}Function(request)
@@ -64,8 +78,9 @@ router.post('/delete', (req, res) => {
     })
 });
 
-module.exports = router;
-    `
+module.exports = router;`
+
+    return returnValue;
 }
 
 
