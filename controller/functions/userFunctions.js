@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const { User, Post } = require('../../models');
 const sequelize = require('../../config/connection');
 
 /*
@@ -60,7 +60,7 @@ function getUserFunction(request) {
                         newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
                         break;
                     case 'posts':
-                        includes.push(request.columnsToReturn[i]);
+                        includes.push({model: Post, as: request.columnsToReturn[i]});
                         break;
             
             }
