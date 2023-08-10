@@ -79,15 +79,14 @@ function putReferenceFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'referenceCd':
-                            case 'referenceSet':
-                            case 'referenceMeaning':
-                            case 'display':
-                            case 'description':
-                            case 'activeInd':
-                            case 'created':
-                            case 'updated':
-                            
-                newRequest[key] = request[key];
+                case 'referenceSet':
+                case 'referenceMeaning':
+                case 'display':
+                case 'description':
+                case 'activeInd':
+                case 'created':
+                case 'updated':
+                    newRequest[key] = request[key];
                 break;
                 
             }
