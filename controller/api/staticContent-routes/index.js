@@ -1,12 +1,5 @@
 const router = require('express').Router();
 
-/*
-------------------------------Paste into api/index.js----------------------------------
-const staticContentRoutes = require('./staticContent-routes');
-router.use('/staticContent', staticContentRoutes);
----------------------------------------------------------------------------------------
-*/
-
 const getRoutes = require('./get');
 const putRoutes = require('./put');
 const deleteRoutes = require('./delete');
