@@ -105,7 +105,7 @@ function createModelFile(request) {
                 
                 if(request.createRoutesFile == '1') {
                     const directory = `controller/api/${request.tableName}-routes`;
-                    const contents = generateFunctionsFile(modelDocRequest);
+                    const contents = generateRoutesFile(modelDocRequest);
                     if(!fs.existsSync(directory)) {
                         fs.mkdirSync(directory);
                     }
