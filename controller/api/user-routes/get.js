@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { getUserFunction } = require('../../functions/userFunctions');
+const { getUserFunction } = require('../../functions/UserFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['userId', 'email', 'lastName', 'emailVerifyGUID'];

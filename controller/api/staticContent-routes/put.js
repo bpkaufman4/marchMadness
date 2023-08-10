@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { putStaticContentFunction } = require('../../functions/userFunctions');
+const { putStaticContentFunction } = require('../../functions/StaticContentFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['contentType', 'title', 'permalink', 'content', 'SEOTitle', 'SEOKeywords', 'SEODescription', 'articleData', 'parsedElements', 'created', 'updated'];

@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { putUserFunction } = require('../../functions/userFunctions');
+const { putUserFunction } = require('../../functions/UserFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['userId', 'email', 'pwd', 'lastName', 'firstName', 'statusCd', 'statusCdMeaning', 'userTypeCd', 'userTypeCdMeaning', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn'];

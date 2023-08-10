@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { getPostFunction } = require('../../functions/userFunctions');
+const { getPostFunction } = require('../../functions/PostFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['postId', 'userId'];

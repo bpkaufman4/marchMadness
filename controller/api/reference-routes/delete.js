@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { deleteReferenceFunction } = require('../../functions/userFunctions');
+const { deleteReferenceFunction } = require('../../functions/ReferenceFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['referenceCd'];

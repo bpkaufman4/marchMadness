@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { deleteChangeLogFunction } = require('../../functions/userFunctions');
+const { deleteChangeLogFunction } = require('../../functions/ChangeLogFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['changeLogId'];
