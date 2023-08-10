@@ -96,6 +96,7 @@ function getUserFunction(request) {
             resolve(dbData)
         })
         .catch(err => {
+            console.log(err);
             resolve({status: 'FAIL'})
         })
     })
