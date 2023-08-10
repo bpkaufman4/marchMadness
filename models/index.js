@@ -7,6 +7,7 @@ const Post = require('../models/Post');
 
 User.belongsTo(Reference, {foreignKey: 'statusCd', as: 'userStatus'});
 User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
+
 Post.belongsTo(User, {foreignKey: 'userId', as: 'user'});
 User.hasMany(Post, {foreignKey: 'userId', as: 'posts'});
 
