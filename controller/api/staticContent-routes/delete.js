@@ -1,23 +1,22 @@
 
 const router = require('express').Router();
-const { getStaticContentFunction } = require('../../functions/userFunctions');
+const { deleteStaticContentFunction } = require('../../functions/userFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['contentType'];
-    const endpoint = 'staticContent/get';
+    const endpoint = 'staticContent/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
-});
+})
+
 
 router.post('', (req, res) => {
-    let request = req.body;
-
-    getStaticContentFunction(request)
+    const request = req.body;
+    deleteStaticContentFunction(request)
     .then(returnValue => {
-        res.json(returnValue)
-    })
-    .catch(err => {
+        res.json(returnValue);
+    }).catch(err => {
         console.log(err);
         res.status(500).json(err);
     })

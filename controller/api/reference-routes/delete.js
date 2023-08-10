@@ -1,23 +1,22 @@
 
 const router = require('express').Router();
-const { getReferenceFunction } = require('../../functions/userFunctions');
+const { deleteReferenceFunction } = require('../../functions/userFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['referenceCd', 'referenceSet', 'referenceMeaning'];
-    const endpoint = 'reference/get';
+    const requestFields = ['referenceCd'];
+    const endpoint = 'reference/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
-});
+})
+
 
 router.post('', (req, res) => {
-    let request = req.body;
-
-    getReferenceFunction(request)
+    const request = req.body;
+    deleteReferenceFunction(request)
     .then(returnValue => {
-        res.json(returnValue)
-    })
-    .catch(err => {
+        res.json(returnValue);
+    }).catch(err => {
         console.log(err);
         res.status(500).json(err);
     })

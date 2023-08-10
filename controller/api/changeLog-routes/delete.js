@@ -1,23 +1,22 @@
 
 const router = require('express').Router();
-const { getChangeLogFunction } = require('../../functions/userFunctions');
+const { deleteChangeLogFunction } = require('../../functions/userFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['changeLogId', 'userId'];
-    const endpoint = 'changeLog/get';
+    const requestFields = ['changeLogId'];
+    const endpoint = 'changeLog/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
-});
+})
+
 
 router.post('', (req, res) => {
-    let request = req.body;
-
-    getChangeLogFunction(request)
+    const request = req.body;
+    deleteChangeLogFunction(request)
     .then(returnValue => {
-        res.json(returnValue)
-    })
-    .catch(err => {
+        res.json(returnValue);
+    }).catch(err => {
         console.log(err);
         res.status(500).json(err);
     })
