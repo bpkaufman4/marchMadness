@@ -110,6 +110,8 @@ function createModelFile(request) {
                         fs.mkdirSync(directory);
                     }
 
+                    console.log(contents); return;
+
                     fs.writeFile(`${directory}/get.js`, contents.get, function (err) {
                         console.log(`get ${request.tableName} success`);
                     });
