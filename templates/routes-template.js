@@ -82,6 +82,13 @@ module.exports = router;`
 
 returnValue.index = `const router = require('express').Router();
 
+/*
+------------------------------Paste into api/index.js----------------------------------
+const ${request.tableName}Routes = require('./${request.tableName}-routes');
+router.use('/${request.tableName}', ${request.tableName}Routes);
+---------------------------------------------------------------------------------------
+*/
+
 const getRoutes = require('./get');
 const putRoutes = require('./put');
 const deleteRoutes = require('./delete');
