@@ -2,7 +2,7 @@
 const router = require('express').Router();
 const { getReferenceFunction } = require('../../functions/userFunctions');
 
-router.get('/get', (req, res) => {
+router.get('', (req, res) => {
     const requestFields = ['referenceCd', 'referenceSet', 'referenceMeaning'];
     const endpoint = 'reference/get';
     const renderData = {requestFields, endpoint};
@@ -10,7 +10,7 @@ router.get('/get', (req, res) => {
     res.render('modelFileExercisor', renderData);
 });
 
-router.post('/get', (req, res) => {
+router.post('', (req, res) => {
     let request = req.body;
 
     getReferenceFunction(request)

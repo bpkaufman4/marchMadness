@@ -119,6 +119,9 @@ function createModelFile(request) {
                     fs.writeFile(`${directory}/delete.js`, contents.get, function (err) {
                         console.log(`delete ${request.tableName} success`);
                     });
+                    fs.writeFile(`${directory}/index.js`, contents.index, function (err) {
+                        console.log(`index ${request.tableName} success`);
+                    });
                 }
                 return({message: 'success'});
             })
