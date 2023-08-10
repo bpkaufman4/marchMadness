@@ -104,11 +104,21 @@ function createModelFile(request) {
                 }
                 
                 if(request.createRoutesFile == '1') {
-                    const modelDocName = `controller/api/${request.tableName}-routes.js`;
-                    const modelDocContents = generateRoutesFile(modelDocRequest);
-                    fs.writeFile(modelDocName, modelDocContents, function (err) {
-                        console.log('success')
-                    })
+                    const directory = `controller/api/${request.tableName}-routes`;
+                    const contents = generateFunctionsFile(modelDocRequest);
+                    if(!jf.existsSync(directory)) {
+                        fs.mkdirSync(directory);
+                    }
+
+                    fs.writeFile(`${directory}/get.js`, contents.get, function (err) {
+                        console.log(`get ${request.tableName} success`);
+                    });
+                    fs.writeFile(`${directory}/put.js`, contents.get, function (err) {
+                        console.log(`put ${request.tableName} success`);
+                    });
+                    fs.writeFile(`${directory}/delete.js`, contents.get, function (err) {
+                        console.log(`delete ${request.tableName} success`);
+                    });
                 }
                 return({message: 'success'});
             })
