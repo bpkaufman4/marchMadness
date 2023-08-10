@@ -113,10 +113,10 @@ function createModelFile(request) {
                     fs.writeFile(`${directory}/get.js`, contents.get, function (err) {
                         console.log(`get ${request.tableName} success`);
                     });
-                    fs.writeFile(`${directory}/put.js`, contents.get, function (err) {
+                    fs.writeFile(`${directory}/put.js`, contents.put, function (err) {
                         console.log(`put ${request.tableName} success`);
                     });
-                    fs.writeFile(`${directory}/delete.js`, contents.get, function (err) {
+                    fs.writeFile(`${directory}/delete.js`, contents.delete, function (err) {
                         console.log(`delete ${request.tableName} success`);
                     });
                     fs.writeFile(`${directory}/index.js`, contents.index, function (err) {
