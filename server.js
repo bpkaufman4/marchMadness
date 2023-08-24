@@ -5,7 +5,7 @@ const sequelize = require('./config/connection');
 const app = express();
 
 app.use((req, res) => {
-    console.log(req);
+    console.log(req.json);
 });
 const PORT = process.env.PORT || 3001;
 const path = require('path');
