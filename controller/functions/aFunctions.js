@@ -11,7 +11,7 @@ function getAFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push('')
-                
+                    
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
