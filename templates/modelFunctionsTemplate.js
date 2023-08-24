@@ -18,6 +18,9 @@ function createModelFile(request) {
                 type: QueryTypes.SELECT
             }
         ).then(tableColumns => {
+            if(tableColumns.length == 0) {
+                return({message: 'No table found'});
+            }
             sequelize.query(
                 `select column_name, referenced_table_name
                 from information_schema.KEY_COLUMN_USAGE 
