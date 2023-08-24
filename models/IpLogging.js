@@ -27,6 +27,33 @@ IpLogging.init(
         }
     },
     {
+        indexes: [
+            {
+                name: 'ipLoggingNDX1',
+                using: 'BTREE',
+                fields: ['created']
+            },
+            {
+                name: 'ipLoggingNDX2',
+                using: 'BTREE',
+                fields: ['script_name', 'created']
+            },
+            {
+                name: 'ipLoggingNDX3',
+                using: 'BTREE',
+                fields: ['http_x_real_ip', 'created']
+            },
+            {
+                name: 'ipLoggingNDX4',
+                using: 'BTREE',
+                fields: ['remote_addr', 'created']
+            },
+            {
+                name: 'ipLoggingNDX5',
+                using: 'BTREE',
+                fields: ['userId', 'created']
+            }
+        ],
         sequelize,
         timestamps: true,
         createdAt: 'created',
