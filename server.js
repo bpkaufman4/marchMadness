@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
-    console.log(req.socket);
+    console.log(req.socket.remoteAddress);
     putIpLoggingFunction({remote_addr: req.socket.remoteAddress});
     next();
 });
