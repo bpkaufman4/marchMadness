@@ -5,6 +5,7 @@ const generateRoutesFile = require('./routes-template');
 
 function createModelFile(request) {
     let primaryKey;
+    console.log(request);
     sequelize.query('select database() table_schema')
     .then(([tableSchema, metadata]) => {
         sequelize.query(
