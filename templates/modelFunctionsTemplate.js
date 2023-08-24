@@ -150,6 +150,7 @@ ${request.associations}
 
 function get${snakeCase}Function(request) {
     let newColumnsToReturn = [];
+    let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         ${request.allColumnsSection}
     } else {
@@ -182,6 +183,7 @@ function get${snakeCase}Function(request) {
             limit: Number(request.pageSize),
             offset:((Number(request.page) - 1)*Number(request.pageSize))
         };
+        if(includes.length > 0) findRequest['include'] = includes;
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         ${snakeCase}.findAll(findRequest)
