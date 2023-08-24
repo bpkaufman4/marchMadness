@@ -38,7 +38,6 @@ function createModelFile(request) {
                 if(tableColumns.length == 0){
                     return({message: 'No table found'});
                 }
-                console.log('should not get here');
                 let getSwitch = '';
                 let whereSwitch = '';
                 let putSwitch = '';
@@ -127,6 +126,8 @@ function createModelFile(request) {
                         console.log(`index ${request.tableName} success`);
                     });
                 }
+                
+                console.log('should not get here');
                 return({message: 'success'});
             })
         })
