@@ -59,6 +59,7 @@ function getUserFunction(request) {
                     break;
                 case 'posts':
                     newColumnsToReturn.push({model: Post, as: 'posts'});
+                    break;
             }
         }
     }
