@@ -2,6 +2,7 @@
 const express = require('express');
 const controller = require('./controller');
 const sequelize = require('./config/connection');
+const { QueryTypes } = require('sequelize');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const path = require('path');
@@ -21,10 +22,6 @@ const sess = {
 };
 
 
-app.use((req, res, next) => {
-    console.log(req);
-    next();
-});
 
 app.use(session(sess));
 app.engine('handlebars', hbs.engine);
@@ -38,6 +35,10 @@ app.use(controller);
 
 
 sequelize.sync({ alter: false }).then(() => {
+    app.use((req, res, next) => {
+        console.log(req);
+        next();
+    });
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
     });
