@@ -10,18 +10,16 @@ function getChangeLogFunction(request) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'changeLogId':
-                        case 'changeDetails':
-                        case 'changeDateTime':
-                        case 'userId':
-                        case 'parentId':
-                        case 'parentName':
-                        case 'templateType':
-                        case 'created':
-                        case 'updated':
-                        
+                case 'changeDetails':
+                case 'changeDateTime':
+                case 'userId':
+                case 'parentId':
+                case 'parentName':
+                case 'templateType':
+                case 'created':
+                case 'updated':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
-                
             }
         }
     }
@@ -32,7 +30,6 @@ function getChangeLogFunction(request) {
     for(key in request) {
         switch(key) {
             case 'userId':
-                                
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -81,18 +78,16 @@ function putChangeLogFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'changeLogId':
-                                case 'changeDetails':
-                                case 'changeDateTime':
-                                case 'userId':
-                                case 'parentId':
-                                case 'parentName':
-                                case 'templateType':
-                                case 'created':
-                                case 'updated':
-                                
-                newRequest[key] = request[key];
-                break;
-                
+                case 'changeDetails':
+                case 'changeDateTime':
+                case 'userId':
+                case 'parentId':
+                case 'parentName':
+                case 'templateType':
+                case 'created':
+                case 'updated':
+                    newRequest[key] = request[key];
+                    break;
             }
         }
     }
