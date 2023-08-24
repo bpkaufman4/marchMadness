@@ -3,7 +3,7 @@ function generateRoutesFile(request) {
     let returnValue = {};
     returnValue.get = `
 const router = require('express').Router();
-const { get${snakeCase}Function } = require('../../functions/${snakeCase}Functions');
+const { get${snakeCase}Function } = require('../../functions/${request.tableName}Functions');
 
 router.get('', (req, res) => {
     const requestFields = ['${request.get.join("', '")}'];
@@ -30,7 +30,7 @@ module.exports = router;`;
 
 returnValue.put = `
 const router = require('express').Router();
-const { put${snakeCase}Function } = require('../../functions/${snakeCase}Functions');
+const { put${snakeCase}Function } = require('../../functions/${request.tableName}Functions');
 
 router.get('', (req, res) => {
     const requestFields = ['${request.put.join("', '")}'];
@@ -56,7 +56,7 @@ module.exports = router;`;
 
 returnValue.delete = `
 const router = require('express').Router();
-const { delete${snakeCase}Function } = require('../../functions/${snakeCase}Functions');
+const { delete${snakeCase}Function } = require('../../functions/${request.tableName}Functions');
 
 router.get('', (req, res) => {
     const requestFields = ['${request.delete.join("', '")}'];
