@@ -4,6 +4,7 @@ const { QueryTypes } = require('sequelize');
 const generateRoutesFile = require('./routes-template');
 
 function createModelFile(request) {
+    return({message: 'No table found'});
     let primaryKey;
     sequelize.query('select database() table_schema')
     .then(([tableSchema, metadata]) => {
