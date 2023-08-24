@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const { User, Post } = require('../../models');
 const sequelize = require('../../config/connection');
 
 /*
@@ -22,44 +22,43 @@ function getUserFunction(request) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'userId':
-                        case 'email':
-                        case 'pwd':
-                        case 'lastName':
-                        case 'firstName':
-                        case 'statusCd':
-                        case 'userTypeCd':
-                        case 'lastLoginDate':
-                        case 'lastIP':
-                        case 'primaryPhone':
-                        case 'cellPhone':
-                        case 'state':
-                        case 'zip':
-                        case 'emailVerifyGUID':
-                        case 'emailVerifyExpire':
-                        case 'timeZoneId':
-                        case 'lastActiveDateTime':
-                        case 'profilePictureURL':
-                        case 'profilePictureLocal':
-                        case 'created':
-                        case 'updated':
-                        case 'deletedAt':
-                        case 'bksTestColumn':
-                        
+                case 'email':
+                case 'pwd':
+                case 'lastName':
+                case 'firstName':
+                case 'statusCd':
+                case 'userTypeCd':
+                case 'lastLoginDate':
+                case 'lastIP':
+                case 'primaryPhone':
+                case 'cellPhone':
+                case 'state':
+                case 'zip':
+                case 'emailVerifyGUID':
+                case 'emailVerifyExpire':
+                case 'timeZoneId':
+                case 'lastActiveDateTime':
+                case 'profilePictureURL':
+                case 'profilePictureLocal':
+                case 'created':
+                case 'updated':
+                case 'posts':
+                case 'deletedAt':
+                case 'bksTestColumn':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 case 'statusCdMeaning':
-                            newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
-                            break;
-                        case 'statusCdDisplay':
-                            newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
-                            break;
+                    newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
+                    break;
+                case 'statusCdDisplay':
+                    newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
+                    break;
                 case 'userTypeCdMeaning':
-                            newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
-                            break;
-                        case 'userTypeCdDisplay':
-                            newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
-                            break;
-                
+                    newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
+                    break;
+                case 'userTypeCdDisplay':
+                    newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
+                    break;
             }
         }
     }
