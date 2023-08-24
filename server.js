@@ -3,10 +3,6 @@ const express = require('express');
 const controller = require('./controller');
 const sequelize = require('./config/connection');
 const app = express();
-
-app.use((req, res) => {
-    console.log(req);
-});
 const PORT = process.env.PORT || 3001;
 const path = require('path');
 const exphbs = require('express-handlebars');
@@ -24,6 +20,10 @@ const sess = {
     })
 };
 
+
+app.use((req, res) => {
+    console.log(req);
+});
 
 app.use(session(sess));
 app.engine('handlebars', hbs.engine);
