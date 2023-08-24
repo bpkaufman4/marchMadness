@@ -34,8 +34,8 @@ function getReferenceSetsFunction(request) {
     for(key in request) {
         switch(key) {
             
-                if(request[key] > '') whereRequest[key] = request[key];
-                break;
+                // if(request[key] > '') whereRequest[key] = request[key];
+                // break;
         }
     }
 
