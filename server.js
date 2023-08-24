@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
     console.log(req);
-    putIpLoggingFunction({request_uri: req.socket.remoteAddress});
+    putIpLoggingFunction({remote_addr: req.socket.remoteAddress});
     next();
 });
 app.use(controller);
