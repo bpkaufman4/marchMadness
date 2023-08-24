@@ -59,7 +59,8 @@ IpLogging.init(
         createdAt: 'created',
         updatedAt: 'updated',
         freezeTableName: true,
-        modelName: 'ipLogging'
+        modelName: 'ipLogging',
+        paranoid: true
     }
 );
 
