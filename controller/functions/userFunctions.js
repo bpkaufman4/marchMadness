@@ -94,11 +94,11 @@ function getUserFunction(request) {
         if(includes.length > 0) findRequest['include'] = includes;
         User.findAll(findRequest)
         .then(dbData => {
-            resolve(dbData)
+            resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
             console.log(err);
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err});
         })
     })
 }
