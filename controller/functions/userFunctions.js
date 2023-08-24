@@ -88,6 +88,7 @@ function getUserFunction(request) {
             offset:((Number(request.page) - 1)*Number(request.pageSize))
         };
         if(includes.length > 0) findRequest['includes'] = includes;
+        console.log(includes);
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         User.findAll(findRequest)
