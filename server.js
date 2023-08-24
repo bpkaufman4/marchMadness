@@ -21,9 +21,6 @@ const sess = {
 };
 
 
-app.use((req, res) => {
-    console.log(req);
-});
 
 app.use(session(sess));
 app.engine('handlebars', hbs.engine);
