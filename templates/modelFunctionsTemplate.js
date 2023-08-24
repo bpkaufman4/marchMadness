@@ -35,6 +35,7 @@ function createModelFile(request) {
                 })
                 let functionRequest = {};
                 console.log(tableColumns);
+                if(tableColumns.length == 0) return({message: 'No table found'});
                 let getSwitch = '';
                 let whereSwitch = '';
                 let putSwitch = '';
