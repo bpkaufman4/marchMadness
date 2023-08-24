@@ -41,7 +41,6 @@ function getUserFunction(request) {
                 case 'profilePictureLocal':
                 case 'created':
                 case 'updated':
-                case 'posts':
                 case 'deletedAt':
                 case 'bksTestColumn':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
@@ -58,6 +57,8 @@ function getUserFunction(request) {
                 case 'userTypeCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
                     break;
+                case 'posts':
+                    newColumnsToReturn.push({model: Post, as: 'posts'});
             }
         }
     }
