@@ -1,69 +1,65 @@
-const { User, Post } = require('../../models');
+const { User } = require('../../models');
 const sequelize = require('../../config/connection');
 
 /*
--------- Paste into models/index.js --------
+-------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
 
-                    User.belongsTo(Reference, {foreignKey: 'statusCd', as: 'status'});
-                    User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
---------------------------------------------
+                        User.belongsTo(Reference, {foreignKey: 'statusCd', as: 'status'});
+                        User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
+--------------------------------------------------------------------------------------------------------------------------------
 */
 
 function getUserFunction(request) {
     let newColumnsToReturn = [];
-    let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
-        newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
-        newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
-        newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
-        includes.push({model: Post, as: 'posts'});
-        newColumnsToReturn.push('userId', 'email', 'pwd', 'lastName', 'firstName', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn')
-                
+                            newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
+                newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
+                            newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
+                newColumnsToReturn.push('userId', 'email', 'pwd', 'lastName', 'firstName', 'lastLoginDate', 'lastIP', 'primaryPhone', 'cellPhone', 'state', 'zip', 'emailVerifyGUID', 'emailVerifyExpire', 'timeZoneId', 'lastActiveDateTime', 'profilePictureURL', 'profilePictureLocal', 'created', 'updated', 'deletedAt', 'bksTestColumn')
+                    
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'userId':
-                case 'email':
-                case 'pwd':
-                case 'lastName':
-                case 'firstName':
-                case 'statusCd':
-                case 'userTypeCd':
-                case 'lastLoginDate':
-                case 'lastIP':
-                case 'primaryPhone':
-                case 'cellPhone':
-                case 'state':
-                case 'zip':
-                case 'emailVerifyGUID':
-                case 'emailVerifyExpire':
-                case 'timeZoneId':
-                case 'lastActiveDateTime':
-                case 'profilePictureURL':
-                case 'profilePictureLocal':
-                case 'created':
-                case 'updated':
-                case 'deletedAt':
-                case 'bksTestColumn':        
+                        case 'email':
+                        case 'pwd':
+                        case 'lastName':
+                        case 'firstName':
+                        case 'statusCd':
+                        case 'userTypeCd':
+                        case 'lastLoginDate':
+                        case 'lastIP':
+                        case 'primaryPhone':
+                        case 'cellPhone':
+                        case 'state':
+                        case 'zip':
+                        case 'emailVerifyGUID':
+                        case 'emailVerifyExpire':
+                        case 'timeZoneId':
+                        case 'lastActiveDateTime':
+                        case 'profilePictureURL':
+                        case 'profilePictureLocal':
+                        case 'created':
+                        case 'updated':
+                        case 'deletedAt':
+                        case 'bksTestColumn':
+                        
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 case 'statusCdMeaning':
-                    newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
-                    break;
-                case 'statusCdDisplay':
-                    newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
-                    break;
+                            newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.statusCd)'), 'statusCdMeaning']);
+                            break;
+                        case 'statusCdDisplay':
+                            newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.statusCd)'), 'statusCdDisplay']);
+                            break;
                 case 'userTypeCdMeaning':
-                    newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
-                    break;
-                case 'userTypeCdDisplay':
-                    newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
-                    break;
-                case 'posts':
-                    includes.push({model: Post, as: request.columnsToReturn[i]});
-                    break;
-            
+                            newColumnsToReturn.push([sequelize.literal('(select referenceMeaning from reference where referenceCd = user.userTypeCd)'), 'userTypeCdMeaning']);
+                            break;
+                        case 'userTypeCdDisplay':
+                            newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
+                            break;
+                
             }
         }
     }
@@ -74,8 +70,8 @@ function getUserFunction(request) {
     for(key in request) {
         switch(key) {
             case 'lastName':
-                            case 'emailVerifyGUID':
-                            
+                                case 'emailVerifyGUID':
+                                
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -91,14 +87,12 @@ function getUserFunction(request) {
         };
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
-        if(includes.length > 0) findRequest['include'] = includes;
         User.findAll(findRequest)
         .then(dbData => {
             resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
-            console.log(err);
-            resolve({status: 'FAIL', reply: err});
+            resolve({status: 'FAIL', reply: err})
         })
     })
 }
@@ -111,7 +105,7 @@ function deleteUserFunction(request) {
             }
         })
         .then(dbData => {
-            resolve(dbData);
+            resolve({status: 'SUCCESS', reply:dbData});
         })
         .catch(err => {
             resolve({status: 'FAIL'})
@@ -126,36 +120,36 @@ function putUserFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'userId':
-                            case 'email':
-                            case 'pwd':
-                            case 'lastName':
-                            case 'firstName':
-                            case 'lastLoginDate':
-                            case 'lastIP':
-                            case 'primaryPhone':
-                            case 'cellPhone':
-                            case 'state':
-                            case 'zip':
-                            case 'emailVerifyGUID':
-                            case 'emailVerifyExpire':
-                            case 'timeZoneId':
-                            case 'lastActiveDateTime':
-                            case 'profilePictureURL':
-                            case 'profilePictureLocal':
-                            case 'created':
-                            case 'updated':
-                            case 'deletedAt':
-                            case 'bksTestColumn':
-                            
+                                case 'email':
+                                case 'pwd':
+                                case 'lastName':
+                                case 'firstName':
+                                case 'lastLoginDate':
+                                case 'lastIP':
+                                case 'primaryPhone':
+                                case 'cellPhone':
+                                case 'state':
+                                case 'zip':
+                                case 'emailVerifyGUID':
+                                case 'emailVerifyExpire':
+                                case 'timeZoneId':
+                                case 'lastActiveDateTime':
+                                case 'profilePictureURL':
+                                case 'profilePictureLocal':
+                                case 'created':
+                                case 'updated':
+                                case 'deletedAt':
+                                case 'bksTestColumn':
+                                
                 newRequest[key] = request[key];
                 break;
                 case 'statusCdMeaning':
-                            newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'INSERT_REFERENCE_SET_HERE') `);
-                            break;
-                case 'userTypeCdMeaning':
-                            newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'INSERT_REFERENCE_SET_HERE') `);
-                            break;
-                
+                                newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'INSERT_REFERENCE_SET_HERE') `);
+                                break;
+                    case 'userTypeCdMeaning':
+                                newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'INSERT_REFERENCE_SET_HERE') `);
+                                break;
+                    
             }
         }
     }
@@ -167,18 +161,18 @@ function putUserFunction(request) {
                 }
             })
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply:err});
             });
         } else {
             User.create(newRequest)
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply: err});
             });
         }
     })

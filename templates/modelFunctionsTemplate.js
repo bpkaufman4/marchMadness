@@ -203,7 +203,7 @@ function delete${snakeCase}Function(request) {
             resolve({status: 'SUCCESS', reply:dbData});
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err});
         })
     });
 }
