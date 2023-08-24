@@ -3,8 +3,8 @@ const generateFunctionsFile = require('../../templates/modelFunctionsTemplate');
 
 router.post('/generateFunctionsFile', (req, res) => {
     const request = req.body;
-    generateFunctionsFile(request);
-    res.json({message: 'Success'});
+    const generateFunctions = generateFunctionsFile(request);
+    res.json({status: 'Success', message: generateFunctions.message});
 });
 
 module.exports = router;
