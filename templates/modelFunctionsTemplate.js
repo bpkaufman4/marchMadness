@@ -184,10 +184,10 @@ function get${snakeCase}Function(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         ${snakeCase}.findAll(findRequest)
         .then(dbData => {
-            resolve(dbData)
+            resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err})
         })
     })
 }
@@ -200,7 +200,7 @@ function delete${snakeCase}Function(request) {
             }
         })
         .then(dbData => {
-            resolve(dbData);
+            resolve({status: 'SUCCESS', reply:dbData});
         })
         .catch(err => {
             resolve({status: 'FAIL'})
@@ -229,18 +229,18 @@ function put${snakeCase}Function(request) {
                 }
             })
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply:err});
             });
         } else {
             ${snakeCase}.create(newRequest)
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply: err});
             });
         }
     })
