@@ -108,6 +108,7 @@ User.init(
                 ]
             },
             {
+                name: 'userAK1',
                 unique: true,
                 fields: ['email']
             }
