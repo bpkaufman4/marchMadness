@@ -1,13 +1,5 @@
-const { User, Post } = require('../../models');
+const { User } = require('../../models');
 const sequelize = require('../../config/connection');
-
-/*
--------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
-
-                        User.belongsTo(Reference, {foreignKey: 'statusCd', as: 'status'});
-                        User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
---------------------------------------------------------------------------------------------------------------------------------
-*/
 
 function getUserFunction(request) {
     let newColumnsToReturn = [];
@@ -72,8 +64,7 @@ function getUserFunction(request) {
     for(key in request) {
         switch(key) {
             case 'lastName':
-                                case 'emailVerifyGUID':
-                                
+            case 'emailVerifyGUID':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
