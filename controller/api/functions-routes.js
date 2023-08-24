@@ -3,7 +3,7 @@ const generateFunctionsFile = require('../../templates/modelFunctionsTemplate');
 
 router.post('/generateFunctionsFile', (req, res) => {
     const request = req.body;
-    generateFunctionsFile(request);
+    console.log(generateFunctionsFile(request));
     res.json({message: 'Success'});
 });
 
