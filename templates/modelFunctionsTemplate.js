@@ -245,4 +245,4 @@ module.exports = { get${snakeCase}Function, delete${snakeCase}Function, put${sna
 `
 }
 
-module.exports = createModelFile, generateFunctionsFile;
+module.exports = {createModelFile, generateFunctionsFile};
