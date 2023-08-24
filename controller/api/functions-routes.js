@@ -4,6 +4,7 @@ const {createModelFile} = require('../../templates/modelFunctionsTemplate');
 router.post('/generateFunctionsFile', (req, res) => {
     const request = req.body;
     const createModel = createModelFile(request);
+    console.log(createModel);
     res.json({status: 'Success', message: createModel.message});
 });
 
