@@ -15,7 +15,7 @@ function getReferenceSetsFunction(request) {
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
-                case 'referenceSet':
+                    case 'referenceSet':
                     case 'display':
                     case 'description':
                     case 'deletableInd':
@@ -33,7 +33,7 @@ function getReferenceSetsFunction(request) {
 
     for(key in request) {
         switch(key) {
-            
+            case 'referenceSet':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
