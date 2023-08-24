@@ -20,7 +20,8 @@ function createModelFile(request) {
                 }
             ).then(tableColumns => {
                 if(tableColumns.length == 0) {
-                    resolve({status: 'FAIL', message: 'No table found'})
+                    resolve({status: 'FAIL', message: 'No table found'});
+                    return;
                 }
                 sequelize.query(
                     `select column_name, referenced_table_name
@@ -129,6 +130,7 @@ function createModelFile(request) {
                         });
                     }
                     resolve({status: 'SUCCESS'});
+                    return;
                 })
             })
         })

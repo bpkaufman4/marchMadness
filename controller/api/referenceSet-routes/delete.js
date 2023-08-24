@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { deleteReferenceSetsFunction } = require('../../functions/referenceSetsFunctions');
+const { deleteReferenceSetFunction } = require('../../functions/referenceSetFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['referenceSet'];
-    const endpoint = 'referenceSets/delete';
+    const requestFields = [''];
+    const endpoint = 'referenceSet/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -13,7 +13,7 @@ router.get('', (req, res) => {
 
 router.post('', (req, res) => {
     const request = req.body;
-    deleteReferenceSetsFunction(request)
+    deleteReferenceSetFunction(request)
     .then(returnValue => {
         res.json(returnValue);
     }).catch(err => {

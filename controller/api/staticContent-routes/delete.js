@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { deleteStaticContentFunction } = require('../../functions/StaticContentFunctions');
+const { deleteStaticContentFunction } = require('../../functions/staticContentFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['contentType'];

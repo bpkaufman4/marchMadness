@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { getUserFunction } = require('../../functions/userFunctions');
+const { getReferenceSetFunction } = require('../../functions/referenceSetFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['userId', 'email', 'lastName', 'emailVerifyGUID'];
-    const endpoint = 'user/get';
+    const requestFields = [''];
+    const endpoint = 'referenceSet/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
@@ -13,7 +13,7 @@ router.get('', (req, res) => {
 router.post('', (req, res) => {
     let request = req.body;
 
-    getUserFunction(request)
+    getReferenceSetFunction(request)
     .then(returnValue => {
         res.json(returnValue)
     })

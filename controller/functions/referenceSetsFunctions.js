@@ -11,16 +11,16 @@ function getReferenceSetsFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push('referenceSet', 'display', 'description', 'deletableInd', 'created')
-                
+                    
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
-                    case 'referenceSet':
-                    case 'display':
-                    case 'description':
-                    case 'deletableInd':
-                    case 'created':
-                    
+                case 'referenceSet':
+                        case 'display':
+                        case 'description':
+                        case 'deletableInd':
+                        case 'created':
+                        
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 
@@ -33,7 +33,7 @@ function getReferenceSetsFunction(request) {
 
     for(key in request) {
         switch(key) {
-            case 'referenceSet':
+            
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -51,10 +51,10 @@ function getReferenceSetsFunction(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         ReferenceSets.findAll(findRequest)
         .then(dbData => {
-            resolve(dbData)
+            resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err})
         })
     })
 }
@@ -67,10 +67,10 @@ function deleteReferenceSetsFunction(request) {
             }
         })
         .then(dbData => {
-            resolve(dbData);
+            resolve({status: 'SUCCESS', reply:dbData});
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err});
         })
     });
 }
@@ -82,11 +82,11 @@ function putReferenceSetsFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'referenceSet':
-                            case 'display':
-                            case 'description':
-                            case 'deletableInd':
-                            case 'created':
-                            
+                                case 'display':
+                                case 'description':
+                                case 'deletableInd':
+                                case 'created':
+                                
                 newRequest[key] = request[key];
                 break;
                 
@@ -101,18 +101,18 @@ function putReferenceSetsFunction(request) {
                 }
             })
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply:err});
             });
         } else {
             ReferenceSets.create(newRequest)
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply: err});
             });
         }
     })

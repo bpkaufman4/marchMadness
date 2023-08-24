@@ -1,4 +1,4 @@
-const { StaticContent } = require('../../models');
+const { ReferenceSet } = require('../../models');
 const sequelize = require('../../config/connection');
 
 /*
@@ -7,26 +7,15 @@ const sequelize = require('../../config/connection');
 --------------------------------------------------------------------------------------------------------------------------------
 */
 
-function getStaticContentFunction(request) {
+function getReferenceSetFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
-        newColumnsToReturn.push('contentType', 'title', 'permalink', 'content', 'SEOTitle', 'SEOKeywords', 'SEODescription', 'articleData', 'parsedElements', 'created', 'updated')
+        newColumnsToReturn.push('')
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
-                case 'contentType':
-                        case 'title':
-                        case 'permalink':
-                        case 'content':
-                        case 'SEOTitle':
-                        case 'SEOKeywords':
-                        case 'SEODescription':
-                        case 'articleData':
-                        case 'parsedElements':
-                        case 'created':
-                        case 'updated':
-                        
+                
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 
@@ -55,7 +44,7 @@ function getStaticContentFunction(request) {
         };
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
-        StaticContent.findAll(findRequest)
+        ReferenceSet.findAll(findRequest)
         .then(dbData => {
             resolve({status: 'SUCCESS', reply: dbData})
         })
@@ -65,11 +54,11 @@ function getStaticContentFunction(request) {
     })
 }
 
-function deleteStaticContentFunction(request) {
+function deleteReferenceSetFunction(request) {
     return new Promise((resolve, reject) => {
-        StaticContent.destroy({
+        ReferenceSet.destroy({
             where: {
-                contentType: request.contentType
+                undefined: request.undefined
             }
         })
         .then(dbData => {
@@ -81,24 +70,13 @@ function deleteStaticContentFunction(request) {
     });
 }
 
-function putStaticContentFunction(request) {
+function putReferenceSetFunction(request) {
     let newRequest = {};
     let binds = {};
     for(const key in request) {
         if(request[key] > '') {
             switch(key) {
-                case 'contentType':
-                                case 'title':
-                                case 'permalink':
-                                case 'content':
-                                case 'SEOTitle':
-                                case 'SEOKeywords':
-                                case 'SEODescription':
-                                case 'articleData':
-                                case 'parsedElements':
-                                case 'created':
-                                case 'updated':
-                                
+                
                 newRequest[key] = request[key];
                 break;
                 
@@ -106,10 +84,10 @@ function putStaticContentFunction(request) {
         }
     }
     return new Promise((resolve, reject) => {
-        if(request.contentType) {
-            StaticContent.update(newRequest, {
+        if(request.undefined) {
+            ReferenceSet.update(newRequest, {
                 where: {
-                    contentType: request.contentType
+                    undefined: request.undefined
                 }
             })
             .then(dbData => {
@@ -119,7 +97,7 @@ function putStaticContentFunction(request) {
                 resolve({status: 'FAIL', reply:err});
             });
         } else {
-            StaticContent.create(newRequest)
+            ReferenceSet.create(newRequest)
             .then(dbData => {
                 resolve({status: 'SUCCESS', reply:dbData});
             })
@@ -130,4 +108,4 @@ function putStaticContentFunction(request) {
     })
 }
 
-module.exports = { getStaticContentFunction, deleteStaticContentFunction, putStaticContentFunction };
+module.exports = { getReferenceSetFunction, deleteReferenceSetFunction, putReferenceSetFunction };
