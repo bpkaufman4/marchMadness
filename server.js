@@ -21,8 +21,9 @@ const sess = {
 };
 
 
-app.use((req, res) => {
+app.use((req, res, next) => {
     console.log(req);
+    next();
 });
 
 app.use(session(sess));
