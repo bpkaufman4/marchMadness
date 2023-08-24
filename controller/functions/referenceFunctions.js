@@ -4,25 +4,25 @@ const sequelize = require('../../config/connection');
 /*
 -------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
 
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                    Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
+                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
 --------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -30,19 +30,19 @@ function getReferenceFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push('referenceCd', 'referenceSet', 'referenceMeaning', 'display', 'description', 'activeInd', 'created', 'updated')
-                
+                    
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'referenceCd':
-                    case 'referenceSet':
-                    case 'referenceMeaning':
-                    case 'display':
-                    case 'description':
-                    case 'activeInd':
-                    case 'created':
-                    case 'updated':
-                    
+                        case 'referenceSet':
+                        case 'referenceMeaning':
+                        case 'display':
+                        case 'description':
+                        case 'activeInd':
+                        case 'created':
+                        case 'updated':
+                        
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 
@@ -56,8 +56,8 @@ function getReferenceFunction(request) {
     for(key in request) {
         switch(key) {
             case 'referenceSet':
-                            case 'referenceMeaning':
-                            
+                                case 'referenceMeaning':
+                                
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -75,10 +75,10 @@ function getReferenceFunction(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         Reference.findAll(findRequest)
         .then(dbData => {
-            resolve(dbData)
+            resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err})
         })
     })
 }
@@ -91,10 +91,10 @@ function deleteReferenceFunction(request) {
             }
         })
         .then(dbData => {
-            resolve(dbData);
+            resolve({status: 'SUCCESS', reply:dbData});
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err});
         })
     });
 }
@@ -106,14 +106,14 @@ function putReferenceFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'referenceCd':
-                            case 'referenceSet':
-                            case 'referenceMeaning':
-                            case 'display':
-                            case 'description':
-                            case 'activeInd':
-                            case 'created':
-                            case 'updated':
-                            
+                                case 'referenceSet':
+                                case 'referenceMeaning':
+                                case 'display':
+                                case 'description':
+                                case 'activeInd':
+                                case 'created':
+                                case 'updated':
+                                
                 newRequest[key] = request[key];
                 break;
                 
@@ -128,18 +128,18 @@ function putReferenceFunction(request) {
                 }
             })
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply:err});
             });
         } else {
             Reference.create(newRequest)
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply: err});
             });
         }
     })

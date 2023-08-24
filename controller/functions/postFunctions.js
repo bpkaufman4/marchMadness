@@ -4,7 +4,7 @@ const sequelize = require('../../config/connection');
 /*
 -------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
 
-                    Post.belongsTo(User, {foreignKey: 'userId', as: 'user'});
+                        Post.belongsTo(User, {foreignKey: 'userId', as: 'user'});
 --------------------------------------------------------------------------------------------------------------------------------
 */
 
@@ -12,17 +12,17 @@ function getPostFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push('postId', 'userId', 'content', 'created', 'updated', 'deletedAt')
-                
+                    
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'postId':
-                    case 'userId':
-                    case 'content':
-                    case 'created':
-                    case 'updated':
-                    case 'deletedAt':
-                    
+                        case 'userId':
+                        case 'content':
+                        case 'created':
+                        case 'updated':
+                        case 'deletedAt':
+                        
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 
@@ -36,7 +36,7 @@ function getPostFunction(request) {
     for(key in request) {
         switch(key) {
             case 'userId':
-                            
+                                
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -54,10 +54,10 @@ function getPostFunction(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         Post.findAll(findRequest)
         .then(dbData => {
-            resolve(dbData)
+            resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err})
         })
     })
 }
@@ -70,10 +70,10 @@ function deletePostFunction(request) {
             }
         })
         .then(dbData => {
-            resolve(dbData);
+            resolve({status: 'SUCCESS', reply:dbData});
         })
         .catch(err => {
-            resolve({status: 'FAIL'})
+            resolve({status: 'FAIL', reply: err});
         })
     });
 }
@@ -85,12 +85,12 @@ function putPostFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'postId':
-                            case 'userId':
-                            case 'content':
-                            case 'created':
-                            case 'updated':
-                            case 'deletedAt':
-                            
+                                case 'userId':
+                                case 'content':
+                                case 'created':
+                                case 'updated':
+                                case 'deletedAt':
+                                
                 newRequest[key] = request[key];
                 break;
                 
@@ -105,18 +105,18 @@ function putPostFunction(request) {
                 }
             })
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply:err});
             });
         } else {
             Post.create(newRequest)
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
-                resolve({status: 'FAIL'});
+                resolve({status: 'FAIL', reply: err});
             });
         }
     })

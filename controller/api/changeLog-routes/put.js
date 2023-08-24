@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { putChangeLogFunction } = require('../../functions/ChangeLogFunctions');
+const { putChangeLogFunction } = require('../../functions/changeLogFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['changeLogId', 'changeDetails', 'changeDateTime', 'userId', 'parentId', 'parentName', 'templateType', 'created', 'updated'];

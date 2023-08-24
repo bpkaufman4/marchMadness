@@ -11,4 +11,7 @@ User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
 Post.belongsTo(User, {foreignKey: 'userId', as: 'user'});
 User.hasMany(Post, {foreignKey: 'userId', as: 'posts'});
 
+ChangeLog.belongsTo(User, {foreignKey: 'userId', as: 'user'});
+User.hasMany(ChangeLog, {foreignKey: 'userId', as: 'changeLogs'});
+
 module.exports = { User, Reference, ReferenceSet, StaticContent, ChangeLog, Post };
