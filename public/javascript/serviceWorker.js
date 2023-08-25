@@ -1,7 +1,7 @@
 const cacheName = 'node-cache';
 const toCache = [
     '/'
-]
+];
 
 self.addEventListener('install', function (e) {
     e.waitUntil(
