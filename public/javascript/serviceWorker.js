@@ -27,3 +27,15 @@ self.addEventListener('activate', e => {
         .then(() => self.clients.claim())
     )
 })
+
+self.addEventListener('fetch', e => {
+    e.respondWith(
+        fetch(e.request)
+        .catch(() => {
+            return caches.open(cacheName)
+            .then(cache => {
+                return cache.match(event.request)
+            })
+        })
+    )
+})
