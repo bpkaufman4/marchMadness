@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', init, false);
 function init() {
     if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/serviceWorker.js')
+        navigator.serviceWorker.register('javascript/serviceWorker.js')
         .then(reg => {
             console.log('Service sorker registered -->', reg);
         }, err => {
