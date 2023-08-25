@@ -5,7 +5,7 @@ function init() {
         .then(reg => {
             console.log('Service sorker registered -->', reg);
         }, err => {
-            console.error('Service worker not registered ==> ', err);
+            console.error('Service worker not registered --> ', err);
         })
     }
 }
