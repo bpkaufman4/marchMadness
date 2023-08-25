@@ -9,6 +9,21 @@ self.addEventListener('install', function (e) {
         .then(cache => {
             return cache.addAll(toCache)
         })
-        .then(self.skipWaiting());
+        .then(self.skipWaiting())
+    )
+});
+
+self.addEventListener('activate', e => {
+    e.waitUntil(
+        caches.keys()
+        .then(keyList => {
+            return Promise.all(keyList.map(key => {
+                if(key !== cacheName) {
+                    console.log('[ServiceWorker] Removing old cache', key)
+                    return caches.delete(key)
+                }
+            }))
+        })
+        .then(() => self.clients.claim())
     )
 })
