@@ -4,9 +4,9 @@
     "description": "Progressive Web App example to be used in conjuction with the article in LogRocket",
     "icons": [
       {
-        "src": "./images/spash-screen-image-512x512-pwa.avif",
+        "src": "./images/spash-screen-image-512x512-pwa.webp",
         "sizes": "512x512",
-        "type": "image/png"
+        "type": "image/webp"
       }
     ],
     "start_url": "/",
