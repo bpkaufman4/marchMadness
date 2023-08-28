@@ -1,20 +1,26 @@
 const { ReferenceSets } = require('../../models');
 const sequelize = require('../../config/connection');
 
+/*
+-------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
+
+--------------------------------------------------------------------------------------------------------------------------------
+*/
+
 function getReferenceSetsFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push('referenceSet', 'display', 'description', 'deletableInd', 'created')
-            
+                    
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'referenceSet':
-                case 'display':
-                case 'description':
-                case 'deletableInd':
-                case 'created':
-                
+                        case 'display':
+                        case 'description':
+                        case 'deletableInd':
+                        case 'created':
+                        
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 
@@ -28,7 +34,6 @@ function getReferenceSetsFunction(request) {
     for(key in request) {
         switch(key) {
             case 'referenceSet':
-                        
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -46,7 +51,10 @@ function getReferenceSetsFunction(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         ReferenceSets.findAll(findRequest)
         .then(dbData => {
-            resolve(dbData)
+            resolve({status: 'SUCCESS', reply: dbData})
+        })
+        .catch(err => {
+            resolve({status: 'FAIL', reply: err})
         })
     })
 }
@@ -59,24 +67,30 @@ function deleteReferenceSetsFunction(request) {
             }
         })
         .then(dbData => {
-            resolve(dbData);
+            resolve({status: 'SUCCESS', reply:dbData});
+        })
+        .catch(err => {
+            resolve({status: 'FAIL', reply: err});
         })
     });
 }
 
 function putReferenceSetsFunction(request) {
     let newRequest = {};
+    let binds = {};
     for(const key in request) {
-        switch(key) {
-            case 'referenceSet':
-                        case 'display':
-                        case 'description':
-                        case 'deletableInd':
-                        case 'created':
-                        
-            if(request[key] > '') newRequest[key] = request[key];
-            break;
-            
+        if(request[key] > '') {
+            switch(key) {
+                case 'referenceSet':
+                                case 'display':
+                                case 'description':
+                                case 'deletableInd':
+                                case 'created':
+                                
+                newRequest[key] = request[key];
+                break;
+                
+            }
         }
     }
     return new Promise((resolve, reject) => {
@@ -87,12 +101,18 @@ function putReferenceSetsFunction(request) {
                 }
             })
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
+            })
+            .catch(err => {
+                resolve({status: 'FAIL', reply:err});
             });
         } else {
             ReferenceSets.create(newRequest)
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
+            })
+            .catch(err => {
+                resolve({status: 'FAIL', reply: err});
             });
         }
     })

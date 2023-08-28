@@ -5,7 +5,7 @@ function getChangeLogFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
         newColumnsToReturn.push('changeLogId', 'changeDetails', 'changeDateTime', 'userId', 'parentId', 'parentName', 'templateType', 'created', 'updated')
-            
+                    
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
@@ -18,10 +18,8 @@ function getChangeLogFunction(request) {
                 case 'templateType':
                 case 'created':
                 case 'updated':
-                
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
-                
             }
         }
     }
@@ -31,9 +29,7 @@ function getChangeLogFunction(request) {
 
     for(key in request) {
         switch(key) {
-            case 'changeLogId':
-                        case 'userId':
-                        
+            case 'userId':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -51,7 +47,10 @@ function getChangeLogFunction(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         ChangeLog.findAll(findRequest)
         .then(dbData => {
-            resolve(dbData)
+            resolve({status: 'SUCCESS', reply: dbData})
+        })
+        .catch(err => {
+            resolve({status: 'FAIL', reply: err})
         })
     })
 }
@@ -64,28 +63,32 @@ function deleteChangeLogFunction(request) {
             }
         })
         .then(dbData => {
-            resolve(dbData);
+            resolve({status: 'SUCCESS', reply:dbData});
+        })
+        .catch(err => {
+            resolve({status: 'FAIL', reply: err});
         })
     });
 }
 
 function putChangeLogFunction(request) {
     let newRequest = {};
+    let binds = {};
     for(const key in request) {
-        switch(key) {
-            case 'changeLogId':
-                        case 'changeDetails':
-                        case 'changeDateTime':
-                        case 'userId':
-                        case 'parentId':
-                        case 'parentName':
-                        case 'templateType':
-                        case 'created':
-                        case 'updated':
-                        
-            if(request[key] > '') newRequest[key] = request[key];
-            break;
-            
+        if(request[key] > '') {
+            switch(key) {
+                case 'changeLogId':
+                case 'changeDetails':
+                case 'changeDateTime':
+                case 'userId':
+                case 'parentId':
+                case 'parentName':
+                case 'templateType':
+                case 'created':
+                case 'updated':
+                    newRequest[key] = request[key];
+                    break;
+            }
         }
     }
     return new Promise((resolve, reject) => {
@@ -96,12 +99,18 @@ function putChangeLogFunction(request) {
                 }
             })
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
+            })
+            .catch(err => {
+                resolve({status: 'FAIL', reply:err});
             });
         } else {
             ChangeLog.create(newRequest)
             .then(dbData => {
-                resolve(dbData);
+                resolve({status: 'SUCCESS', reply:dbData});
+            })
+            .catch(err => {
+                resolve({status: 'FAIL', reply: err});
             });
         }
     })

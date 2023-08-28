@@ -13,7 +13,6 @@ router.get('/adminUsers', (req, res) => {
 router.get('/userUsers', (req, res) => {
     User.findAll()
     .then(dbUserData => {
-        console.log(dbUserData);
         res.render('users');
     })
 });

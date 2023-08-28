@@ -1,31 +1,27 @@
-const { StaticContent } = require('../../models');
+const { Post } = require('../../models');
 const sequelize = require('../../config/connection');
 
 /*
 -------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
 
+                        Post.belongsTo(User, {foreignKey: 'userId', as: 'user'});
 --------------------------------------------------------------------------------------------------------------------------------
 */
 
-function getStaticContentFunction(request) {
+function getPostFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
-        newColumnsToReturn.push('contentType', 'title', 'permalink', 'content', 'SEOTitle', 'SEOKeywords', 'SEODescription', 'articleData', 'parsedElements', 'created', 'updated')
+        newColumnsToReturn.push('postId', 'userId', 'content', 'created', 'updated', 'deletedAt')
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
-                case 'contentType':
-                        case 'title':
-                        case 'permalink':
+                case 'postId':
+                        case 'userId':
                         case 'content':
-                        case 'SEOTitle':
-                        case 'SEOKeywords':
-                        case 'SEODescription':
-                        case 'articleData':
-                        case 'parsedElements':
                         case 'created':
                         case 'updated':
+                        case 'deletedAt':
                         
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
@@ -39,7 +35,8 @@ function getStaticContentFunction(request) {
 
     for(key in request) {
         switch(key) {
-            
+            case 'userId':
+                                
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -55,7 +52,7 @@ function getStaticContentFunction(request) {
         };
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
-        StaticContent.findAll(findRequest)
+        Post.findAll(findRequest)
         .then(dbData => {
             resolve({status: 'SUCCESS', reply: dbData})
         })
@@ -65,11 +62,11 @@ function getStaticContentFunction(request) {
     })
 }
 
-function deleteStaticContentFunction(request) {
+function deletePostFunction(request) {
     return new Promise((resolve, reject) => {
-        StaticContent.destroy({
+        Post.destroy({
             where: {
-                contentType: request.contentType
+                postId: request.postId
             }
         })
         .then(dbData => {
@@ -81,23 +78,18 @@ function deleteStaticContentFunction(request) {
     });
 }
 
-function putStaticContentFunction(request) {
+function putPostFunction(request) {
     let newRequest = {};
     let binds = {};
     for(const key in request) {
         if(request[key] > '') {
             switch(key) {
-                case 'contentType':
-                                case 'title':
-                                case 'permalink':
+                case 'postId':
+                                case 'userId':
                                 case 'content':
-                                case 'SEOTitle':
-                                case 'SEOKeywords':
-                                case 'SEODescription':
-                                case 'articleData':
-                                case 'parsedElements':
                                 case 'created':
                                 case 'updated':
+                                case 'deletedAt':
                                 
                 newRequest[key] = request[key];
                 break;
@@ -106,10 +98,10 @@ function putStaticContentFunction(request) {
         }
     }
     return new Promise((resolve, reject) => {
-        if(request.contentType) {
-            StaticContent.update(newRequest, {
+        if(request.postId) {
+            Post.update(newRequest, {
                 where: {
-                    contentType: request.contentType
+                    postId: request.postId
                 }
             })
             .then(dbData => {
@@ -119,7 +111,7 @@ function putStaticContentFunction(request) {
                 resolve({status: 'FAIL', reply:err});
             });
         } else {
-            StaticContent.create(newRequest)
+            Post.create(newRequest)
             .then(dbData => {
                 resolve({status: 'SUCCESS', reply:dbData});
             })
@@ -130,4 +122,4 @@ function putStaticContentFunction(request) {
     })
 }
 
-module.exports = { getStaticContentFunction, deleteStaticContentFunction, putStaticContentFunction };
+module.exports = { getPostFunction, deletePostFunction, putPostFunction };

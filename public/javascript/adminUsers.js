@@ -68,11 +68,11 @@ function getUsers(){
 	return;
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
-
+return;
 	getobj('usersTable').innerHTML='';
 	
 	var request={};
-	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay', 'bksTestColumn'];
+	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'userStatus', 'userType', 'bksTestColumn'];
 	request.statusCdMeaning = 'ACTIVE';
 	fetchTable('allUsersDiv', 'api/user/get', request, 2)
 	.then(data => {

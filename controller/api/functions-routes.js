@@ -1,10 +1,11 @@
 const router = require('express').Router();
-const generateFunctionsFile = require('../../templates/modelFunctionsTemplate');
+const {createModelFile} = require('../../templates/modelFunctionsTemplate');
 
 router.post('/generateFunctionsFile', (req, res) => {
     const request = req.body;
-    generateFunctionsFile(request);
-    res.json({message: 'Success'});
+    createModelFile(request).then(response => {
+        res.json(response);
+    });
 });
 
 module.exports = router;
