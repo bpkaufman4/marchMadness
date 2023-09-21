@@ -3,13 +3,11 @@ const { User } = require('../models');
 const { getUserFunction } = require('./functions/userFunctions');
 
 router.get('/adminUsers', (req, res) => {
-    let request = {};
-    request.columnsToReturn = ['firstName', 'lastName'];
-    getUserFunction(request)
-    .then(users => {
-        let userData = users.map(user => user.get({plain: true}));
-        res.render('users', {users: userData, layout: 'admin'});
-    })
+    request = {};
+    request.columnsToReturn ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay'];
+    getUserFunction(request).then(users => {
+        res.render('users', {layout: 'admin', users});
+    });
 });
 
 router.get('/userUsers', (req, res) => {

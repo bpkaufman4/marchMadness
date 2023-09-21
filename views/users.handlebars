@@ -87,6 +87,15 @@
                     </tr>
                 </thead>
                 <tbody id="usersTable">
+					{{#each users}}
+						<tr>
+							<td>{{firstName}} {{lastName}}</td>
+							<td>{{email}}</td>
+							<td>{{userTypeCd}}</td>
+							<td>{{statusCd}}</td>
+							<td></td>
+						</tr>
+					{{/each}}
                 </tbody>
             </table>
 			<div class="loading"><div class=""></div></div>
