@@ -15,4 +15,9 @@ router.post('/generateRoutesFile', (req, res) => {
     })
 });
 
+router.post('/getUseCases', (req, res) => {
+    const request = req.body;
+    res.json({message: 'Success'});
+})
+
 module.exports = router;
