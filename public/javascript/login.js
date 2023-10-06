@@ -9,7 +9,7 @@ async function signupFormHandler(event) {
     const response = await fetchTable('emailSignup', 'api/user/put', {email, pwd, firstName, lastName, statusCdMeaning: 'ACTIVE', userTypeCdMeaning: 'USER'}, 1);
     console.log(response);
 
-    if(response.ok) {
+    if(response.status == 'SUCCESS') {
         console.log('success');
         document.location.replace('/');
     } else {
