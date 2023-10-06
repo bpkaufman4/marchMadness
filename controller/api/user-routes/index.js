@@ -24,6 +24,7 @@ router.post('/login', (req, res) => {
         where: {email: request.email}
     })
     .then(reply => {
+        console.log(reply);
         if(!reply || !reply.checkPassword(request.password)) {
             returnValue.status = 'SUCCESS';
             returnValue.message = 'Invalid Login';
