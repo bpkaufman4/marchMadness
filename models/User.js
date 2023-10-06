@@ -12,6 +12,7 @@ class User extends Model {
     }
 };
 
+
 User.init(
     {
         userId: {
@@ -23,7 +24,6 @@ User.init(
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
             validate: {
                 isEmail: true
             }
@@ -107,6 +107,11 @@ User.init(
                 fields: [
                     'emailVerifyGUID'
                 ]
+            },
+            {
+                name: 'userAK1',
+                unique: true,
+                fields: ['email']
             }
         ],
         sequelize,

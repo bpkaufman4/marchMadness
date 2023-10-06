@@ -28,7 +28,7 @@ function processUsers(data) {
 		name.classList.add('fullNameHide', 'SHOWALL');
 		name.setAttribute('tabindex', 0);
 		name.setAttribute('onclick', editUser);
-		name.innerText = u.fullName;
+		name.innerText = u.firstName + ' ' + u.lastName;
 		row.appendChild(name);
 		
 		const email = makeElem('td');
@@ -65,15 +65,16 @@ function processUsers(data) {
 }
 
 function getUsers(){
+	return;
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
-
+return;
 	getobj('usersTable').innerHTML='';
 	
 	var request={};
-	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdMeaning', 'userTypeCdMeaning', 'userTypeCdDisplay', 'statusCdDisplay', 'bksTestColumn'];
-
-	fetchTable('allUsersDiv', 'users/getUser', request, 2)
+	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'userStatus', 'userType', 'bksTestColumn'];
+	request.statusCdMeaning = 'ACTIVE';
+	fetchTable('allUsersDiv', 'api/user/get', request, 2)
 	.then(data => {
 		processUsers(data);
 		console.log(data);

@@ -1,0 +1,3 @@
+const config = {
+    variablePrefix: 'bootstrapSandbox'
+};
