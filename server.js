@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 app.use(controller);
 
 
-sequelize.sync({ alter: false }).then(() => {
+sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
     });
