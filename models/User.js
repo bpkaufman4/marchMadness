@@ -12,6 +12,7 @@ class User extends Model {
     }
 };
 
+
 User.init(
     {
         userId: {
