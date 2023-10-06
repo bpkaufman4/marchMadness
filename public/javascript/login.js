@@ -5,7 +5,7 @@ async function signupFormHandler(event) {
     const password = getobj('passwordSignup').value;
     const firstName = getobj('firstName').value;
 
-    const response = await fetchTable('emailSignup', 'api/user/put', {email, password, firstName}, 1);
+    const response = await fetchTable('emailSignup', 'api/user/put', {email, pwd, firstName, lastName, statusCdMeaning: 'ACTIVE', userTypeCdMeaning: 'USER'}, 1);
     console.log(response);
 
     if(response.ok) {
