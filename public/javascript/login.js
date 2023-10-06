@@ -7,7 +7,7 @@ async function signupFormHandler(event) {
     const lastName = getobj('lastName').value;
 
     const request = {email, pwd, firstName, lastName, statusCdMeaning: 'ACTIVE', userTypeCdMeaning: 'USER'};
-    
+
     const response = await fetchTable('emailSignup', 'api/user/put', request, 1);
     console.log(response);
 
@@ -24,20 +24,9 @@ async function loginFormHandler(event) {
     const email = getobj('emailLogin').value;
     const pwd = getobj('passwordLogin').value;
 
-    const response = await fetchTable('api/users/login', {
-        method:'post',
-        body: JSON.stringify({
-            email,
-            pwd
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    });
+    const response = await fetchTable('emailLogin', 'api/user/login', {email, pwd}, 1);
 
-    if(response.ok) {
-        document.location.replace('/');
-    } else {
-        alert(JSON.stringify(response));
-    }
+    console.log(response);
 }
 
 getobj('signupForm').addEventListener('submit', signupFormHandler);
