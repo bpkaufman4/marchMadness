@@ -5,15 +5,8 @@ async function signupFormHandler(event) {
     const password = getobj('passwordSignup').value;
     const firstName = getobj('firstName').value;
 
-    const response = await fetch('api/users', {
-        method:'post',
-        body: JSON.stringify({
-            email,
-            password,
-            firstName
-        }),
-        headers: { 'Content-Type': 'application/json'}
-    });
+    const response = await fetchTable('emailSignup', 'api/user/put', {email, password, firstName}, 1);
+    console.log(response);
 
     if(response.ok) {
         console.log('success');
