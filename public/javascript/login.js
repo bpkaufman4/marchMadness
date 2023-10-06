@@ -14,8 +14,6 @@ async function signupFormHandler(event) {
         document.location.replace('/');
     } else {
         console.log(response);
-        alert(response.statusText);
-        debugger;
     }
 }
 
