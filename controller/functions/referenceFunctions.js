@@ -1,31 +1,5 @@
 const { Reference } = require('../../models');
 const sequelize = require('../../config/connection');
-
-/*
--------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
-
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
-                        Reference.belongsTo(Referencesets, {foreignKey: 'referenceSet', as: 'referenceS'});
---------------------------------------------------------------------------------------------------------------------------------
-*/
-
 function getReferenceFunction(request) {
     let newColumnsToReturn = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
