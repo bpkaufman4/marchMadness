@@ -3,7 +3,6 @@ const express = require('express');
 const controller = require('./controller');
 const sequelize = require('./config/connection');
 const { QueryTypes } = require('sequelize');
-const { putIpLoggingFunction } = require('./controller/functions/ipLoggingFunctions');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const path = require('path');
@@ -32,14 +31,10 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
-    putIpLoggingFunction({remote_addr: req.socket.remoteAddress, request_uri: req.url, http_x_real_ip: req.url});
-    next();
-});
 app.use(controller);
 
 
-sequelize.sync({ alter: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
     });

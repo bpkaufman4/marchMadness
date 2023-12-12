@@ -1,18 +1,15 @@
 const User = require('../models/User');
 const Reference = require('../models/Reference');
 const ReferenceSet = require('../models/ReferenceSet');
-const StaticContent = require('../models/StaticContent');
-const ChangeLog = require('../models/ChangeLog');
-const Post = require('../models/Post');
-const IpLogging = require('../models/IpLogging');
+const ApiTeam = require('../models/ApiTeam');
+const Event = require('../models/Event');
+const League = require('../models/League');
+const Player = require('../models/Player');
+const PlayerTeam = require('../models/PlayerTeam');
+const Statistic = require('../models/Statistic');
+const Team = require('../models/Team');
 
 User.belongsTo(Reference, {foreignKey: 'statusCd', as: 'userStatus'});
 User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
 
-Post.belongsTo(User, {foreignKey: 'userId', as: 'user'});
-User.hasMany(Post, {foreignKey: 'userId', as: 'posts'});
-
-ChangeLog.belongsTo(User, {foreignKey: 'userId', as: 'user'});
-User.hasMany(ChangeLog, {foreignKey: 'userId', as: 'changeLogs'});
-
-module.exports = { User, Reference, ReferenceSet, StaticContent, ChangeLog, Post, IpLogging };
+module.exports = { User, Reference, ReferenceSet, ApiTeam, Event, League, Player, PlayerTeam, Statistic, Team };

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const fs = require('fs');
 const generateRoutesFile = require('../../templates/routes-template');
+const { createModelFile } = require('../../templates/modelFunctionsTemplate');
 
 router.post('/generateRoutesFile', (req, res) => {
     const request = req.body;
@@ -15,8 +16,9 @@ router.post('/generateRoutesFile', (req, res) => {
     })
 });
 
-router.post('/getUseCases', (req, res) => {
+router.post('/createModelFile', (req, res) => {
     const request = req.body;
+    createModelFile(request);
     res.json({message: 'Success'});
 })
 

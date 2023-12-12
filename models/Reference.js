@@ -22,8 +22,7 @@ Reference.init(
             }
         },
         referenceMeaning: {
-            type: DataTypes.UUID,
-            allowNull: false,
+            type: DataTypes.STRING
         },
         display: {
             type: DataTypes.STRING,
@@ -46,7 +45,7 @@ Reference.init(
         sequelize,
         timestamps: true,
         createdAt: 'created',
-        updatedAt: 'updated',
+        updatedAt: false,
         freezeTableName: true,
         underscored: false,
         modelName: 'reference'
