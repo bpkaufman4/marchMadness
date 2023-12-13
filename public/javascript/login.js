@@ -6,7 +6,7 @@ async function loginFormHandler(event) {
     const response = await fetchTable('emailLogin', 'api/user/login', {email, pwd}, 1);
 
     if(response.message == 'SUCCESS') {
-        document.location.replace('/');
+        document.location.replace('/home');
     } else {
         alert(response.message);
     }

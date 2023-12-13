@@ -16,19 +16,21 @@ function getLeagueFunction(request) {
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
+            let column = request.columnsToReturn[i];
             switch(request.columnsToReturn[i]) {
                 case 'leagueId':
-                        case 'name':
-                        case 'ownerId':
-                        case 'privateInd':
-                        case 'password':
-                        case 'createdAt':
-                        case 'updatedAt':
-                        case 'deletedAt':
-                        
-                    newColumnsToReturn.push(request.columnsToReturn[i]);
+                case 'name':
+                case 'ownerId':
+                case 'privateInd':
+                case 'password':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
+                    newColumnsToReturn.push(column);
+                    break;                
+                case 'owner':
+                    includes.push(column);
                     break;
-                
             }
         }
     }
@@ -39,7 +41,7 @@ function getLeagueFunction(request) {
     for(key in request) {
         switch(key) {
             case 'ownerId':
-                                
+            case 'leagueId':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -59,7 +61,8 @@ function getLeagueFunction(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         League.findAll(findRequest)
         .then(dbData => {
-            resolve({status: 'SUCCESS', reply: dbData})
+            let reply = dbData.map(league => league.get({plain: true}));
+            resolve({status: 'SUCCESS', reply: reply})
         })
         .catch(err => {
             resolve({status: 'FAIL', reply: err})

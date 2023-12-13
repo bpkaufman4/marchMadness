@@ -83,7 +83,8 @@ function getUserFunction(request) {
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         User.findAll(findRequest)
         .then(dbData => {
-            resolve({status: 'SUCCESS', reply: dbData})
+            let reply = dbData.map(user => user.get({plain: true}));
+            resolve({status: 'SUCCESS', reply: reply});
         })
         .catch(err => {
             resolve({status: 'FAIL', reply: err})

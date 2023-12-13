@@ -15,8 +15,9 @@ globals['columnInputs'].forEach(inp => {
 	})
 });
 
-function processUsers(data) {
-	data.forEach(u => {
+function processUsers(reply) {
+	let users = reply.reply;
+	users.forEach(u => {
 		const row = makeElem('tr');
 		row.id=u.userId;
 		
@@ -65,19 +66,17 @@ function processUsers(data) {
 }
 
 function getUsers(){
-	return;
 	getobj('addUserDiv').style.display='none';
 	getobj('allUsersDiv').style.display='block';
-return;
 	getobj('usersTable').innerHTML='';
 	
 	var request={};
-	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'userStatus', 'userType', 'bksTestColumn'];
+	request.columnsToReturn = ['userId', 'firstName', 'lastName', 'email', 'fullName', 'statusCdDisplay', 'userTypeCdDisplay', 'bksTestColumn'];
 	request.statusCdMeaning = 'ACTIVE';
 	fetchTable('allUsersDiv', 'api/user/get', request, 2)
 	.then(data => {
-		processUsers(data);
 		console.log(data);
+		processUsers(data);
 	});
 }
 
