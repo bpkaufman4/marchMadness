@@ -1,14 +1,9 @@
 async function logout() {
-    const response = await fetch('api/users/logout', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json'}
+    let request = {};
+    fetchTable('logout', 'api/user/logout', request, 1)
+    .then(reply => {
+        if(reply.status == 'SUCCESS') document.replace('/login');
     });
-
-    if(response.ok) {
-        document.location.replace('/');
-    } else {
-        alert(response.statusText);
-    }
 }
 
 getobj('logout').addEventListener('click', logout);

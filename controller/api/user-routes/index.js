@@ -1,13 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../../../models');
 
-/*
-------------------------------Paste into api/index.js----------------------------------
-const userRoutes = require('./user-routes');
-router.use('/user', userRoutes);
----------------------------------------------------------------------------------------
-*/
-
 const getRoutes = require('./get');
 const putRoutes = require('./put');
 const deleteRoutes = require('./delete');
@@ -30,15 +23,22 @@ router.post('/login', (req, res) => {
             returnValue.message = 'Invalid Login';
             returnValue.reply = {};
             res.json(returnValue);
-            return;
+        } else {
+            req.session.userId = reply.userId;
+            req.session.loggedIn = true;
+            returnValue.status = 'SUCCESS';
+            returnValue.message = 'SUCCESS';
+            returnValue.reply = reply;
+            res.json(returnValue);
         }
 
-        console.log(reply);
-
-        req.session.save(() => {
-            req.session.userId = reply.userId;
-        })
     })
+});
+
+router.post('/logout', (req, res) => {
+    req.session.userId = null;
+    req.session.loggedIn = false;
+    res.json({status: 'SUCCESS', message: 'Logged Out'});
 });
 
 module.exports = router; 

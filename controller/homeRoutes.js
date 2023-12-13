@@ -25,6 +25,7 @@ router.get('/', (req, res) => {
     const templateData = {
         session: req.session
     }
+    console.log(req.session);
     res.render('homepage', templateData);
 });
 module.exports = router;
