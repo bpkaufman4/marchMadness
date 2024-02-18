@@ -1,6 +1,6 @@
 <div>
-    {{#each teams as team}}
-        <button onclick="syncPlayersFromTeams(this);" data-api-team-id="{{team.apiTeamId}}" data-api-id="{{team.apiId}}">{{team.name}}</button>
+    {{#each teams}}
+        <button onclick="syncPlayersFromTeams(this);" data-api-team-id="{{this.apiTeamId}}" data-api-id="{{this.apiId}}">{{this.name}}</button>
     {{/each }}
 </div>
 <button id="getEventsButton">Get Events</button>
