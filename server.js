@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(controller);
 
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
     });
