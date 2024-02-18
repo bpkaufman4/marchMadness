@@ -1,3 +1,4 @@
+<script type="module" src="/javascript/sportsdata-helpers.js"></script>
 <div>
     {{#each teams}}
         <button onclick="syncPlayersFromTeams(this);" data-api-team-id="{{ this.apiTeamId }}" data-api-id="{{ this.apiId }}">{{ this.name }}</button>
@@ -6,4 +7,3 @@
 <button id="getEventsButton">Get Events</button>
 <button id="getTeamsButton">Get Teams</button>
 <button id="getPlayersButton">Get Players</button>
-<script type="module" src="/javascript/sportsdata-helpers.js"></script>
