@@ -1,7 +1,7 @@
 <script type="module" src="/javascript/sportsdata-helpers.js"></script>
 <div>
     {{#each teams}}
-        <button class="team-button" data-api-team-id="{{ this.apiTeamId }}" data-api-id="{{ this.apiId }}">{{ this.name }}</button>
+        <button class="team-button" id="{{ this.apiTeamId }}" data-api-team-id="{{ this.apiTeamId }}" data-api-id="{{ this.apiId }}">{{ this.name }}</button>
     {{/each}}
 </div>
 <button id="getEventsButton">Get Events</button>
