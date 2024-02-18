@@ -17,6 +17,15 @@ async function syncSchedule(event) {
 
         console.log(response);
         
+        var request = {};
+        request.events = [];
+        for(let i = 0; i < response.length; i++) {
+            request.events.push({apiEventId: response[i].GameId, homeApiId: response[i].HomeTeamId, awayApiId: response[i].AwayTeamId})
+        }
+        
+        const bulkCreateUrl = 'api/events/bulkCreate';
+        const bulkCreateResponse = await fetchTable(event.target.id, bulkCreateUrl, response, 1);
+        
     } catch (error) {
         console.error(error);
     }
