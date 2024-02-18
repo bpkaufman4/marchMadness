@@ -52,7 +52,7 @@ async function syncSchedule(event) {
 // }
 
 async function syncTeamsFromEvents(event) {
-    const request = {};
+    const request = {test: 'test'};
     const bulkCreateResponse = await fetchTable(event.target.id, 'api/apiTeam/bulkCreate', request, 1);
     console.log(bulkCreateResponse);
 }
