@@ -50,7 +50,8 @@ router.get('/syncHub', (req, res) => {
     getApiTeamFunction({})
     .then(teams => {
         console.log(teams);
-        res.render('syncHub', teams);
+        const reply = teams.map(team => team.get({plain: true}));
+        res.render('syncHub', reply);
     })
 });
 
