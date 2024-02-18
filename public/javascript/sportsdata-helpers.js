@@ -21,7 +21,7 @@ async function syncSchedule(event) {
         request.events = [];
         for(let i = 0; i < response.length; i++) {
             request = {apiEventId: response[i].GameId, homeApiId: response[i].HomeTeamId, awayApiId: response[i].AwayTeamId};
-            const putEvent = fetchTable('getEventsButton', 'event/put', request, 1);
+            const putEvent = fetchTable('getEventsButton', 'api/event/put', request, 1);
         }
         
     } catch (error) {
