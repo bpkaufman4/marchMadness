@@ -128,6 +128,7 @@ function bulkCreatePlayers(request) {
     return new Promise((resolve, reject) => {
         Player.bulkCreate(request)
         .then(reply => {
+            console.log(reply);
             resolve(reply);
         })
     })
