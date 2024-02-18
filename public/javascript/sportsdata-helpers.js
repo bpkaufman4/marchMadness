@@ -60,6 +60,7 @@ async function syncTeamsFromEvents(event) {
 
 async function syncPlayersFromTeams(e) {
     const elem = e.target;
+    console.log(e.target);
     const url = `https://api.sportsdata.io/v3/cbb/scores/json/PlayersBasic/${elem.dataset.apiId}?key=e20de04c19364639908688eda889dea1`;
     const options = {
         method: 'GET'
