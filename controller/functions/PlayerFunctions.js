@@ -124,4 +124,13 @@ function putPlayerFunction(request) {
     })
 }
 
-module.exports = { getPlayerFunction, deletePlayerFunction, putPlayerFunction };
+function bulkCreatePlayers(request) {
+    return new Promise((resolve, reject) => {
+        Player.bulkCreate(request)
+        .then(reply => {
+            resolve(reply);
+        })
+    })
+}
+
+module.exports = { getPlayerFunction, deletePlayerFunction, putPlayerFunction, bulkCreatePlayers };
