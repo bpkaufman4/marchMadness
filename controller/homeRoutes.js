@@ -49,7 +49,7 @@ router.get('/home', (req, res) => {
 router.get('/syncHub', (req, res) => {
     ApiTeam.findAll()
     .then(teams => {
-        const reply = teams.map(team => team.get({plain: true}));
+        const reply = {reply: teams.map(team => team.get({plain: true}))};
         console.log(reply);
         res.render('syncHub', reply);
     })
