@@ -51,18 +51,10 @@ async function syncSchedule(event) {
 //   }
 // }
 
-// async function syncTeamsFromEvents() {
-  
-//   try {
-//     await fetch('api/apiTeams/seedApiTeams', {
-//       method: 'post',
-//       body: JSON.stringify({}),
-//       headers: { 'Content-Type':'application/json' }
-//     });
-//   } catch(error) {
-//     console.error(error);
-//   }
-// }
+async function syncTeamsFromEvents(event) {
+    const bulkCreateResponse = await fetchTable(event.target.id, 'api/apiTeam/bulkCreate', request, 1);
+    console.log(bulkCreateResponse);
+}
 
 // async function syncPlayersFromTeams(team) {
 //   console.log(team);
@@ -96,5 +88,5 @@ async function syncSchedule(event) {
 //   }
 // }
 document.getElementById('getEventsButton').addEventListener('click', syncSchedule);
-// document.getElementById('getTeamsButton').addEventListener('click', syncTeamsFromEvents);
+document.getElementById('getTeamsButton').addEventListener('click', syncTeamsFromEvents);
 // document.getElementById('getPlayersButton').addEventListener('click', loadTeams);
