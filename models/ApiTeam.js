@@ -11,6 +11,10 @@ ApiTeam.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
+        apiId: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false
