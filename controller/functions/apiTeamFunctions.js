@@ -127,9 +127,9 @@ function putApiTeamFunction(request) {
 function seedApiTeamFunction(request) {
     return new Promise((resolve, reject) => {
         const selectQuery = `SELECT distinct teamId, teamName from (
-            select homeApiId teamId, homeTeamName teamName from event
+            select homeApiId apiId, homeTeamName name from event
             union all
-            select awayApiId teamId, awayTeamName teamName from event
+            select awayApiId apiId, awayTeamName name from event
         ) dt order by teamId`;
         const reply = sequelize.query(selectQuery);
         resolve(reply);
