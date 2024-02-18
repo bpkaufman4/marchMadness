@@ -14,17 +14,17 @@
     <input type="hidden" name="userId" value="{{ session.userId }}">
     <input type="hidden" name="userType" value="{{ session.userType }}">
         <header>
-            <h1>
-                <a href="/">Node Build</a>
-            </h1>
             <nav>
+                <h1>
+                    <a href="/">Node Build</a>
+                </h1>
                 {{#if session.loggedIn }}
                 <button id="logout">Log Out</button>
                 {{ else }}
                 <a href="/login">Log In</a>
                 {{/if}}
-            </nav>
-        </header>
+            </header>
+        </nav>
         <main class="container">
             {{{ body }}}
         </main>
