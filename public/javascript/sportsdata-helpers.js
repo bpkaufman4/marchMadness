@@ -58,37 +58,25 @@ async function syncTeamsFromEvents(event) {
     console.log(bulkCreateResponse);
 }
 
-// async function syncPlayersFromTeams(team) {
-//   console.log(team);
-//   const url = `https://api.sportsdata.io/v3/cbb/scores/json/PlayersBasic/${team}?key=e20de04c19364639908688eda889dea1`;
-//   const options = {
-//     method: 'GET'
-//   };
-//   try {
-//     const response = await fetch(url, options)
-//     .then(players => {
-//         return players.json();
-//     })
-//     .then(json => {
-//         console.log(json);
-//         return json;
-//     })
-
-//     const team = {
-//       players: response
-//     }
-//     const bulkCreateUrl = 'api/players/bulkCreate';
-//     const bulkCreateResponse = await fetch(bulkCreateUrl, {
-//       method: 'post',
-//       body: JSON.stringify(team),
-//       headers: { 'Content-Type':'application/json' }
-//     });
-//     console.log(response);
-//     console.log(bulkCreateResponse);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+async function syncPlayersFromTeams(elem) {
+    team = elem.dataset;
+    const url = `https://api.sportsdata.io/v3/cbb/scores/json/PlayersBasic/${team.apiId}?key=e20de04c19364639908688eda889dea1`;
+    const options = {
+        method: 'GET'
+    };
+    try {
+        const response = await fetch(url, options)
+        .then(players => {
+            return players.json();
+        })
+        .then(json => {
+            return json;
+        })
+        console.log(response);
+    } catch (error) {
+        console.error(error);
+    }
+}
 document.getElementById('getEventsButton').addEventListener('click', syncSchedule);
 document.getElementById('getTeamsButton').addEventListener('click', syncTeamsFromEvents);
 // document.getElementById('getPlayersButton').addEventListener('click', loadTeams);
