@@ -66,7 +66,13 @@ async function syncPlayersFromTeams(e) {
         method: 'GET'
     };
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(url, options)
+        .then(players => {
+            return players.json();
+        })
+        .then(json => {
+            return json;
+        })
         console.log(response);
     } catch (error) {
         console.error(error);
