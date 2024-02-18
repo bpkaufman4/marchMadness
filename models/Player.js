@@ -22,6 +22,10 @@ Player.init(
                 model: 'apiTeam',
                 key: 'apiTeamId'
             }
+        },
+        apiId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     },
     {
