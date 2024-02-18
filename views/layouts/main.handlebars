@@ -12,28 +12,26 @@
         <link rel="stylesheet" href="stylesheets/index.css">
     </head>
     <body>
-        <input type="hidden" name="userId" value="{{ session.userId }}">
-        <input type="hidden" name="userType" value="{{ session.userType }}">
-        <div>
-            <header>
-                <h1>
-                    <a href="/">Node Build</a>
-                </h1>
-                <nav>
-                    {{#if session.loggedIn }}
-                    <button id="logout">Log Out</button>
-                    {{ else }}
-                    <a href="/login">Log In</a>
-                    {{/if}}
-                </nav>
-            </header>
-            <main class="container">
-                {{{ body }}}
-            </main>
-            <footer>
-                Thanks for visiting!
-            </footer>
-        </div>
+    <input type="hidden" name="userId" value="{{ session.userId }}">
+    <input type="hidden" name="userType" value="{{ session.userType }}">
+        <header>
+            <h1>
+                <a href="/">Node Build</a>
+            </h1>
+            <nav>
+                {{#if session.loggedIn }}
+                <button id="logout">Log Out</button>
+                {{ else }}
+                <a href="/login">Log In</a>
+                {{/if}}
+            </nav>
+        </header>
+        <main class="container">
+            {{{ body }}}
+        </main>
+        <footer>
+            Thanks for visiting!
+        </footer>
     </body>
     <script src="/javascript/logout.js"></script>
     <script src="/javascript/pwa.js"></script>
