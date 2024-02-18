@@ -1,29 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Jul 07, 2023 at 11:18 AM
--- Server version: 10.2.44-MariaDB
--- PHP Version: 8.1.16
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `progra39_bootstrapDev`
---
-
---
--- Dumping data for table `reference`
---
 
 INSERT INTO `reference` (`referenceCd`, `referenceSet`, `referenceMeaning`, `display`, `description`, `activeInd`, `created`) VALUES
 ('0022df55-c2d8-11eb-96e5-ee86d28a3c90', 'ERRORLOGINCLUSION', NULL, 'Root Error Log', '/home/progra39/public_html/projects/sandbox/forge/error_log', 1, '2021-06-01 12:50:53'),
@@ -306,9 +280,3 @@ INSERT INTO `reference` (`referenceCd`, `referenceSet`, `referenceMeaning`, `dis
 ('f5c6cc2c-5489-11ec-aa40-dc9e7fa4b6a4', 'PATCHEXCLUSIONS', NULL, '.htaccess', NULL, 1, '2021-12-03 22:40:05'),
 ('fdda3322-b16a-11ea-8da0-d412da13d0d7', 'APPLICATIONSETTINGS', 'EXAMPLESETTING1', 'Example Setting 1', 'description goes here', 1, '2020-06-18 13:52:47');
 update reference SET updated = created;
-COMMIT;
-
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
