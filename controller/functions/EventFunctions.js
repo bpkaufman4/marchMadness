@@ -133,8 +133,8 @@ function putEventFunction(request) {
 }
 
 function bulkCreateEventFunction(request) {
-    var promiseArray = [];
     return new Promise((resolve, reject) => {
+        Event.bulkCreate(request.events);
         resolve(request);
     })
 }
