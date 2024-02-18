@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { putApiTeamFunction } = require('../../functions/apiTeamFunctions');
+const { seedApiTeamFunction } = require('../../functions/apiTeamFunctions');
 
 router.post('', (req, res) => {
     const request = req.body;
