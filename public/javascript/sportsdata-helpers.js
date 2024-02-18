@@ -23,7 +23,7 @@ async function syncSchedule(event) {
             request.events.push({apiEventId: response[i].GameId, homeApiId: response[i].HomeTeamId, awayApiId: response[i].AwayTeamId})
         }
         
-        const bulkCreateUrl = 'api/events/bulkCreate';
+        const bulkCreateUrl = 'api/event/bulkCreate';
         const bulkCreateResponse = await fetchTable(event.target.id, bulkCreateUrl, response, 1);
         console.log(bulkCreateResponse);
         
