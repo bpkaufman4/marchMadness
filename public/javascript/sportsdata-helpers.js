@@ -25,7 +25,8 @@ async function syncSchedule(event) {
                 homeApiId: response[i].HomeTeamID,
                 awayApiId: response[i].AwayTeamID,
                 startDate: response[i].DateTimeUTC,
-
+                homeTeamName: response[i].HomeTeam,
+                awayTeamName: response[i].AwayTeam
             }
             request.events.push(event);
         }
