@@ -74,6 +74,10 @@ async function syncPlayersFromTeams(e) {
             return json;
         })
         console.log(response);
+        let request = {};
+        request.players = response;
+        const bulkCreate = await fetchTable(e.target.id, 'api/player/bulkCreate', request, 1);
+        console.log(bulkCreate);
     } catch (error) {
         console.error(error);
     }
