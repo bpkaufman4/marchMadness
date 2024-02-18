@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const { User, ApiTeam } = require('../models');
+const { User } = require('../models');
 const { getUserFunction } = require('./functions/userFunctions');
 const { getLeagueFunction } = require('./functions/leagueFunctions');
+const { getApiTeamFunction } = require('./functions/apiTeamFunctions');
 
 router.get('/adminUsers', (req, res) => {
     request = {};
@@ -46,7 +47,7 @@ router.get('/home', (req, res) => {
 });
 
 router.get('/syncHub', (req, res) => {
-    ApiTeam.findAll()
+    getApiTeamFunction()
     .then(teams => {
         console.log(teams);
         res.render('syncHub', teams);
