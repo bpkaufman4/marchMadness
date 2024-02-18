@@ -130,7 +130,7 @@ function seedApiTeamFunction(request) {
             select homeApiId apiId, homeTeamName name from event
             union all
             select awayApiId apiId, awayTeamName name from event
-        ) dt order by teamId`;
+        ) dt order by apiId`;
         const reply = sequelize.query(selectQuery);
         resolve(reply);
     });
