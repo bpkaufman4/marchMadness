@@ -7,25 +7,23 @@ async function syncSchedule(event) {
     };
 
     try {
-      const response = await fetch(url, options)
-      .then(data => {
-          return data.json();
-      })
-      .then(json => {
-          return json;
-      })
+        const response = await fetch(url, options)
+        .then(data => {
+            return data.json();
+        })
+        .then(json => {
+            return json;
+        })
 
-      console.log(response);
+        console.log(response);
 
-      var request = {};
-      request.events = [];
-      for(let i = 0; i < response.length; i++) {
-        request.events.push({apiEventId: response[i].GameId, homeApiId: response[i].HomeTeamId, awayApiId: response[i].AwayTeamId})
-      }
-      
-      const bulkCreateUrl = 'api/events/bulkCreate';
-      const bulkCreateResponse = await fetchTable(event.target.id, bulkCreateUrl, response, 1);
-      console.log(bulkCreateResponse);
+        var request = {};
+        request.events = [];
+        for(let i = 0; i < response.length; i++) {
+            request = {apiEventId: response[i].GameId, homeApiId: response[i].HomeTeamId, awayApiId: response[i].AwayTeamId};
+            const putEvent = fetchTable('getEventsButton', 'putEvent', request, 1);
+        }
+        
     } catch (error) {
         console.error(error);
     }
