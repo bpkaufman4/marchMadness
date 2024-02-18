@@ -80,3 +80,7 @@ async function syncPlayersFromTeams(elem) {
 document.getElementById('getEventsButton').addEventListener('click', syncSchedule);
 document.getElementById('getTeamsButton').addEventListener('click', syncTeamsFromEvents);
 // document.getElementById('getPlayersButton').addEventListener('click', loadTeams);
+const teamButtons = document.querySelectorAll('.team-button');
+teamButtons.forEach(team => {
+    team.addEventListener('click', syncPlayersFromTeams);
+});
