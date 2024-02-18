@@ -14,4 +14,4 @@ User.belongsTo(Reference, {foreignKey: 'userTypeCd', as: 'userType'});
 League.belongsTo(User, {foreignKey: 'ownerId', as: 'owner'});
 User.hasMany(League, {foreignKey: 'ownerId', as: 'userLeagues'});
 
-module.exports = { User, Reference, ReferenceSet, ApiTeam, Event, League, Player, PlayerTeam, Statistic, Team };
+module.exports = { User, Reference, ReferenceSet, ApiTeam, Event, League, Player, PlayerTeam, Statistic, Team, BKTest };

@@ -1,12 +1,6 @@
 const { Event } = require('../../models');
 const sequelize = require('../../config/connection');
 
-/*
--------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
-
---------------------------------------------------------------------------------------------------------------------------------
-*/
-
 function getEventFunction(request) {
     let newColumnsToReturn = [];
     let includes = [];
@@ -93,19 +87,19 @@ function putEventFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'eventId':
-                                case 'apiEventId':
-                                case 'homeApiId':
-                                case 'awayApiId':
-                                case 'startDate':
-                                case 'homeScore':
-                                case 'awayScore':
-                                case 'homeTeamName':
-                                case 'awayTeamName':
-                                case 'homeTeamLogoUrl':
-                                case 'awayTeamLogoUrl':
-                                case 'createdAt':
-                                case 'updatedAt':
-                                case 'deletedAt':
+                case 'apiEventId':
+                case 'homeApiId':
+                case 'awayApiId':
+                case 'startDate':
+                case 'homeScore':
+                case 'awayScore':
+                case 'homeTeamName':
+                case 'awayTeamName':
+                case 'homeTeamLogoUrl':
+                case 'awayTeamLogoUrl':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
                                 
                 newRequest[key] = request[key];
                 break;
@@ -138,4 +132,11 @@ function putEventFunction(request) {
     })
 }
 
-module.exports = { getEventFunction, deleteEventFunction, putEventFunction };
+function bulkCreateEventFunction(request) {
+    var promiseArray = [];
+    return new Promise((resolve, reject) => {
+        resolve(request);
+    })
+}
+
+module.exports = { getEventFunction, deleteEventFunction, putEventFunction, bulkCreateEventFunction };

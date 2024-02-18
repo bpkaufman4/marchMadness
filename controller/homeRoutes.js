@@ -45,4 +45,8 @@ router.get('/home', (req, res) => {
     }
 });
 
+router.get('/syncHub', (req, res) => {
+    res.render('syncHub');
+});
+
 module.exports = router;
