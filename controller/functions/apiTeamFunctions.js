@@ -131,7 +131,8 @@ function seedApiTeamFunction(request) {
             union all
             select awayApiId apiId, awayTeamName name from event
         ) dt order by apiId`;
-        const reply = sequelize.query(selectQuery);
+        const select = sequelize.query(selectQuery);
+        reply = ApiTeam.bulkCreate(select[0])
         resolve(reply);
     });
 }
