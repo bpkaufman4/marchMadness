@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, ApiTeam } = require('../models');
 const { getUserFunction } = require('./functions/userFunctions');
 const { getLeagueFunction } = require('./functions/leagueFunctions');
 const { getApiTeamFunction } = require('./functions/apiTeamFunctions');
@@ -47,8 +47,7 @@ router.get('/home', (req, res) => {
 });
 
 router.get('/syncHub', (req, res) => {
-    getApiTeamFunction({})
-    .then(teams => {
+    ApiTeam.then(teams => {
         console.log(teams);
         const reply = teams.map(team => team.get({plain: true}));
         res.render('syncHub', reply);
