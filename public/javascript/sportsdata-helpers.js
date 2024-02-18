@@ -1,7 +1,7 @@
 
 async function syncSchedule(event) {
     console.log(event.target);
-    const url = 'https://api.sportsdata.io/v3/cbb/scores/json/Games/2024?key=e20de04c19364639908688eda889dea1';
+    const url = 'https://api.sportsdata.io/v3/cbb/scores/json/TeamsBasic?key=e20de04c19364639908688eda889dea1';
     const options = {
         method: 'GET'
     };
@@ -16,13 +16,6 @@ async function syncSchedule(event) {
         })
 
         console.log(response);
-
-        var request = {};
-        request.events = [];
-        for(let i = 0; i < response.length; i++) {
-            request = {apiEventId: response[i].GameId, homeApiId: response[i].HomeTeamId, awayApiId: response[i].AwayTeamId};
-            const putEvent = fetchTable('getEventsButton', 'api/event/put', request, 1);
-        }
         
     } catch (error) {
         console.error(error);
