@@ -15,11 +15,11 @@
     <input type="hidden" name="userType" value="{{ session.userType }}">
         <header class="container">
             <nav class="navbar">
-                <a href="/">Fantasy Basketball</a>
+                <a class="navbar-brand" href="/">Fantasy Basketball</a>
                 {{#if session.loggedIn }}
-                <button id="logout">Log Out</button>
+                <button class="nav-link" id="logout">Log Out</button>
                 {{ else }}
-                <a href="/login">Log In</a>
+                <a class="nav-link" href="/login">Log In</a>
                 {{/if}}
             </header>
         </nav>
