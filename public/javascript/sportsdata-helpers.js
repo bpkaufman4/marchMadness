@@ -20,12 +20,14 @@ async function syncSchedule(event) {
         var request = {};
         request.events = [];
         for(let i = 0; i < response.length; i++) {
-            request.events.push({
+            const event = {
                 apiEventId: response[i].GameId,
                 homeApiId: response[i].HomeTeamId,
                 awayApiId: response[i].AwayTeamId,
                 startDate: response[i].DateTimeUTC
-            });
+            }
+            console.log(event);
+            request.events.push(event);
         }
         
         const bulkCreateUrl = 'api/event/bulkCreate';
