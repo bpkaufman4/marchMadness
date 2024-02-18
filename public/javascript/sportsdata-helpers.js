@@ -25,6 +25,7 @@ async function syncSchedule(event) {
         
         const bulkCreateUrl = 'api/events/bulkCreate';
         const bulkCreateResponse = await fetchTable(event.target.id, bulkCreateUrl, response, 1);
+        console.log(bulkCreateResponse);
         
     } catch (error) {
         console.error(error);
