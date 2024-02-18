@@ -133,9 +133,8 @@ function seedApiTeamFunction(request) {
         ) dt order by apiId`;
         const select = sequelize.query(selectQuery)
         .then(reply => {
-            ApiTeam.bulkCreate(reply);
+            ApiTeam.bulkCreate(reply[0]);
         });
-        resolve(select);
     });
 }
 
