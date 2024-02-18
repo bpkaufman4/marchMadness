@@ -126,7 +126,11 @@ function putApiTeamFunction(request) {
 
 function seedApiTeamFunction(request) {
     return new Promise((resolve, reject) => {
-        const selectQuery = 'SELECT * from event';
+        const selectQuery = `SELECT distinct teamId from (
+            select homeApiId teamId from event
+            union all
+            select awayApiId teamId from event
+        ) dt`;
         const reply = sequelize.query(selectQuery);
         resolve(reply);
     });
