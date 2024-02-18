@@ -24,15 +24,15 @@ async function syncSchedule(event) {
                 apiEventId: response[i].GameID,
                 homeApiId: response[i].HomeTeamID,
                 awayApiId: response[i].AwayTeamID,
-                startDate: response[i].DateTimeUTC
+                startDate: response[i].DateTimeUTC,
+
             }
-            console.log(event);
             request.events.push(event);
         }
         
         const bulkCreateUrl = 'api/event/bulkCreate';
-        const bulkCreateResponse = await fetchTable(event.target.id, bulkCreateUrl, request, 1);
-        console.log(bulkCreateResponse);
+        // const bulkCreateResponse = await fetchTable(event.target.id, bulkCreateUrl, request, 1);
+        // console.log(bulkCreateResponse);
         
     } catch (error) {
         console.error(error);
