@@ -124,4 +124,10 @@ function putApiTeamFunction(request) {
     })
 }
 
-module.exports = { getApiTeamFunction, deleteApiTeamFunction, putApiTeamFunction };
+function seedApiTeamFunction(request) {
+    return new Promise((resolve, reject) => {
+        resolve(request);
+    });
+}
+
+module.exports = { getApiTeamFunction, deleteApiTeamFunction, putApiTeamFunction, seedApiTeamFunction };
