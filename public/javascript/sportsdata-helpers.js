@@ -21,9 +21,9 @@ async function syncSchedule(event) {
         request.events = [];
         for(let i = 0; i < response.length; i++) {
             const event = {
-                apiEventId: response[i].GameId,
-                homeApiId: response[i].HomeTeamId,
-                awayApiId: response[i].AwayTeamId,
+                apiEventId: response[i].GameID,
+                homeApiId: response[i].HomeTeamID,
+                awayApiId: response[i].AwayTeamID,
                 startDate: response[i].DateTimeUTC
             }
             console.log(event);
