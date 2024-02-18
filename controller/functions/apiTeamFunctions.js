@@ -133,7 +133,7 @@ function seedApiTeamFunction(request) {
         ) dt order by apiId`;
         const select = sequelize.query(selectQuery)
         .then(reply => {
-            console.log(reply);
+            console.log(reply[0]);
         });
     });
 }
