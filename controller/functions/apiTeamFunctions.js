@@ -126,7 +126,7 @@ function putApiTeamFunction(request) {
 
 function seedApiTeamFunction(request) {
     return new Promise((resolve, reject) => {
-        const selectQuery = `SELECT distinct teamId, teamName from (
+        const selectQuery = `SELECT distinct apiId, name from (
             select homeApiId apiId, homeTeamName name from event
             union all
             select awayApiId apiId, awayTeamName name from event
