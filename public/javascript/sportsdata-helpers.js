@@ -1,7 +1,7 @@
 
 async function syncSchedule(event) {
     console.log(event.target);
-    const url = 'https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic?key=e20de04c19364639908688eda889dea1';
+    const url = 'https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=e20de04c19364639908688eda889dea1';
     const options = {
         method: 'GET'
     };
