@@ -49,8 +49,8 @@ router.get('/home', (req, res) => {
 router.get('/syncHub', (req, res) => {
     ApiTeam.findAll()
     .then(teams => {
-        console.log(teams);
         const reply = teams.map(team => team.get({plain: true}));
+        console.log(reply);
         res.render('syncHub', reply);
     })
 });
