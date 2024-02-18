@@ -75,7 +75,11 @@ async function syncPlayersFromTeams(e) {
         })
         console.log(response);
         let request = {};
-        request.players = response;
+        request.players = [];
+
+        for (let i = 0; i < players.length; i++) {
+            request.players.push({name: `${players[i].firstName} ${players[i].lastName}`, apiTeamId: e.target.dataset.apiTeamId});
+        }
         const bulkCreate = await fetchTable(e.target.id, 'api/player/bulkCreate', request, 1);
         console.log(bulkCreate);
     } catch (error) {
