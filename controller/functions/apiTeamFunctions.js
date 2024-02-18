@@ -126,7 +126,9 @@ function putApiTeamFunction(request) {
 
 function seedApiTeamFunction(request) {
     return new Promise((resolve, reject) => {
-        resolve(request);
+        const selectQuery = 'SELECT \'1\' from event';
+        const reply = sequelize.query(selectQuery);
+        resolve(response);
     });
 }
 
