@@ -22,6 +22,7 @@ function setupCron() {
 
 function pullEvents() {
     const getScores = processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=${process.env.API_KEY}`);
+    console.log(getScores);
 }
 
 module.exports = setupCron;
