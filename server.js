@@ -10,7 +10,7 @@ const exphbs = require('express-handlebars');
 const hbs = exphbs.create({});
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const cron = require('node-cron');
+const setupCron = require('./cron');
 
 const sess = {
     secret: process.env.SECRET,
@@ -22,8 +22,6 @@ const sess = {
     })
 };
 
-
-
 app.use(session(sess));
 app.engine('handlebars', hbs.engine);
 
@@ -33,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(controller);
+
+setupCron();
 
 sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
