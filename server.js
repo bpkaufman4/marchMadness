@@ -34,11 +34,6 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(controller);
 
-cron.schedule("*/15 * * * * *", () => {
-    console.log('hello');
-});
-
-
 sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
