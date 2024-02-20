@@ -15,6 +15,7 @@ function processGet(url) {
     }).on("error", (err) => {
         console.log("Error: " + err.message);
     });
+    return returnValue;
 }
 
 function setupCron() {
