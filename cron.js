@@ -7,10 +7,7 @@ function setupCron() {
 }
 
 function pullEvents() {
-    https.get(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=${process.env.API_KEY}`, reply => {
-        
-    });
-    https.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY', (resp) => {
+    https.get(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=${process.env.API_KEY}`, resp => {
         let data = '';
 
         // A chunk of data has been received.
@@ -20,7 +17,7 @@ function pullEvents() {
 
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
-            console.log(data);
+            console.log(JSON.parse(data).explanation);
         });
 
     }).on("error", (err) => {
