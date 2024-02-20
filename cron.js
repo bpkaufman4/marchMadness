@@ -3,19 +3,19 @@ const https = require('https');
 require('dotenv').config();
 
 function processGet(url) {
-    let returnValue;
-    https.get(url, (resp) => {
-        let data = '';
-        resp.on('data', chunk => {
-            data += chunk;
+    return new Promise((resolve, reject) => {
+        https.get(url, (resp) => {
+            let data = '';
+            resp.on('data', chunk => {
+                data += chunk;
+            });
+            resp.on('end', () => {
+                resolve(JSON.parse(data));
+            });
+        }).on("error", (err) => {
+            console.log("Error: " + err.message);
         });
-        resp.on('end', () => {
-            returnValue =  JSON.parse(data);
-        });
-    }).on("error", (err) => {
-        console.log("Error: " + err.message);
-    });
-    return returnValue;
+    })
 }
 
 function setupCron() {
