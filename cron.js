@@ -3,13 +3,14 @@ const https = require('https');
 require('dotenv').config();
 
 function processGet(url) {
+    let returnValue;
     https.get(url, (resp) => {
         let data = '';
         resp.on('data', chunk => {
             data += chunk;
         });
         resp.on('end', () => {
-            return JSON.parse(data);
+            returnValue =  JSON.parse(data);
         });
     }).on("error", (err) => {
         console.log("Error: " + err.message);
