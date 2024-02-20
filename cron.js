@@ -8,9 +8,13 @@ function setupCron() {
 
 function pullEvents() {
     https.get(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=${process.env.API_KEY}`, (resp) => {
-        resp.on('data', (data) => {
-            console.log(data);
-        })
+        let data = '';
+        resp.on('data', chunk => {
+            data += chunk;
+        });
+        resp.on('end', () => {
+            console.log(JSON.parse(data));
+        });
     }).on("error", (err) => {
         console.log("Error: " + err.message);
     });
