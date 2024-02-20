@@ -34,7 +34,7 @@ app.use(controller);
 
 setupCron();
 
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync({ alter: false }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
     });
