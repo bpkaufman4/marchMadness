@@ -2,22 +2,26 @@ const cron = require('node-cron');
 const https = require('https');
 require('dotenv').config();
 
-function setupCron() {
-    pullEvents();
-}
-
-function pullEvents() {
-    https.get(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=${process.env.API_KEY}`, (resp) => {
+function processGet(url) {
+    https.get(url, (resp) => {
         let data = '';
         resp.on('data', chunk => {
             data += chunk;
         });
         resp.on('end', () => {
-            console.log(JSON.parse(data));
+            return JSON.parse(data);
         });
     }).on("error", (err) => {
         console.log("Error: " + err.message);
     });
+}
+
+function setupCron() {
+    pullEvents();
+}
+
+function pullEvents() {
+    const getScores = processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=${process.env.API_KEY}`);
 }
 
 module.exports = setupCron;
