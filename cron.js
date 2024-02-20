@@ -1,4 +1,4 @@
-const cron = require('cron-node');
+const cron = require('node-cron');
 const https = require('https');
 require('dotenv').config();
 
