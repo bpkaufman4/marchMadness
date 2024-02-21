@@ -27,6 +27,15 @@ ApiTeam.init(
         logoUrl: DataTypes.STRING
     },
     {
+        indexes:[
+            {
+                name: 'apiTeamNDX1',
+                unique: true,
+                fields: [
+                    'apiId'
+                ]
+            }
+        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,

@@ -29,6 +29,15 @@ Player.init(
         }
     },
     {
+        indexes:[
+            {
+                name: 'playerNDX1',
+                unique: true,
+                fields: [
+                    'apiId'
+                ]
+            }
+        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,

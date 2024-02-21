@@ -19,6 +19,7 @@ function getApiTeamFunction(request) {
                 case 'apiTeamId':
                         case 'name':
                         case 'eliminatedInd':
+                        case 'apiId':
                         case 'logoUrl':
                         case 'createdAt':
                         case 'updatedAt':
@@ -124,18 +125,5 @@ function putApiTeamFunction(request) {
     })
 }
 
-function seedApiTeamFunction(request) {
-    return new Promise((resolve, reject) => {
-        const selectQuery = `SELECT distinct apiId, name from (
-            select homeApiId apiId, homeTeamName name from event
-            union all
-            select awayApiId apiId, awayTeamName name from event
-        ) dt order by apiId`;
-        const select = sequelize.query(selectQuery)
-        .then(reply => {
-            ApiTeam.bulkCreate(reply[0]);
-        });
-    });
-}
 
-module.exports = { getApiTeamFunction, deleteApiTeamFunction, putApiTeamFunction, seedApiTeamFunction };
+module.exports = { getApiTeamFunction, deleteApiTeamFunction, putApiTeamFunction};

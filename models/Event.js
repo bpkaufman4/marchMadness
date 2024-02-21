@@ -32,6 +32,15 @@ Event.init(
         awayTeamLogoUrl: DataTypes.STRING
     },
     {
+        indexes:[
+            {
+                name: 'eventNDX1',
+                unique: true,
+                fields: [
+                    'apiEventId'
+                ]
+            }
+        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,
