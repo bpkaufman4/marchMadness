@@ -25,16 +25,17 @@ function processGet(url) {
 }
 
 function setupCron() {
-    // pullEvents();
+    pullEvents();
     // syncTeams();
     // pullRosters();
-    pullStats();
+    // pullStats();
 }
 
 function pullEvents() {
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
         console.log(reply[0]);
+        return;
         reply.forEach(e => {
             Event.upsert({
                 apiEventId: e.GameID,
