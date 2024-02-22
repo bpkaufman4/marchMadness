@@ -44,9 +44,9 @@ function pullEvents() {
                 apiId: e.AwayTeamID,
                 name: e.AwayTeam
             })
-            Promise.all([homeUpsert, awayUpsert]).{
-                console.log(homeUpsert, awayUpsert);
-            }
+            Promise.all([homeUpsert, awayUpsert]).then(values => {
+                console.log(values);
+            })
             // Event.upsert({
             //     apiEventId: e.GameID,
             //     homeApiId: e.HomeTeamID,
