@@ -35,16 +35,26 @@ function pullEvents() {
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
         console.log(reply[0]);
-        return;
         reply.forEach(e => {
-            Event.upsert({
-                apiEventId: e.GameID,
-                homeApiId: e.HomeTeamID,
-                awayApiId: e.AwayTeamID,
-                startDate: e.DateTime,
-                homeTeamName: e.HomeTeam,
-                AwayTeamName: e.AwayTeam
-            });
+            const homeUpsert = ApiTeam.upsert({
+                apiId: e.HomeTeamID,
+                name: e.HomeTeam
+            })
+            const awayUpsert = ApiTeam.upsert({
+                apiId: e.AwayTeamID,
+                name: e.AwayTeam
+            })
+            Promise.all([homeUpsert, awayUpsert]).{
+                console.log(homeUpsert, awayUpsert);
+            }
+            // Event.upsert({
+            //     apiEventId: e.GameID,
+            //     homeApiId: e.HomeTeamID,
+            //     awayApiId: e.AwayTeamID,
+            //     startDate: e.DateTime,
+            //     homeTeamName: e.HomeTeam,
+            //     AwayTeamName: e.AwayTeam
+            // });
         });
     });
 }
