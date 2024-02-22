@@ -34,7 +34,7 @@ function setupCron() {
 function pullEvents() {
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
-        console.log(reply[0]);
+        console.log(reply);
         return;
         reply.forEach(e => {
             const homeUpsert = ApiTeam.upsert({
