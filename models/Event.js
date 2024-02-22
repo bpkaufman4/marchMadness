@@ -21,11 +21,7 @@ Event.init(
         },
         awayApiId: {
             type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: 'apiTeam',
-                key: 'apiTeamId'
-            }
+            allowNull: false
         },
         homeApiTeamId: {
             type: DataTypes.UUID,
@@ -37,7 +33,11 @@ Event.init(
         },
         awayApiTeamId: {
             type: DataTypes.UUID,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'apiTeam',
+                key: 'apiTeamId'
+            }
         },
         startDate: DataTypes.DATE,
         homeScore: DataTypes.INTEGER,
