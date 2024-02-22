@@ -21,6 +21,22 @@ Event.init(
         },
         awayApiId: {
             type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: 'apiTeam',
+                key: 'apiTeamId'
+            }
+        },
+        homeApiTeamId: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: 'apiTeam',
+                key: 'apiTeamId'
+            }
+        },
+        awayApiTeamId: {
+            type: DataTypes.UUID,
             allowNull: false
         },
         startDate: DataTypes.DATE,
