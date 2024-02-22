@@ -19,6 +19,10 @@ Statistic.init(
                 key: 'playerId'
             }
         },
+        apiId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         points: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -31,14 +35,18 @@ Statistic.init(
                 model: 'event',
                 key: 'eventId'
             }
-        },
-        completed: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
         }
     },
     {
+        indexes:[
+            {
+                name: 'statisticNDX1',
+                unique: true,
+                fields: [
+                    'apiId'
+                ]
+            }
+        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,

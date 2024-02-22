@@ -15,6 +15,7 @@ function getEventFunction(request) {
                         case 'homeApiId':
                         case 'awayApiId':
                         case 'startDate':
+                        case 'apiEventId':
                         case 'homeScore':
                         case 'awayScore':
                         case 'homeTeamName':
@@ -44,13 +45,12 @@ function getEventFunction(request) {
     }
 
     return new Promise((resolve, reject) => {
-        if(!request.pageSize) request.pageSize = 1000;
-        if(!request.page) request.page = 1;
         let findRequest = {
             attributes: newColumnsToReturn,
-            limit: Number(request.pageSize),
-            offset:((Number(request.page) - 1)*Number(request.pageSize))
         };
+        if(request.pageSize) findRequest.limit = Number(request.pageSize);
+        if(request.offset) findRequest.offset = ((Number(request.page) - 1)*Number(request.pageSize));
+
         if(includes.length > 0) findRequest['include'] = includes;
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;

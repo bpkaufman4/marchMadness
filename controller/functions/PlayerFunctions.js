@@ -37,9 +37,10 @@ function getPlayerFunction(request) {
     for(key in request) {
         switch(key) {
             case 'apiTeamId':
-                                
+            case 'playerId':
+            case 'apiId':
                 if(request[key] > '') whereRequest[key] = request[key];
-                break;
+            break;
         }
     }
 

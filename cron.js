@@ -2,9 +2,11 @@ const cron = require('node-cron');
 const https = require('https');
 require('dotenv').config();
 const sequelize = require('./config/connection');
-const { Event, ApiTeam, Player }= require('./models');
+const { Event, ApiTeam, Player, Statistic }= require('./models');
 const { QueryTypes } = require('sequelize');
 const { getApiTeamFunction } = require('./controller/functions/apiTeamFunctions');
+const { getEventFunction } = require('./controller/functions/EventFunctions');
+const { getPlayerFunction } = require('./controller/functions/PlayerFunctions');
 
 function processGet(url) {
     return new Promise((resolve, reject) => {
@@ -23,13 +25,14 @@ function processGet(url) {
 }
 
 function setupCron() {
-    cron.schedule("0 0 * * *", pullEvents);
-    cron.schedule("1 0 * * *", syncTeams);
-    pullRosters();
+    // pullEvents();
+    // syncTeams();
+    // pullRosters();
+    pullStats();
 }
 
 function pullEvents() {
-    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2023POST?key=${process.env.API_KEY}`)
+    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
         console.log(reply[0]);
         reply.forEach(e => {
@@ -58,6 +61,35 @@ function pullRosters() {
                     reply.forEach(p => {
                         Player.upsert({name: p.FirstName + ' ' + p.LastName, apiTeamId: t.apiTeamId, apiId: p.PlayerID});
                     })
+                })
+            }, interval*iteration);
+            iteration++;
+        })
+    })
+}
+
+function pullStats() {
+    getEventFunction({columnsToReturn: ['apiEventId', 'eventId']})
+    .then(reply => {
+        var interval = 200;
+        var iteration = 1;
+        const events = reply.reply.map(event => event.get({plain: true}));
+        events.forEach(e => {
+            setTimeout(() => {
+                processGet(`https://api.sportsdata.io/v3/cbb/stats/json/BoxScore/${e.apiEventId}?key=${process.env.API_KEY}`)
+                .then(reply => {
+                    const playerStats = reply.PlayerGames;
+                    if(playerStats) {
+                        playerStats.forEach(stat => {
+                            getPlayerFunction({apiId: stat.PlayerID, columnsToReturn: ['playerId']})
+                            .then(player => {
+                                const playerClean = player.reply.map(item => item.get({plain: true}));
+                                if(playerClean.length > 0) {
+                                    Statistic.upsert({playerId: playerClean[0].playerId, apiId: stat.StatID, points: stat.Points, eventId: e.eventId});
+                                }
+                            })
+                        })
+                    }
                 })
             }, interval*iteration);
             iteration++;

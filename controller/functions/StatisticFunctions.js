@@ -19,13 +19,12 @@ function getStatisticFunction(request) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'statisticId':
-                        case 'playerId':
-                        case 'points':
-                        case 'eventId':
-                        case 'completed':
-                        case 'createdAt':
-                        case 'updatedAt':
-                        case 'deletedAt':
+                case 'playerId':
+                case 'points':
+                case 'eventId':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
                         
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
@@ -91,14 +90,12 @@ function putStatisticFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'statisticId':
-                                case 'playerId':
-                                case 'points':
-                                case 'eventId':
-                                case 'completed':
-                                case 'createdAt':
-                                case 'updatedAt':
-                                case 'deletedAt':
-                                
+                case 'playerId':
+                case 'points':
+                case 'eventId':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
                 newRequest[key] = request[key];
                 break;
                 
