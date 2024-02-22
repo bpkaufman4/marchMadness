@@ -31,7 +31,6 @@ Event.init(
         homeTeamLogoUrl: DataTypes.STRING,
         awayTeamLogoUrl: DataTypes.STRING
     },
-    
     {
         indexes:[
             {
