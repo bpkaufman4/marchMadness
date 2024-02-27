@@ -19,10 +19,13 @@ ApiTeam.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        eliminatedInd: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0
+        shortName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        slug:{
+            type: DataTypes.STRING,
+            allowNull: false
         },
         logoUrl: DataTypes.STRING
     },
