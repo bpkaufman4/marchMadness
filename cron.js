@@ -47,7 +47,7 @@ function pullYesterdayStats() {
 }
 
 function pullEvents() {
-    const interval = 200;
+    const interval = 20;
     let increment = 1;
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
@@ -79,15 +79,20 @@ function pullEvents() {
 
 
 function pullPlayers() {
+    const interval = 20;
+    let increment = 1;
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/PlayersByActive?key=${process.env.API_KEY}`)
     .then(reply => {
         reply.forEach(p => {
-            getApiTeamFunction({apiId: p.TeamID, columnsToReturn: ['apiTeamId']})
-            .then(reply => {
-                const team = reply.reply.map(event => event.get({plain: true}));       
-                if(team[0] && team[0].apiTeamId) {
-                    Player.upsert({name: p.FirstName + ' ' + p.LastName, apiTeamId: team[0].apiTeamId, apiId: p.PlayerID});
-                }
+            setTimeout(() => {
+                getApiTeamFunction({apiId: p.TeamID, columnsToReturn: ['apiTeamId']})
+                .then(reply => {
+                    const team = reply.reply.map(event => event.get({plain: true}));       
+                    if(team[0] && team[0].apiTeamId) {
+                        Player.upsert({name: p.FirstName + ' ' + p.LastName, apiTeamId: team[0].apiTeamId, apiId: p.PlayerID});
+                    }
+                }, interval*increment);
+                increment++;
             })
         })
     })
