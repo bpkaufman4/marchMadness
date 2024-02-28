@@ -8,6 +8,7 @@ const { getApiTeamFunction } = require('./controller/functions/apiTeamFunctions'
 const { getEventFunction } = require('./controller/functions/EventFunctions');
 const { getPlayerFunction } = require('./controller/functions/PlayerFunctions');
 const { count } = require('console');
+const { getTeamFunction } = require('./controller/functions/TeamFunctions');
 
 function processGet(url) {
     return new Promise((resolve, reject) => {
@@ -26,7 +27,10 @@ function processGet(url) {
 }
 
 function setupCron() {
-    pullTeams();
+    getTeamFunction({columnsToReturn: ['name']})
+    .then(reply => {
+        teams = reply.reply.map(team => team.get({plain: true}));
+    })
     // cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 * * *', pullTeams, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 * * Sunday', pullPlayers, {timezone: 'America/Chicago'});
