@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, ApiTeam } = require('../models');
 const { getUserFunction } = require('./functions/userFunctions');
-const { getLeagueFunction } = require('./functions/leagueFunctions');
+const { getLeagueFunction } = require('./functions/LeagueFunctions');
 const { getApiTeamFunction } = require('./functions/apiTeamFunctions');
 
 router.get('/adminUsers', (req, res) => {
