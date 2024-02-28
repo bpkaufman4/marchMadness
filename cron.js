@@ -26,6 +26,7 @@ function processGet(url) {
 }
 
 function setupCron() {
+    pullTeams();
     cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
     cron.schedule('0 0 * * *', pullTeams, {timezone: 'America/Chicago'});
     cron.schedule('0 0 * * Sunday', pullPlayers, {timezone: 'America/Chicago'});
