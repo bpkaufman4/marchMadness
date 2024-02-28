@@ -30,7 +30,8 @@ function setupCron() {
     getApiTeamFunction({columnsToReturn: ['name']})
     .then(reply => {
         teams = reply.reply.map(team => team.get({plain: true}));
-    })
+        console.log(teams);
+    });
     // cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 * * *', pullTeams, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 * * Sunday', pullPlayers, {timezone: 'America/Chicago'});
