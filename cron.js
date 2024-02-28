@@ -27,7 +27,7 @@ function processGet(url) {
 }
 
 function setupCron() {
-    getTeamFunction({columnsToReturn: ['name']})
+    getApiTeamFunction({columnsToReturn: ['name']})
     .then(reply => {
         teams = reply.reply.map(team => team.get({plain: true}));
     })
