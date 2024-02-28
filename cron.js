@@ -47,26 +47,32 @@ function pullYesterdayStats() {
 }
 
 function pullEvents() {
+    const interval = 200;
+    let increment = 1;
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
         reply.forEach(e => {
-            const homeTeam = getApiTeamFunction({apiId: e.HomeTeamID, columnsToReturn: ['apiTeamId']});
-            const awayTeam = getApiTeamFunction({apiId: e.AwayTeamID, columnsToReturn: ['apiTeamId']});
-            Promise.all([homeTeam, awayTeam])
-            .then(values => {
-                const homeTeam = values[0].reply.map(event => event.get({plain: true}))[0];
-                const awayTeam = values[1].reply.map(event => event.get({plain: true}))[0];
-                if(homeTeam && awayTeam) {
-                    Event.upsert({
-                        apiEventId: e.GameID,
-                        homeApiId: e.HomeTeamID,
-                        awayApiId: e.AwayTeamID,
-                        startDate: e.DateTime,
-                        homeApiTeamId: homeTeam.apiTeamId,
-                        awayApiTeamId: awayTeam.apiTeamId
-                    });
-                }
-            })
+            setTimeout(function() {
+
+                const homeTeam = getApiTeamFunction({apiId: e.HomeTeamID, columnsToReturn: ['apiTeamId']});
+                const awayTeam = getApiTeamFunction({apiId: e.AwayTeamID, columnsToReturn: ['apiTeamId']});
+                Promise.all([homeTeam, awayTeam])
+                .then(values => {
+                    const homeTeam = values[0].reply.map(event => event.get({plain: true}))[0];
+                    const awayTeam = values[1].reply.map(event => event.get({plain: true}))[0];
+                    if(homeTeam && awayTeam) {
+                        Event.upsert({
+                            apiEventId: e.GameID,
+                            homeApiId: e.HomeTeamID,
+                            awayApiId: e.AwayTeamID,
+                            startDate: e.DateTime,
+                            homeApiTeamId: homeTeam.apiTeamId,
+                            awayApiTeamId: awayTeam.apiTeamId
+                        });
+                    }
+                })
+            }, interval*increment);
+            increment++
         });
     });
 }
