@@ -11,6 +11,8 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const setupCron = require('./cron');
 
+process.env.TZ = "America/Chicago";
+
 const sess = {
     secret: process.env.SECRET,
     cookie: {},
@@ -31,7 +33,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(controller);
 
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync({ alter: false }).then(() => {
     app.listen(PORT, () => {
         console.log(`listening on port ${PORT}`);
         setupCron();

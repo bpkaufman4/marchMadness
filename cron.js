@@ -7,6 +7,7 @@ const { QueryTypes } = require('sequelize');
 const { getApiTeamFunction } = require('./controller/functions/apiTeamFunctions');
 const { getEventFunction } = require('./controller/functions/EventFunctions');
 const { getPlayerFunction } = require('./controller/functions/PlayerFunctions');
+const { count } = require('console');
 
 function processGet(url) {
     return new Promise((resolve, reject) => {
@@ -25,103 +26,104 @@ function processGet(url) {
 }
 
 function setupCron() {
-    pullEvents();
-    // syncTeams();
-    // pullRosters();
-    // pullStats();
+    cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
+    cron.schedule('0 0 * * *', pullTeams, {timezone: 'America/Chicago'});
+    cron.schedule('0 0 * * Sunday', pullPlayers, {timezone: 'America/Chicago'});
+    cron.schedule('* * * * *', pullTodayStats, {timezone: 'America/Chicago'});
+    cron.schedule('* * * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
+}
+
+function pullTodayStats() {
+    const today = new Date();
+    pullStats(today);
+}
+
+function pullYesterdayStats() {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate()-1);
+    pullStats(yesterday);
 }
 
 function pullEvents() {
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
-        console.log(reply);
-        return;
         reply.forEach(e => {
-            const homeUpsert = ApiTeam.upsert({
-                apiId: e.HomeTeamID,
-                name: e.HomeTeam
+            const homeTeam = getApiTeamFunction({apiId: e.HomeTeamID, columnsToReturn: ['apiTeamId']});
+            const awayTeam = getApiTeamFunction({apiId: e.AwayTeamID, columnsToReturn: ['apiTeamId']});
+            Promise.all([homeTeam, awayTeam])
+            .then(values => {
+                const homeTeam = values[0].reply.map(event => event.get({plain: true}))[0];
+                const awayTeam = values[1].reply.map(event => event.get({plain: true}))[0];
+                if(homeTeam && awayTeam) {
+                    Event.upsert({
+                        apiEventId: e.GameID,
+                        homeApiId: e.HomeTeamID,
+                        awayApiId: e.AwayTeamID,
+                        startDate: e.DateTime,
+                        homeApiTeamId: homeTeam.apiTeamId,
+                        awayApiTeamId: awayTeam.apiTeamId
+                    });
+                }
             })
-            const awayUpsert = ApiTeam.upsert({
-                apiId: e.AwayTeamID,
-                name: e.AwayTeam
-            })
-            Promise.all([homeUpsert, awayUpsert]).then(values => {
-                console.log(values);
-            })
-            // Event.upsert({
-            //     apiEventId: e.GameID,
-            //     homeApiId: e.HomeTeamID,
-            //     awayApiId: e.AwayTeamID,
-            //     startDate: e.DateTime,
-            //     homeTeamName: e.HomeTeam,
-            //     AwayTeamName: e.AwayTeam
-            // });
         });
     });
 }
 
 
-function pullRosters() {
-    getApiTeamFunction({columnsToReturn: ['name', 'apiTeamId']}).then(reply => {
-        var interval = 500;
-        var iteration = 1;
-        const teams = reply.reply.map(team => team.get({plain: true}));
-        teams.forEach(t => {
-            setTimeout(() => {
-                processGet(`https://api.sportsdata.io/v3/cbb/scores/json/PlayersBasic/${t.name}?key=${process.env.API_KEY}`)
-                .then(reply => {
-                    reply.forEach(p => {
-                        Player.upsert({name: p.FirstName + ' ' + p.LastName, apiTeamId: t.apiTeamId, apiId: p.PlayerID});
+function pullPlayers() {
+    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/PlayersByActive?key=${process.env.API_KEY}`)
+    .then(reply => {
+        reply.forEach(p => {
+            getApiTeamFunction({apiId: p.TeamID, columnsToReturn: ['apiTeamId']})
+            .then(reply => {
+                const team = reply.reply.map(event => event.get({plain: true}));       
+                if(team[0] && team[0].apiTeamId) {
+                    Player.upsert({name: p.FirstName + ' ' + p.LastName, apiTeamId: team[0].apiTeamId, apiId: p.PlayerID});
+                }
+            })
+        })
+    })
+}
+
+function pullStats(date) {
+    console.log(date);
+    const string = date.toLocaleString('default', {day: '2-digit', month: 'short', year: 'numeric'}).replace(',', '');
+    const elements = string.split(' ');
+    const url = `https://api.sportsdata.io/v3/cbb/stats/json/BoxScores/${elements[2]}-${elements[0]}-${elements[1]}?key=${process.env.API_KEY}`;
+    processGet(url)
+    .then(data => {
+        data.forEach(game => {
+            getEventFunction({apiEventId: game.Game.GameID, columnsToReturn: ['eventId']})
+            .then(reply => {
+                const players = game.PlayerGames;
+                const eventId = reply.reply.map(event => event.get({plain: true}));
+                players.forEach(stat => {
+                    getPlayerFunction({apiId: stat.PlayerID, columnsToReturn: ['playerId']})
+                    .then(reply => {
+                        const playerId = reply.reply.map(player => player.get({plain: true}));
+                        Statistic.upsert({playerId: playerId[0].playerId, apiId: stat.StatID, points: stat.Points, eventId: eventId[0].eventId});
                     })
                 })
-            }, interval*iteration);
-            iteration++;
-        })
-    })
-}
-
-function pullStats() {
-    getEventFunction({columnsToReturn: ['apiEventId', 'eventId']})
-    .then(reply => {
-        var interval = 200;
-        var iteration = 1;
-        const events = reply.reply.map(event => event.get({plain: true}));
-        events.forEach(e => {
-            setTimeout(() => {
-                processGet(`https://api.sportsdata.io/v3/cbb/stats/json/BoxScore/${e.apiEventId}?key=${process.env.API_KEY}`)
-                .then(reply => {
-                    const playerStats = reply.PlayerGames;
-                    if(playerStats) {
-                        playerStats.forEach(stat => {
-                            getPlayerFunction({apiId: stat.PlayerID, columnsToReturn: ['playerId']})
-                            .then(player => {
-                                const playerClean = player.reply.map(item => item.get({plain: true}));
-                                if(playerClean.length > 0) {
-                                    Statistic.upsert({playerId: playerClean[0].playerId, apiId: stat.StatID, points: stat.Points, eventId: e.eventId});
-                                }
-                            })
-                        })
-                    }
-                })
-            }, interval*iteration);
-            iteration++;
-        })
-    })
-}
-
-
-function syncTeams() {
-    const selectQuery = `SELECT distinct apiId, name from (
-        select homeApiId apiId, homeTeamName name from event
-        union all
-        select awayApiId apiId, awayTeamName name from event
-    ) dt where dt.name is not null order by apiId`;
-    sequelize.query(selectQuery, {raw: true, type: QueryTypes.SELECT})
-    .then(reply => {
-        reply.forEach(t => {
-            ApiTeam.upsert(t)
+            });
         });
     });
+}
+
+
+function pullTeams() {
+    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/LeagueHierarchy?key=${process.env.API_KEY}`)
+    .then(reply => {
+        const conferences = reply;
+        conferences.forEach(conference => {
+            const teams = conference.Teams;
+            teams.forEach(team => {
+                ApiTeam.upsert({apiId: team.TeamID, name: team.School, shortName: team.ShortDisplayName, slug: team.Key, logoUrl: team.TeamLogoUrl})
+                .then(data => {
+                    console.log(data);
+                })
+            })
+        })
+    })
 }
 
 module.exports = setupCron;

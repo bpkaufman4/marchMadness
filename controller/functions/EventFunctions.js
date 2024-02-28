@@ -39,6 +39,7 @@ function getEventFunction(request) {
     for(key in request) {
         switch(key) {
             case 'eventId':
+            case 'apiEventId':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }

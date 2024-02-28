@@ -37,6 +37,13 @@ ApiTeam.init(
                 fields: [
                     'apiId'
                 ]
+            },
+            {
+                name: 'apiTeamNDX2',
+                unique: true,
+                fields: [
+                    'slug'
+                ]
             }
         ],
         paranoid: true,

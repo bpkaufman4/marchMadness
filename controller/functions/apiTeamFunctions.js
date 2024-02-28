@@ -17,13 +17,14 @@ function getApiTeamFunction(request) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'apiTeamId':
-                        case 'name':
-                        case 'eliminatedInd':
-                        case 'apiId':
-                        case 'logoUrl':
-                        case 'createdAt':
-                        case 'updatedAt':
-                        case 'deletedAt':
+                case 'apiId':
+                case 'name':
+                case 'shortName':
+                case 'slug':
+                case 'logoUrl':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
                         
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
@@ -38,13 +39,14 @@ function getApiTeamFunction(request) {
     for(key in request) {
         switch(key) {
             case 'apiTeamId':
+            case 'apiId':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
     }
 
     return new Promise((resolve, reject) => {
-        if(!request.pageSize) request.pageSize = 100;
+        if(!request.pageSize) request.pageSize = 500;
         if(!request.page) request.page = 1;
         let findRequest = {
             attributes: newColumnsToReturn,
@@ -87,12 +89,14 @@ function putApiTeamFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'apiTeamId':
-                                case 'name':
-                                case 'eliminatedInd':
-                                case 'logoUrl':
-                                case 'createdAt':
-                                case 'updatedAt':
-                                case 'deletedAt':
+                case 'apiId':
+                case 'name':
+                case 'shortName':
+                case 'slug':
+                case 'logoUrl':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
                                 
                 newRequest[key] = request[key];
                 break;
