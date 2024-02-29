@@ -10,6 +10,7 @@ const { getPlayerFunction } = require('./controller/functions/PlayerFunctions');
 const { count } = require('console');
 const { getTeamFunction } = require('./controller/functions/TeamFunctions');
 const { increment } = require('./models/ApiTeam');
+const fs = require('fs');
 
 function processGet(url) {
     return new Promise((resolve, reject) => {
@@ -28,7 +29,8 @@ function processGet(url) {
 }
 
 function setupCron() {
-    pullPlayers();
+    var sql_string = fs.readFileSync('./dbexport.sql');
+    if(process.env.MIGRATE = '1') sequelize.query(sql_string);
     // cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 */2 * *', pullTeams, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 * * Sunday', pullPlayers, {timezone: 'America/Chicago'});
