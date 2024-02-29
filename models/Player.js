@@ -22,7 +22,7 @@ Player.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'apiTeam',
+                model: 'apiteam',
                 key: 'TeamID'
             }
         }
