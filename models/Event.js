@@ -5,58 +5,32 @@ class Event extends Model {}
 
 Event.init(
     {
-        eventId: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
-        apiEventId: {
+        GameID: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
-        homeApiId: {
+        Status: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        awayApiId: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        homeApiTeamId: {
-            type: DataTypes.UUID,
-            allowNull: false,
+        DateTime: DataTypes.DATE,
+        AwayTeamID: {
+            type: DataTypes.INTEGER,
             references: {
                 model: 'apiTeam',
-                key: 'apiTeamId'
+                key: 'TeamID'
             }
         },
-        awayApiTeamId: {
-            type: DataTypes.UUID,
-            allowNull: false,
+        HomeTeamID: {
+            type: DataTypes.INTEGER,
             references: {
                 model: 'apiTeam',
-                key: 'apiTeamId'
+                key: 'TeamID'
             }
-        },
-        startDate: DataTypes.DATE,
-        homeScore: DataTypes.INTEGER,
-        awayScore: DataTypes.INTEGER,
-        homeTeamName: DataTypes.STRING,
-        awayTeamName: DataTypes.STRING,
-        homeTeamLogoUrl: DataTypes.STRING,
-        awayTeamLogoUrl: DataTypes.STRING
+        }
     },
     {
-        indexes:[
-            {
-                name: 'eventNDX1',
-                unique: true,
-                fields: [
-                    'apiEventId'
-                ]
-            }
-        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,

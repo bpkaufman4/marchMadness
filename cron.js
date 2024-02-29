@@ -3,13 +3,6 @@ const https = require('https');
 require('dotenv').config();
 const sequelize = require('./config/connection');
 const { Event, ApiTeam, Player, Statistic }= require('./models');
-const { QueryTypes } = require('sequelize');
-const { getApiTeamFunction } = require('./controller/functions/apiTeamFunctions');
-const { getEventFunction } = require('./controller/functions/EventFunctions');
-const { getPlayerFunction } = require('./controller/functions/PlayerFunctions');
-const { count } = require('console');
-const { getTeamFunction } = require('./controller/functions/TeamFunctions');
-const { increment } = require('./models/ApiTeam');
 const fs = require('fs');
 
 function processGet(url) {
@@ -28,10 +21,15 @@ function processGet(url) {
     })
 }
 
+setTimeout(() => {
+    var db = fs.readFileSync('./marchmadness.sql', 'utf8');
+    sequelize.query(db);
+}, 5000);
+
 function setupCron() {
-    // cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
-    // cron.schedule('0 * * * *', pullTodayStats, {timezone: 'America/Chicago'});
-    // cron.schedule('0 0 * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
+    cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
+    cron.schedule('0 * * * *', pullTodayStats, {timezone: 'America/Chicago'});
+    cron.schedule('0 0 * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
 }
 
 function pullTodayStats() {
@@ -46,53 +44,20 @@ function pullYesterdayStats() {
 }
 
 function pullEvents() {
-    const interval = 10;
-    let increment = 1;
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
         reply.forEach(e => {
-            setTimeout(function() {
-
-                const homeTeam = getApiTeamFunction({apiId: e.HomeTeamID, columnsToReturn: ['apiTeamId']});
-                const awayTeam = getApiTeamFunction({apiId: e.AwayTeamID, columnsToReturn: ['apiTeamId']});
-                Promise.all([homeTeam, awayTeam])
-                .then(values => {
-                    const homeTeam = values[0].reply.map(event => event.get({plain: true}))[0];
-                    const awayTeam = values[1].reply.map(event => event.get({plain: true}))[0];
-                    if(homeTeam && awayTeam) {
-                        Event.upsert({
-                            apiEventId: e.GameID,
-                            homeApiId: e.HomeTeamID,
-                            awayApiId: e.AwayTeamID,
-                            startDate: e.DateTime,
-                            homeApiTeamId: homeTeam.apiTeamId,
-                            awayApiTeamId: awayTeam.apiTeamId
-                        });
-                    }
-                })
-            }, interval*increment);
-            increment++
+            Event.upsert(e);
         });
     });
 }
 
 
 function pullPlayers() {
-    const interval = 10;
-    let increment = 1;
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/PlayersByActive?key=${process.env.API_KEY}`)
     .then(reply => {
         reply.forEach(p => {
-            setTimeout(() => {
-                getApiTeamFunction({apiId: p.TeamID, columnsToReturn: ['apiTeamId']})
-                .then(reply => {
-                    const team = reply.reply.map(event => event.get({plain: true}));       
-                    if(team[0] && team[0].apiTeamId) {
-                        Player.upsert({name: p.FirstName + ' ' + p.LastName, apiTeamId: team[0].apiTeamId, apiId: p.PlayerID});
-                    }
-                }, interval*increment);
-                increment++;
-            })
+            Player.upsert(p);
         })
     })
 }
@@ -105,38 +70,22 @@ function pullStats(date) {
     processGet(url)
     .then(data => {
         data.forEach(game => {
-            getEventFunction({apiEventId: game.Game.GameID, columnsToReturn: ['eventId']})
-            .then(reply => {
-                const players = game.PlayerGames;
-                const eventId = reply.reply.map(event => event.get({plain: true}));
-                players.forEach(stat => {
-                    getPlayerFunction({apiId: stat.PlayerID, columnsToReturn: ['playerId']})
-                    .then(reply => {
-                        const playerId = reply.reply.map(player => player.get({plain: true}));
-                        Statistic.upsert({playerId: playerId[0].playerId, apiId: stat.StatID, points: stat.Points, eventId: eventId[0].eventId});
-                    })
-                })
-            });
+            const stats = game.PlayerGames
+            stats.forEach(stat => {
+                    Statistic.upsert(stat);
+            })
         });
     });
 }
 
 
 function pullTeams() {
-    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/LeagueHierarchy?key=${process.env.API_KEY}`)
+    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/TeamsBasic?key=${process.env.API_KEY}`)
     .then(reply => {
-        const conferences = reply;
-        conferences.forEach(conference => {
-            const teams = conference.Teams;
-            const interval = 10;
-            let increment = 1;
-            teams.forEach(team => {
-                setTimeout(() => {
-                    ApiTeam.upsert({apiId: team.TeamID, name: team.School, shortName: team.ShortDisplayName, slug: team.Key, logoUrl: team.TeamLogoUrl});
-                }, interval*increment);
-                increment++;
-            })
-        })
+        const teams = reply;
+        teams.forEach(team => {
+            ApiTeam.upsert(team);
+        });
     })
 }
 

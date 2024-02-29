@@ -5,47 +5,30 @@ class ApiTeam extends Model {}
 
 ApiTeam.init(
     {
-        apiTeamId: {
-            type: DataTypes.UUID,
+        TeamID: {
+            type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            primaryKey: true
         },
-        apiId: {
+        Key: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        name: {
+        School: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        shortName: {
+        Name: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        slug:{
+        ShortDisplayName:{
             type: DataTypes.STRING,
             allowNull: false
         },
-        logoUrl: DataTypes.STRING
+        TeamLogoUrl: DataTypes.STRING
     },
     {
-        indexes:[
-            {
-                name: 'apiTeamNDX1',
-                unique: true,
-                fields: [
-                    'apiId'
-                ]
-            },
-            {
-                name: 'apiTeamNDX2',
-                unique: true,
-                fields: [
-                    'slug'
-                ]
-            }
-        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,

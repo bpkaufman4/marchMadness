@@ -12,11 +12,11 @@ PlayerTeam.init(
             defaultValue: DataTypes.UUIDV4
         },
         playerId: {
-            type: DataTypes.UUID,
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'player',
-                key: 'playerId'
+                key: 'PlayerID'
             }
         },
         teamId: {
@@ -29,9 +29,9 @@ PlayerTeam.init(
         }
     },
     {
-      sequelize,
-      freezeTableName: true,
-      modelName: 'playerTeam'
+        sequelize,
+        freezeTableName: true,
+        modelName: 'playerTeam'
     }
 );
 

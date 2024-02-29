@@ -5,48 +5,35 @@ class Statistic extends Model {}
 
 Statistic.init(
     {
-        statisticId: {
+        StatID: {
             type: DataTypes.UUID,
             allowNull: false,
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        playerId: {
-            type: DataTypes.UUID,
+        PlayerID: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'player',
-                key: 'playerId'
+                key: 'PlayerID'
             }
         },
-        apiId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        points: {
+        Points: {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0
         },
-        eventId: {
-            type: DataTypes.UUID,
+        GameID: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'event',
-                key: 'eventId'
+                key: 'GameID'
             }
         }
     },
     {
-        indexes:[
-            {
-                name: 'statisticNDX1',
-                unique: true,
-                fields: [
-                    'apiId'
-                ]
-            }
-        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,

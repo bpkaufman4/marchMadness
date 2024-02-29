@@ -5,39 +5,29 @@ class Player extends Model {}
 
 Player.init(
     {
-        playerId: {
-            type: DataTypes.UUID,
+        PlayerID: {
+            type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
+            primaryKey: true
         },
-        name: {
+        FirstName: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        apiTeamId: {
-            type: DataTypes.UUID,
+        LastName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        TeamID: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'apiTeam',
-                key: 'apiTeamId'
+                key: 'TeamID'
             }
-        },
-        apiId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
         }
     },
     {
-        indexes:[
-            {
-                name: 'playerNDX1',
-                unique: true,
-                fields: [
-                    'apiId'
-                ]
-            }
-        ],
         paranoid: true,
         sequelize,
         freezeTableName: true,
