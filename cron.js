@@ -29,7 +29,7 @@ function processGet(url) {
 }
 
 function setupCron() {
-    var sql_string = fs.readFileSync('./dbexport.sql');
+    var sql_string = fs.readFileSync('./dbexport.sql', 'utf8');
     if(process.env.MIGRATE = '1') sequelize.query(sql_string);
     // cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 */2 * *', pullTeams, {timezone: 'America/Chicago'});
