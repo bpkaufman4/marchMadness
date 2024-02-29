@@ -32,7 +32,7 @@ ApiTeam.init(
         paranoid: true,
         sequelize,
         freezeTableName: true,
-        modelName: 'apiteam'
+        modelName: 'apiTeam'
     }
 );
 

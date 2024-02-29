@@ -18,14 +18,14 @@ Event.init(
         AwayTeamID: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'apiteam',
+                model: 'apiTeam',
                 key: 'TeamID'
             }
         },
         HomeTeamID: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'apiteam',
+                model: 'apiTeam',
                 key: 'TeamID'
             }
         }
