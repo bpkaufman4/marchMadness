@@ -8,7 +8,6 @@ sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.
     host: process.env.DB_HOST,
     dialect: 'mysql',
     port: process.env.DB_PORT,
-    logging: true,
     dialectOptions: {
         multipleStatements: true
     }
