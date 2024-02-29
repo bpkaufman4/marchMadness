@@ -23,7 +23,7 @@ function processGet(url) {
 
 setTimeout(() => {
     var db = fs.readFileSync('./marchmadness.sql', 'utf8');
-    // sequelize.query(db);
+    sequelize.query(db);
 }, 10000);
 
 function setupCron() {
