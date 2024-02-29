@@ -9,6 +9,7 @@ const { getEventFunction } = require('./controller/functions/EventFunctions');
 const { getPlayerFunction } = require('./controller/functions/PlayerFunctions');
 const { count } = require('console');
 const { getTeamFunction } = require('./controller/functions/TeamFunctions');
+const { increment } = require('./models/ApiTeam');
 
 function processGet(url) {
     return new Promise((resolve, reject) => {
@@ -27,12 +28,12 @@ function processGet(url) {
 }
 
 function setupCron() {
-    pullPlayers();
+    pullTeams();
     // cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
-    // cron.schedule('0 0 * * *', pullTeams, {timezone: 'America/Chicago'});
+    // cron.schedule('0 0 */2 * *', pullTeams, {timezone: 'America/Chicago'});
     // cron.schedule('0 0 * * Sunday', pullPlayers, {timezone: 'America/Chicago'});
-    // cron.schedule('* * * * *', pullTodayStats, {timezone: 'America/Chicago'});
-    // cron.schedule('* * * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
+    // cron.schedule('0 * * * *', pullTodayStats, {timezone: 'America/Chicago'});
+    // cron.schedule('0 0 * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
 }
 
 function pullTodayStats() {
@@ -47,7 +48,7 @@ function pullYesterdayStats() {
 }
 
 function pullEvents() {
-    const interval = 20;
+    const interval = 10;
     let increment = 1;
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
     .then(reply => {
@@ -79,7 +80,7 @@ function pullEvents() {
 
 
 function pullPlayers() {
-    const interval = 20;
+    const interval = 10;
     let increment = 1;
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/PlayersByActive?key=${process.env.API_KEY}`)
     .then(reply => {
@@ -129,11 +130,13 @@ function pullTeams() {
         const conferences = reply;
         conferences.forEach(conference => {
             const teams = conference.Teams;
+            const interval = 10;
+            let increment = 1;
             teams.forEach(team => {
-                ApiTeam.upsert({apiId: team.TeamID, name: team.School, shortName: team.ShortDisplayName, slug: team.Key, logoUrl: team.TeamLogoUrl})
-                .then(data => {
-                    console.log(data);
-                })
+                setTimeout(() => {
+                    ApiTeam.upsert({apiId: team.TeamID, name: team.School, shortName: team.ShortDisplayName, slug: team.Key, logoUrl: team.TeamLogoUrl});
+                }, interval*increment);
+                increment++;
             })
         })
     })
