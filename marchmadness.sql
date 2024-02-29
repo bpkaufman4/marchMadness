@@ -16,6 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `apiteam`
+--
+
+DROP TABLE IF EXISTS `apiteam`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `apiteam` (
+  `TeamID` int NOT NULL,
+  `Key` varchar(255) NOT NULL,
+  `School` varchar(255) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `ShortDisplayName` varchar(255) NOT NULL,
+  `TeamLogoUrl` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `apiteam`
 --
 
@@ -26,6 +47,24 @@ INSERT INTO `apiteam` VALUES (1,'SMU','SMU','Mustangs','SMU','https://s3-us-west
 UNLOCK TABLES;
 
 --
+-- Table structure for table `bktest`
+--
+
+DROP TABLE IF EXISTS `bktest`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bktest` (
+  `bkTestId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `number` int NOT NULL DEFAULT '0',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`bkTestId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `bktest`
 --
 
@@ -33,6 +72,30 @@ LOCK TABLES `bktest` WRITE;
 /*!40000 ALTER TABLE `bktest` DISABLE KEYS */;
 /*!40000 ALTER TABLE `bktest` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `event`
+--
+
+DROP TABLE IF EXISTS `event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event` (
+  `GameID` int NOT NULL,
+  `Status` varchar(255) NOT NULL,
+  `DateTime` datetime DEFAULT NULL,
+  `AwayTeamID` int DEFAULT NULL,
+  `HomeTeamID` int DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`GameID`),
+  KEY `AwayTeamID` (`AwayTeamID`),
+  KEY `HomeTeamID` (`HomeTeamID`),
+  CONSTRAINT `event_ibfk_1` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`),
+  CONSTRAINT `event_ibfk_2` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `event`
@@ -45,6 +108,28 @@ INSERT INTO `event` VALUES (50861,'Final','2023-11-07 02:00:00',298,5,'2024-02-2
 UNLOCK TABLES;
 
 --
+-- Table structure for table `league`
+--
+
+DROP TABLE IF EXISTS `league`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `league` (
+  `leagueId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `ownerId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `privateInd` tinyint(1) NOT NULL DEFAULT '0',
+  `password` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`leagueId`),
+  KEY `ownerId` (`ownerId`),
+  CONSTRAINT `league_ibfk_1` FOREIGN KEY (`ownerId`) REFERENCES `user` (`userId`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `league`
 --
 
@@ -52,6 +137,27 @@ LOCK TABLES `league` WRITE;
 /*!40000 ALTER TABLE `league` DISABLE KEYS */;
 /*!40000 ALTER TABLE `league` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `player`
+--
+
+DROP TABLE IF EXISTS `player`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `player` (
+  `PlayerID` int NOT NULL,
+  `FirstName` varchar(255) NOT NULL,
+  `LastName` varchar(255) NOT NULL,
+  `TeamID` int NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`PlayerID`),
+  KEY `TeamID` (`TeamID`),
+  CONSTRAINT `player_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `player`
@@ -63,6 +169,27 @@ LOCK TABLES `player` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `playerteam`
+--
+
+DROP TABLE IF EXISTS `playerteam`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `playerteam` (
+  `playerTeamId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `playerId` int NOT NULL,
+  `teamId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`playerTeamId`),
+  KEY `playerId` (`playerId`),
+  KEY `teamId` (`teamId`),
+  CONSTRAINT `playerteam_ibfk_1` FOREIGN KEY (`playerId`) REFERENCES `player` (`PlayerID`),
+  CONSTRAINT `playerteam_ibfk_2` FOREIGN KEY (`teamId`) REFERENCES `team` (`teamId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `playerteam`
 --
 
@@ -70,6 +197,28 @@ LOCK TABLES `playerteam` WRITE;
 /*!40000 ALTER TABLE `playerteam` DISABLE KEYS */;
 /*!40000 ALTER TABLE `playerteam` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `reference`
+--
+
+DROP TABLE IF EXISTS `reference`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reference` (
+  `referenceCd` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `referenceSet` varchar(255) NOT NULL,
+  `referenceMeaning` varchar(255) DEFAULT NULL,
+  `display` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `activeInd` int DEFAULT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`referenceCd`),
+  KEY `referenceSet` (`referenceSet`),
+  KEY `referenceNDX1` (`referenceMeaning`,`referenceSet`) USING BTREE,
+  CONSTRAINT `reference_ibfk_1` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `reference`
@@ -81,6 +230,23 @@ LOCK TABLES `reference` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `referencesets`
+--
+
+DROP TABLE IF EXISTS `referencesets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `referencesets` (
+  `referenceSet` varchar(255) NOT NULL,
+  `display` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `deletableInd` int NOT NULL DEFAULT '1',
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`referenceSet`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `referencesets`
 --
 
@@ -88,6 +254,23 @@ LOCK TABLES `referencesets` WRITE;
 /*!40000 ALTER TABLE `referencesets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `referencesets` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `sessions`
+--
+
+DROP TABLE IF EXISTS `sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sessions` (
+  `sid` varchar(36) NOT NULL,
+  `expires` datetime DEFAULT NULL,
+  `data` text,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `sessions`
@@ -99,6 +282,29 @@ LOCK TABLES `sessions` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `statistic`
+--
+
+DROP TABLE IF EXISTS `statistic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `statistic` (
+  `StatID` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `PlayerID` int NOT NULL,
+  `Points` int NOT NULL DEFAULT '0',
+  `GameID` int NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`StatID`),
+  KEY `PlayerID` (`PlayerID`),
+  KEY `GameID` (`GameID`),
+  CONSTRAINT `statistic_ibfk_1` FOREIGN KEY (`PlayerID`) REFERENCES `player` (`PlayerID`),
+  CONSTRAINT `statistic_ibfk_2` FOREIGN KEY (`GameID`) REFERENCES `event` (`GameID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `statistic`
 --
 
@@ -108,6 +314,29 @@ LOCK TABLES `statistic` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `team`
+--
+
+DROP TABLE IF EXISTS `team`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `team` (
+  `teamId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `ownerId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `leagueId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`teamId`),
+  KEY `ownerId` (`ownerId`),
+  KEY `leagueId` (`leagueId`),
+  CONSTRAINT `team_ibfk_1` FOREIGN KEY (`ownerId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `team_ibfk_2` FOREIGN KEY (`leagueId`) REFERENCES `league` (`leagueId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `team`
 --
 
@@ -115,6 +344,49 @@ LOCK TABLES `team` WRITE;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `pwd` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `statusCd` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `userTypeCd` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `lastLoginDate` datetime DEFAULT NULL,
+  `lastIP` varchar(255) DEFAULT NULL,
+  `primaryPhone` varchar(255) DEFAULT NULL,
+  `cellPhone` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `zip` varchar(255) DEFAULT NULL,
+  `emailVerifyGUID` varchar(255) DEFAULT NULL,
+  `emailVerifyExpire` datetime DEFAULT NULL,
+  `timeZoneId` varchar(255) DEFAULT NULL,
+  `lastActiveDateTime` int DEFAULT NULL,
+  `profilePictureURL` varchar(255) DEFAULT NULL,
+  `profilePictureLocal` varchar(255) DEFAULT NULL,
+  `bksTestColumn` varchar(255) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  `deletedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `userAK1` (`email`),
+  KEY `statusCd` (`statusCd`),
+  KEY `userTypeCd` (`userTypeCd`),
+  KEY `userNDX1` (`email`) USING BTREE,
+  KEY `userNDX2` (`lastName`) USING BTREE,
+  KEY `userNDX3` (`emailVerifyGUID`) USING BTREE,
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`statusCd`) REFERENCES `reference` (`referenceCd`) ON UPDATE CASCADE,
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`userTypeCd`) REFERENCES `reference` (`referenceCd`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
@@ -134,4 +406,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-29 10:56:09
+-- Dump completed on 2024-02-29 11:21:08

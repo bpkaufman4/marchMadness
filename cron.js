@@ -21,10 +21,10 @@ function processGet(url) {
     })
 }
 
-setTimeout(() => {
-    var db = fs.readFileSync('./marchmadness.sql', 'utf8');
-    sequelize.query(db);
-}, 10000);
+// setTimeout(() => {
+//     var db = fs.readFileSync('./marchmadness.sql', 'utf8');
+//     sequelize.query(db);
+// }, 10000);
 
 function setupCron() {
     cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
