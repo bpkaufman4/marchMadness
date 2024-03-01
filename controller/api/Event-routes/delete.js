@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { deleteEventFunction } = require('../../functions/eventFunctions');
+const { deleteEventFunction } = require('../../functions/EventFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['GameID'];

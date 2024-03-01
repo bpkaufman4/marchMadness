@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { getEventFunction } = require('../../functions/eventFunctions');
+const { getEventFunction } = require('../../functions/EventFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['GameID', 'AwayTeamID', 'HomeTeamID'];
