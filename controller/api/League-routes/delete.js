@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { deleteLeagueFunction } = require('../../functions/leagueFunctions');
+const { deleteLeagueFunction } = require('../../functions/LeagueFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['leagueId'];

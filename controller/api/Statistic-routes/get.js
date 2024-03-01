@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { getStatisticFunction } = require('../../functions/statisticFunctions');
+const { getStatisticFunction } = require('../../functions/StatisticFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['StatID', 'PlayerID', 'GameID'];

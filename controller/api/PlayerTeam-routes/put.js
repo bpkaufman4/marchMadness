@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { putPlayerTeamFunction } = require('../../functions/playerTeamFunctions');
+const { putPlayerTeamFunction } = require('../../functions/PlayerTeamFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['playerTeamId', 'playerId', 'teamId', 'createdAt', 'updatedAt'];

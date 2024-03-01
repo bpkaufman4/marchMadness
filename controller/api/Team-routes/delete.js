@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { deleteTeamFunction } = require('../../functions/teamFunctions');
+const { deleteTeamFunction } = require('../../functions/TeamFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['teamId'];

@@ -1,6 +1,6 @@
 
 const router = require('express').Router();
-const { deleteStatisticFunction } = require('../../functions/statisticFunctions');
+const { deleteStatisticFunction } = require('../../functions/StatisticFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['StatID'];
