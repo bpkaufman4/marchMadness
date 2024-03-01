@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { User, ApiTeam } = require('../models');
 const { getUserFunction } = require('./functions/userFunctions');
 const { getLeagueFunction } = require('./functions/LeagueFunctions');
-const { getApiTeamFunction } = require('./functions/apiTeamFunctions');
 
 router.get('/adminUsers', (req, res) => {
     request = {};
@@ -53,5 +52,9 @@ router.get('/syncHub', (req, res) => {
         res.render('syncHub', data);
     })
 });
+
+router.get('/addLeague', (req, res) => {
+    res.render('addLeague', {userId: req.session.userId})
+})
 
 module.exports = router;

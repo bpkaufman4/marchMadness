@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { putEventFunction } = require('../../functions/EventFunctions');
+const { putEventFunction } = require('../../functions/eventFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['eventId', 'apiEventId', 'homeApiId', 'awayApiId', 'startDate', 'homeScore', 'awayScore', 'homeTeamName', 'awayTeamName', 'homeTeamLogoUrl', 'awayTeamLogoUrl', 'createdAt', 'updatedAt', 'deletedAt'];
-    const endpoint = 'Event/put';
+    const requestFields = ['GameID', 'Status', 'DateTime', 'AwayTeamID', 'HomeTeamID', 'createdAt', 'updatedAt', 'deletedAt'];
+    const endpoint = 'event/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);

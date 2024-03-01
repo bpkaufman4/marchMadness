@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 /*
 ------------------------------Paste into api/index.js----------------------------------
+const leagueRoutes = require('./league-routes');
+router.use('/league', leagueRoutes);
 ---------------------------------------------------------------------------------------
 */
 

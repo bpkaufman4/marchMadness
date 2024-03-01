@@ -19,11 +19,10 @@ function getPlayerTeamFunction(request) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'playerTeamId':
-                        case 'playerId':
-                        case 'teamId':
-                        case 'createdAt':
-                        case 'updatedAt':
-                        
+                case 'playerId':
+                case 'teamId':
+                case 'createdAt':
+                case 'updatedAt':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 
@@ -37,8 +36,8 @@ function getPlayerTeamFunction(request) {
     for(key in request) {
         switch(key) {
             case 'playerId':
-                                case 'teamId':
-                                
+            case 'teamId':
+            case 'playerTeamId':                    
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -88,39 +87,23 @@ function putPlayerTeamFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'playerTeamId':
-                                case 'playerId':
-                                case 'teamId':
-                                case 'createdAt':
-                                case 'updatedAt':
-                                
-                newRequest[key] = request[key];
-                break;
-                
+                case 'playerId':
+                case 'teamId':
+                case 'createdAt':
+                case 'updatedAt':
+                    newRequest[key] = request[key];
+                    break;
             }
         }
     }
     return new Promise((resolve, reject) => {
-        if(request.playerTeamId) {
-            PlayerTeam.update(newRequest, {
-                where: {
-                    playerTeamId: request.playerTeamId
-                }
-            })
-            .then(dbData => {
-                resolve({status: 'SUCCESS', reply:dbData});
-            })
-            .catch(err => {
-                resolve({status: 'FAIL', reply:err});
-            });
-        } else {
-            PlayerTeam.create(newRequest)
-            .then(dbData => {
-                resolve({status: 'SUCCESS', reply:dbData});
-            })
-            .catch(err => {
-                resolve({status: 'FAIL', reply: err});
-            });
-        }
+        PlayerTeam.upsert(newRequest)
+        .then(dbData => {
+            resolve({status: 'SUCCESS', reply:dbData});
+        })
+        .catch(err => {
+            resolve({status: 'FAIL', reply:err});
+        });
     })
 }
 

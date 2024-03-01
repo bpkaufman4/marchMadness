@@ -11,20 +11,20 @@ function getApiTeamFunction(request) {
     let newColumnsToReturn = [];
     let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
-        newColumnsToReturn.push('apiTeamId', 'name', 'eliminatedInd', 'logoUrl', 'createdAt', 'updatedAt', 'deletedAt')
+        newColumnsToReturn.push('TeamID', 'Key', 'School', 'Name', 'ShortDisplayName', 'TeamLogoUrl', 'createdAt', 'updatedAt', 'deletedAt')
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
-                case 'apiTeamId':
-                case 'apiId':
-                case 'name':
-                case 'shortName':
-                case 'slug':
-                case 'logoUrl':
-                case 'createdAt':
-                case 'updatedAt':
-                case 'deletedAt':
+                case 'TeamID':
+                        case 'Key':
+                        case 'School':
+                        case 'Name':
+                        case 'ShortDisplayName':
+                        case 'TeamLogoUrl':
+                        case 'createdAt':
+                        case 'updatedAt':
+                        case 'deletedAt':
                         
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
@@ -38,15 +38,14 @@ function getApiTeamFunction(request) {
 
     for(key in request) {
         switch(key) {
-            case 'apiTeamId':
-            case 'apiId':
+            case 'TeamID':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
     }
 
     return new Promise((resolve, reject) => {
-        if(!request.pageSize) request.pageSize = 500;
+        if(!request.pageSize) request.pageSize = 100;
         if(!request.page) request.page = 1;
         let findRequest = {
             attributes: newColumnsToReturn,
@@ -70,7 +69,7 @@ function deleteApiTeamFunction(request) {
     return new Promise((resolve, reject) => {
         ApiTeam.destroy({
             where: {
-                apiTeamId: request.apiTeamId
+                TeamID: request.TeamID
             }
         })
         .then(dbData => {
@@ -88,12 +87,12 @@ function putApiTeamFunction(request) {
     for(const key in request) {
         if(request[key] > '') {
             switch(key) {
-                case 'apiTeamId':
-                case 'apiId':
-                case 'name':
-                case 'shortName':
-                case 'slug':
-                case 'logoUrl':
+                case 'TeamID':
+                case 'Key':
+                case 'School':
+                case 'Name':
+                case 'ShortDisplayName':
+                case 'TeamLogoUrl':
                 case 'createdAt':
                 case 'updatedAt':
                 case 'deletedAt':
@@ -105,29 +104,18 @@ function putApiTeamFunction(request) {
         }
     }
     return new Promise((resolve, reject) => {
-        if(request.apiTeamId) {
-            ApiTeam.update(newRequest, {
-                where: {
-                    apiTeamId: request.apiTeamId
-                }
-            })
-            .then(dbData => {
-                resolve({status: 'SUCCESS', reply:dbData});
-            })
-            .catch(err => {
-                resolve({status: 'FAIL', reply:err});
-            });
-        } else {
-            ApiTeam.create(newRequest)
-            .then(dbData => {
-                resolve({status: 'SUCCESS', reply:dbData});
-            })
-            .catch(err => {
-                resolve({status: 'FAIL', reply: err});
-            });
-        }
-    })
+        ApiTeam.upsert(newRequest, {
+            where: {
+                TeamID: request.TeamID
+            }
+        })
+        .then(dbData => {
+            resolve({status: 'SUCCESS', reply:dbData});
+        })
+        .catch(err => {
+            resolve({status: 'FAIL', reply:err});
+        });
+    });
 }
 
-
-module.exports = { getApiTeamFunction, deleteApiTeamFunction, putApiTeamFunction};
+module.exports = { getApiTeamFunction, deleteApiTeamFunction, putApiTeamFunction };

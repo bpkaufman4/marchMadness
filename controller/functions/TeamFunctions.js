@@ -19,13 +19,12 @@ function getTeamFunction(request) {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'teamId':
-                        case 'name':
-                        case 'ownerId':
-                        case 'leagueId':
-                        case 'createdAt':
-                        case 'updatedAt':
-                        case 'deletedAt':
-                        
+                case 'name':
+                case 'ownerId':
+                case 'leagueId':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
                 

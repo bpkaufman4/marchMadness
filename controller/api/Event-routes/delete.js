@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { deleteEventFunction } = require('../../functions/EventFunctions');
+const { deleteEventFunction } = require('../../functions/eventFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['eventId'];
-    const endpoint = 'Event/delete';
+    const requestFields = ['GameID'];
+    const endpoint = 'event/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);

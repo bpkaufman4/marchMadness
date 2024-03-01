@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { putLeagueFunction } = require('../../functions/LeagueFunctions');
+const { putLeagueFunction } = require('../../functions/leagueFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['leagueId', 'name', 'ownerId', 'privateInd', 'password', 'createdAt', 'updatedAt', 'deletedAt'];
-    const endpoint = 'League/put';
+    const endpoint = 'league/put';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);

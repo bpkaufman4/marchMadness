@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { getApiTeamFunction } = require('../../functions/apiTeamFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['apiTeamId'];
+    const requestFields = ['TeamID'];
     const endpoint = 'apiTeam/get';
     const renderData = {requestFields, endpoint};
 

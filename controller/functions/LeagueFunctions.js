@@ -16,7 +16,6 @@ function getLeagueFunction(request) {
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
-            let column = request.columnsToReturn[i];
             switch(request.columnsToReturn[i]) {
                 case 'leagueId':
                 case 'name':
@@ -26,11 +25,9 @@ function getLeagueFunction(request) {
                 case 'createdAt':
                 case 'updatedAt':
                 case 'deletedAt':
-                    newColumnsToReturn.push(column);
-                    break;                
-                case 'owner':
-                    includes.push(column);
+                    newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
+                
             }
         }
     }
@@ -55,14 +52,12 @@ function getLeagueFunction(request) {
             limit: Number(request.pageSize),
             offset:((Number(request.page) - 1)*Number(request.pageSize))
         };
-        console.log(findRequest);
         if(includes.length > 0) findRequest['include'] = includes;
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         League.findAll(findRequest)
         .then(dbData => {
-            let reply = dbData.map(league => league.get({plain: true}));
-            resolve({status: 'SUCCESS', reply: reply})
+            resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
             resolve({status: 'FAIL', reply: err})
@@ -93,42 +88,26 @@ function putLeagueFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'leagueId':
-                                case 'name':
-                                case 'ownerId':
-                                case 'privateInd':
-                                case 'password':
-                                case 'createdAt':
-                                case 'updatedAt':
-                                case 'deletedAt':
-                                
-                newRequest[key] = request[key];
-                break;
-                
+                case 'name':
+                case 'ownerId':
+                case 'privateInd':
+                case 'password':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
+                    newRequest[key] = request[key];
+                    break;        
             }
         }
     }
     return new Promise((resolve, reject) => {
-        if(request.leagueId) {
-            League.update(newRequest, {
-                where: {
-                    leagueId: request.leagueId
-                }
-            })
-            .then(dbData => {
-                resolve({status: 'SUCCESS', reply:dbData});
-            })
-            .catch(err => {
-                resolve({status: 'FAIL', reply:err});
-            });
-        } else {
-            League.create(newRequest)
-            .then(dbData => {
-                resolve({status: 'SUCCESS', reply:dbData});
-            })
-            .catch(err => {
-                resolve({status: 'FAIL', reply: err});
-            });
-        }
+        League.upsert(newRequest)
+        .then(dbData => {
+            resolve({status: 'SUCCESS', reply:dbData});
+        })
+        .catch(err => {
+            resolve({status: 'FAIL', reply:err});
+        });
     })
 }
 

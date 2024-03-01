@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { putApiTeamFunction } = require('../../functions/apiTeamFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['apiTeamId', 'name', 'eliminatedInd', 'logoUrl', 'createdAt', 'updatedAt', 'deletedAt'];
+    const requestFields = ['TeamID', 'Key', 'School', 'Name', 'ShortDisplayName', 'TeamLogoUrl', 'createdAt', 'updatedAt', 'deletedAt'];
     const endpoint = 'apiTeam/put';
     const renderData = {requestFields, endpoint};
 

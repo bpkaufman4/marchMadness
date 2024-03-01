@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { getStatisticFunction } = require('../../functions/StatisticFunctions');
+const { getStatisticFunction } = require('../../functions/statisticFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['statisticId', 'playerId', 'eventId'];
-    const endpoint = 'Statistic/get';
+    const requestFields = ['StatID', 'PlayerID', 'GameID'];
+    const endpoint = 'statistic/get';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);

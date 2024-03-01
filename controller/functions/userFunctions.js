@@ -115,36 +115,34 @@ function putUserFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'userId':
-                                case 'email':
-                                case 'pwd':
-                                case 'lastName':
-                                case 'firstName':
-                                case 'lastLoginDate':
-                                case 'lastIP':
-                                case 'primaryPhone':
-                                case 'cellPhone':
-                                case 'state':
-                                case 'zip':
-                                case 'emailVerifyGUID':
-                                case 'emailVerifyExpire':
-                                case 'timeZoneId':
-                                case 'lastActiveDateTime':
-                                case 'profilePictureURL':
-                                case 'profilePictureLocal':
-                                case 'created':
-                                case 'updated':
-                                case 'deletedAt':
-                                case 'bksTestColumn':
-                                
-                newRequest[key] = request[key];
-                break;
+                case 'email':
+                case 'pwd':
+                case 'lastName':
+                case 'firstName':
+                case 'lastLoginDate':
+                case 'lastIP':
+                case 'primaryPhone':
+                case 'cellPhone':
+                case 'state':
+                case 'zip':
+                case 'emailVerifyGUID':
+                case 'emailVerifyExpire':
+                case 'timeZoneId':
+                case 'lastActiveDateTime':
+                case 'profilePictureURL':
+                case 'profilePictureLocal':
+                case 'created':
+                case 'updated':
+                case 'deletedAt':
+                case 'bksTestColumn':
+                    newRequest[key] = request[key];
+                    break;
                 case 'statusCdMeaning':
-                                newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'USERSTATUS') `);
-                                break;
-                    case 'userTypeCdMeaning':
-                                newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'USERTYPE') `);
-                                break;
-                    
+                    newRequest['statusCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'USERSTATUS') `);
+                    break;
+                case 'userTypeCdMeaning':
+                    newRequest['userTypeCd'] = sequelize.literal(` (select referenceCd from reference where referenceMeaning = '${request[key]}' and referenceSet = 'USERTYPE') `);
+                    break;
             }
         }
     }

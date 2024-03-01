@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { deleteStatisticFunction } = require('../../functions/StatisticFunctions');
+const { deleteStatisticFunction } = require('../../functions/statisticFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['statisticId'];
-    const endpoint = 'Statistic/delete';
+    const requestFields = ['StatID'];
+    const endpoint = 'statistic/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);

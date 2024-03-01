@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { deleteApiTeamFunction } = require('../../functions/apiTeamFunctions');
 
 router.get('', (req, res) => {
-    const requestFields = ['apiTeamId'];
+    const requestFields = ['TeamID'];
     const endpoint = 'apiTeam/delete';
     const renderData = {requestFields, endpoint};
 

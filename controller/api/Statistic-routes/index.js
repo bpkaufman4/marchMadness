@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 /*
 ------------------------------Paste into api/index.js----------------------------------
+const statisticRoutes = require('./statistic-routes');
+router.use('/statistic', statisticRoutes);
 ---------------------------------------------------------------------------------------
 */
 

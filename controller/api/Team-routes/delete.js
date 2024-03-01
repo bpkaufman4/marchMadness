@@ -1,10 +1,10 @@
 
 const router = require('express').Router();
-const { deleteTeamFunction } = require('../../functions/TeamFunctions');
+const { deleteTeamFunction } = require('../../functions/teamFunctions');
 
 router.get('', (req, res) => {
     const requestFields = ['teamId'];
-    const endpoint = 'Team/delete';
+    const endpoint = 'team/delete';
     const renderData = {requestFields, endpoint};
 
     res.render('modelFileExercisor', renderData);
