@@ -40,8 +40,8 @@ router.get('/home', (req, res) => {
         Promise.all([leagues, teams])
         .then(values => {
             console.log(values[1]);
-            const allLeagues = values[0].reply.map(league => league.get({plain: true}));
-            const myTeams = values[1].reply.map(team => team.get({plain: true}));
+            const allLeagues = (values[0].reply.length > 0) ? values[0].reply.map(league => league.get({plain: true})) : [];
+            const myTeams = (values[1].reply.length > 0) ? values[1].reply.map(team => team.get({plain: true})) : [];
             const templateData = {leagues: allLeagues, teams: myTeams, session: req.session};
             console.log(templateData);
             res.render('home', templateData);
