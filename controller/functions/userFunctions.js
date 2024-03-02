@@ -51,7 +51,7 @@ function getUserFunction(request) {
                 case 'userTypeCdDisplay':
                     newColumnsToReturn.push([sequelize.literal('(select display from reference where referenceCd = user.userTypeCd)'), 'userTypeCdDisplay']);
                     break;
-                case 'posts':
+                case 'teams':
                     includes.push(request.columnsToReturn[i]);
                     break;
             }

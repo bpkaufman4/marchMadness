@@ -17,5 +17,13 @@ ApiTeam.hasMany(Event, {foreignKey: 'AwayTeamID', as: 'AwayGames'});
 ApiTeam.hasMany(Event, {foreignKey: 'HomeTeamID', as: 'HomeGames'});
 Event.belongsTo(ApiTeam, {foreignKey: 'AwayTeamID', as: 'AwayTeam'});
 Event.belongsTo(ApiTeam, {foreignKey: 'HomeTeamID', as: 'HomeTeam'});
+User.hasMany(Team, {foreignKey: 'ownerId', as: 'teams'});
+Team.belongsTo(User, {foreignKey: 'ownerId', as: 'owner'});
+Team.belongsTo(League, {foreignKey: 'leagueId', as: 'league'});
+League.hasMany(Team, {foreignKey: 'leagueId', as: 'teams'});
+Player.belongsToMany(Team, {through: PlayerTeam, as: 'teams'});
+Team.belongsToMany(Player, {through: PlayerTeam, as: 'players'});
+ApiTeam.hasMany(Player, {foreignKey: 'TeamID', as: 'players'});
+Player.belongsTo(ApiTeam, {foreignKey: 'TeamID', as: 'apiTeam'});
 
 module.exports = { User, Reference, ReferenceSet, ApiTeam, Event, League, Player, PlayerTeam, Statistic, Team };

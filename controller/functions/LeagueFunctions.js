@@ -27,6 +27,15 @@ function getLeagueFunction(request) {
                 case 'deletedAt':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
+                case 'inLeague':
+                    if(request.userId) {
+                        newColumnsToReturn.push([sequelize.literal(`(select count('x') from team t where t.ownerId = "${request.userId}" and t.leagueId = \`league\`.\`leagueId\`)`), 'inLeague']);
+                    }
+                    break;
+                case 'owner':
+                case 'teams':
+                    includes.push(request.columnsToReturn[i]);
+                    break;
                 
             }
         }

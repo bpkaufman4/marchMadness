@@ -1,7 +1,53 @@
+<div class="modal fade" id="joinLeagueModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="teamName" class="col-form-label">Team Name:</label>
+                        <input type="text" class="form-control" id="teamName">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="joinLeagueButton" type="button" data-bs-dismiss="modal" class="btn btn-primary">Join <span id="modalLeagueName"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
+    <input type="hidden" id="userId" value="{{session.userId}}">
     <h1>Leagues</h1>
     <a href="addLeague">Make your own</a>
-    {{#each leagues}}
-    <div>{{name}}, Owner: {{owner.firstName}} {{owner.lastName}}</div>
-    {{/each}}
+    <table>
+        {{#each leagues}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{owner.firstName}} {{owner.lastName}}</td>
+                <td>
+                    {{#if inLeague}}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#joinLeagueModal" data-league-id="{{leagueId}}" data-league-name="{{name}}">Join League</button>
+                    {{else}}
+                    <button type="button" class="btn btn-secondary" >Joined</button>
+                    {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+    <h1>Teams</h1>
+    <table>
+        {{#each teams}} 
+            <tr>
+                <td>{{name}}</td>
+                <td>{{league.name}}</td>
+                <td><a href="team/{{teamId}}">Go To Team</a></td>
+            </tr>
+        {{/each}}
+    </table>
 </div>
+<script src="/javascript/home.js"></script>

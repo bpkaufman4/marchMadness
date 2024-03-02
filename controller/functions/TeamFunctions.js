@@ -13,7 +13,7 @@ function getTeamFunction(request) {
     let newColumnsToReturn = [];
     let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
-        newColumnsToReturn.push('teamId', 'name', 'ownerId', 'leagueId', 'createdAt', 'updatedAt', 'deletedAt')
+        newColumnsToReturn.push('teamId', 'name', 'ownerId', 'leagueId', 'createdAt', 'updatedAt', 'deletedAt', 'players')
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
@@ -26,6 +26,11 @@ function getTeamFunction(request) {
                 case 'updatedAt':
                 case 'deletedAt':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
+                    break;
+                case 'owner':
+                case 'league':
+                case 'players':
+                    includes.push(request.columnsToReturn[i]);
                     break;
                 
             }

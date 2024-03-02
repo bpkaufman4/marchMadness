@@ -28,7 +28,7 @@ function processGet(url) {
 
 function setupCron() {
     cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
-    cron.schedule('0 * * * *', pullTodayStats, {timezone: 'America/Chicago'});
+    cron.schedule('*/5 * * * *', pullTodayStats, {timezone: 'America/Chicago'});
     cron.schedule('0 0 * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
 }
 

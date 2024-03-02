@@ -1,0 +1,17 @@
+{{#if players}}
+    <div id="playersDiv">
+        {{#each players}}
+            <div>{{FirstName}} {{LastName}}, {{points}} points</div>
+        {{/each}}
+    </div>
+{{else}}
+    <div id="playersDiv">No players</div>
+{{/if}}
+<div class="input-group mb-3">
+    <input type="search" class="form-control" id="playerSearch" placeholder="Search Players">
+    <button id="searchButton">Search</button>
+</div>
+<input type="hidden" id="leagueId" value="{{leagueId}}">
+<input type="hidden" id="teamId" value="{{teamId}}">
+<div id="searchPlayersCatch"></div>
+<script src="../javascript/team.js"></script>

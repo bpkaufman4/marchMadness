@@ -1,5 +1,6 @@
 const { Player } = require('../../models');
 const sequelize = require('../../config/connection');
+const { Op } = require("sequelize");
 
 /*
 -------- Paste into models/index.js (these may not be perfect, but change them and remove duplicates if they are weird) --------
@@ -12,22 +13,27 @@ function getPlayerFunction(request) {
     let newColumnsToReturn = [];
     let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
-        newColumnsToReturn.push('PlayerID', 'FirstName', 'LastName', 'TeamID', 'createdAt', 'updatedAt', 'deletedAt')
+        newColumnsToReturn.push('PlayerID', 'FirstName', 'LastName', 'TeamID', 'createdAt', 'updatedAt', 'deletedAt', 'points');
+        includes.push('apiTeam');
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
             switch(request.columnsToReturn[i]) {
                 case 'PlayerID':
-                        case 'FirstName':
-                        case 'LastName':
-                        case 'TeamID':
-                        case 'createdAt':
-                        case 'updatedAt':
-                        case 'deletedAt':
-                        
+                case 'FirstName':
+                case 'LastName':
+                case 'TeamID':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
                     newColumnsToReturn.push(request.columnsToReturn[i]);
                     break;
-                
+                case 'apiTeam':
+                    includes.push(request.columnsToReturn[i]);
+                    break;
+                case 'points':
+                    newColumnsToReturn.push(sequelize.literal(`(select sum(s.points) from statistic s where s.PlayerID = PlayerID) as points`));
+                    break;
             }
         }
     }
@@ -41,6 +47,25 @@ function getPlayerFunction(request) {
             case 'PlayerID':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
+            case 'leagueIdNE':
+                if(request[key] > '') whereRequest['playerId'] = {[Op.notIn]: sequelize.literal(`(select playerPlayerId from playerTeam where teamTeamId in (select teamId from team where leagueId = "${request[key]}"))`)};
+                break;
+            case 'searchStr':
+                if(request[key] > '') whereRequest[Op.or] = [
+                    {
+                        firstName: {
+                            [Op.substring]: request[key]
+                        }
+                    },
+                    {
+                        lastName: {
+                            [Op.substring]: request[key]
+                        }
+                    },
+                    sequelize.literal("concat(`player`.`firstName`, ' ', `player`.`lastName`) like '%"+request[key]+"%'")
+                ];
+                break;
+
         }
     }
 
