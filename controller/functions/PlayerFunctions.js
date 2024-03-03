@@ -48,7 +48,7 @@ function getPlayerFunction(request) {
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
             case 'leagueIdNE':
-                if(request[key] > '') whereRequest['playerId'] = {[Op.notIn]: sequelize.literal(`(select playerPlayerId from playerTeam where teamTeamId in (select teamId from team where leagueId = "${request[key]}"))`)};
+                if(request[key] > '') whereRequest['playerId'] = {[Op.notIn]: sequelize.literal(`(select playerPlayerId from playerTeam where teamTeamId in (select teamId from team where leagueId = '${request[key]}'))`)};
                 break;
             case 'searchStr':
                 if(request[key] > '') whereRequest[Op.or] = [
