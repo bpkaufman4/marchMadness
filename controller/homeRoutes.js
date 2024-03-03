@@ -35,11 +35,12 @@ router.get('/', (req, res) => {
 
 router.get('/home', (req, res) => {
     if(req.session.loggedIn) {
+        console.log(req.session.loggedIn);
         const leagues = getLeagueFunction({columnsToReturn: ['name', 'owner', 'leagueId', 'inLeague'], userId: req.session.userId});
         const teams = getTeamFunction({columnsToReturn: ['leagueId', 'name', 'league', 'teamId']});
         Promise.all([leagues, teams])
         .then(values => {
-            console.log(values[1]);
+            console.log(values);
             const allLeagues = (values[0].reply.length > 0) ? values[0].reply.map(league => league.get({plain: true})) : [];
             const myTeams = (values[1].reply.length > 0) ? values[1].reply.map(team => team.get({plain: true})) : [];
             const templateData = {leagues: allLeagues, teams: myTeams, session: req.session};
