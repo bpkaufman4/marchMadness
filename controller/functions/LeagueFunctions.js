@@ -29,7 +29,7 @@ function getLeagueFunction(request) {
                     break;
                 case 'inLeague':
                     if(request.userId) {
-                        newColumnsToReturn.push([sequelize.literal(`(select count('x') from team t where t.ownerId = "${request.userId}" and t.leagueId = \`league\`.\`leagueId\`)`), 'inLeague']);
+                        newColumnsToReturn.push([sequelize.literal(`(select count(*) from team t where t.ownerId = '${request.userId}' and t.leagueId = \`league\`.\`leagueId\`)`), 'inLeague']);
                     }
                     break;
                 case 'owner':
