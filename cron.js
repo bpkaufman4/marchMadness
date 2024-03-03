@@ -4,6 +4,7 @@ require('dotenv').config();
 const sequelize = require('./config/connection');
 const { Event, ApiTeam, Player, Statistic }= require('./models');
 const fs = require('fs');
+const { getPlayerFunction } = require('./controller/functions/PlayerFunctions');
 
 function processGet(url) {
     return new Promise((resolve, reject) => {
@@ -30,7 +31,7 @@ function setupCron() {
     pullTeams();
     cron.schedule('0 0 * * *', pullPlayers, {timezone: 'America/Chicago'});
     cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
-    cron.schedule('0 0 * * *', pullTodayStats, {timezone: 'America/Chicago'});
+    cron.schedule('*/5 0 * * *', pullTodayStats, {timezone: 'America/Chicago'});
     cron.schedule('0 0 * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
 }
 
@@ -74,7 +75,13 @@ function pullStats(date) {
         data.forEach(game => {
             const stats = game.PlayerGames
             stats.forEach(stat => {
-                    Statistic.upsert(stat);
+                    getPlayerFunction({PlayerID: stat.PlayerID})
+                    .then(reply => {
+                        const player = reply.reply.map(player => player.get({plain: true}));
+                        if(player.length > 0) {
+                            Statistic.upsert(stat);
+                        }
+                    })
             })
         });
     });
