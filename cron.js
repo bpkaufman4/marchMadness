@@ -68,7 +68,7 @@ function pullPlayers() {
 
 function pullStats(date) {
     console.log(date);
-    const string = date.toLocaleString('default', {day: '2-digit', month: 'short', year: 'numeric'}).replace(',', '');
+    const string = date.toLocaleString('default', {day: 'numeric', month: 'short', year: 'numeric'}).replace(',', '');
     const elements = string.split(' ');
     const url = `https://api.sportsdata.io/v3/cbb/stats/json/BoxScores/${elements[2]}-${elements[0]}-${elements[1]}?key=${process.env.API_KEY}`;
     processGet(url)
