@@ -32,7 +32,7 @@ function getPlayerFunction(request) {
                     includes.push(request.columnsToReturn[i]);
                     break;
                 case 'points':
-                    newColumnsToReturn.push(sequelize.literal(`(select sum(s.points) from statistic s where s.PlayerID = PlayerID) as points`));
+                    newColumnsToReturn.push(sequelize.literal(`(select sum(s.points) from statistic s where s.PlayerID = PlayerID)`));
                     break;
             }
         }
