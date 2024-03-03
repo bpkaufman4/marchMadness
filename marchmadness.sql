@@ -16,27 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `apiteam`
---
-
-DROP TABLE IF EXISTS `apiteam`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `apiteam` (
-  `TeamID` int NOT NULL,
-  `Key` varchar(255) NOT NULL,
-  `School` varchar(255) NOT NULL,
-  `Name` varchar(255) NOT NULL,
-  `ShortDisplayName` varchar(255) NOT NULL,
-  `TeamLogoUrl` varchar(255) DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`TeamID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `apiteam`
 --
 
@@ -47,24 +26,6 @@ INSERT INTO `apiteam` VALUES (1,'SMU','SMU','Mustangs','SMU','https://s3-us-west
 UNLOCK TABLES;
 
 --
--- Table structure for table `bktest`
---
-
-DROP TABLE IF EXISTS `bktest`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bktest` (
-  `bkTestId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `number` int NOT NULL DEFAULT '0',
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`bkTestId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `bktest`
 --
 
@@ -72,120 +33,6 @@ LOCK TABLES `bktest` WRITE;
 /*!40000 ALTER TABLE `bktest` DISABLE KEYS */;
 /*!40000 ALTER TABLE `bktest` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `event`
---
-
-DROP TABLE IF EXISTS `event`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `event` (
-  `GameID` int NOT NULL,
-  `Status` varchar(255) NOT NULL,
-  `DateTime` datetime DEFAULT NULL,
-  `AwayTeamID` int DEFAULT NULL,
-  `HomeTeamID` int DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`GameID`),
-  KEY `AwayTeamID` (`AwayTeamID`),
-  KEY `HomeTeamID` (`HomeTeamID`),
-  CONSTRAINT `event_ibfk_1` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `event_ibfk_10` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_11` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_12` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_13` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_14` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_15` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_16` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_17` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_18` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_19` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_2` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `event_ibfk_20` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_21` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_22` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_23` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_24` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_25` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_26` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_27` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_28` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_29` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_3` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_30` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_31` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_32` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_33` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_34` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_35` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_36` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_37` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_38` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_39` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_4` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_40` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_41` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_42` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_43` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_44` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_45` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_46` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_47` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_48` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_49` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_5` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_50` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_51` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_52` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_53` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_54` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_55` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_56` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_57` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_58` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_59` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_6` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_60` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_61` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_62` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_63` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_64` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_65` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_66` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_67` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_68` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_69` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_7` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_70` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_71` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_72` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_73` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_74` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_75` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_76` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_77` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_78` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_79` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_8` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_80` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_81` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_82` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_83` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_84` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_85` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_86` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_87` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_88` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_89` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_9` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_90` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_91` FOREIGN KEY (`AwayTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `event_ibfk_92` FOREIGN KEY (`HomeTeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `event`
@@ -198,29 +45,6 @@ INSERT INTO `event` VALUES (50861,'Final','2023-11-07 02:00:00',298,5,'2024-02-2
 UNLOCK TABLES;
 
 --
--- Table structure for table `league`
---
-
-DROP TABLE IF EXISTS `league`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `league` (
-  `leagueId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `ownerId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `privateInd` tinyint(1) NOT NULL DEFAULT '0',
-  `password` varchar(255) DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  `draftDate` datetime DEFAULT NULL,
-  PRIMARY KEY (`leagueId`),
-  KEY `ownerId` (`ownerId`),
-  CONSTRAINT `league_ibfk_1` FOREIGN KEY (`ownerId`) REFERENCES `user` (`userId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `league`
 --
 
@@ -229,72 +53,6 @@ LOCK TABLES `league` WRITE;
 INSERT INTO `league` VALUES ('06c6c392-c9eb-45c8-a68b-329da55fc130','Brian\'s League','22dfe77a-6b9a-471b-b3a3-8690076573da',0,NULL,'2024-03-01 13:59:38','2024-03-01 13:59:38',NULL,NULL),('5fa56108-ffae-4365-9521-7b5efde5bb07','Brian\'s League','22dfe77a-6b9a-471b-b3a3-8690076573da',1,'My League','2024-03-01 13:59:20','2024-03-01 13:59:20',NULL,NULL);
 /*!40000 ALTER TABLE `league` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `player`
---
-
-DROP TABLE IF EXISTS `player`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `player` (
-  `PlayerID` int NOT NULL,
-  `FirstName` varchar(255) NOT NULL,
-  `LastName` varchar(255) NOT NULL,
-  `TeamID` int NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`PlayerID`),
-  KEY `TeamID` (`TeamID`),
-  CONSTRAINT `player_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_10` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_11` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_12` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_13` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_14` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_15` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_16` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_17` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_18` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_19` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_20` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_21` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_22` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_23` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_24` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_25` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_26` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_27` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_28` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_29` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_3` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_30` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_31` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_32` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_33` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_34` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_35` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_36` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_37` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_38` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_39` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_4` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_40` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_41` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_42` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_43` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_44` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_45` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_46` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `player_ibfk_5` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_6` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_7` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_8` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`),
-  CONSTRAINT `player_ibfk_9` FOREIGN KEY (`TeamID`) REFERENCES `apiteam` (`TeamID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `player`
@@ -308,25 +66,6 @@ INSERT INTO `player` VALUES (60027487,'Alexander','Gonzalez',641,'2024-03-01 01:
 UNLOCK TABLES;
 
 --
--- Table structure for table `playerteam`
---
-
-DROP TABLE IF EXISTS `playerteam`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `playerteam` (
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `playerPlayerID` int NOT NULL,
-  `teamTeamId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`playerPlayerID`,`teamTeamId`),
-  KEY `teamTeamId` (`teamTeamId`),
-  CONSTRAINT `playerteam_ibfk_1` FOREIGN KEY (`playerPlayerID`) REFERENCES `player` (`PlayerID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `playerteam_ibfk_2` FOREIGN KEY (`teamTeamId`) REFERENCES `team` (`teamId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `playerteam`
 --
 
@@ -335,74 +74,6 @@ LOCK TABLES `playerteam` WRITE;
 INSERT INTO `playerteam` VALUES ('2024-03-02 23:21:40','2024-03-02 23:21:40',60020194,'fe1c4ba0-30ca-4a9e-a3a8-a2a68b1a41a0');
 /*!40000 ALTER TABLE `playerteam` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `reference`
---
-
-DROP TABLE IF EXISTS `reference`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `reference` (
-  `referenceCd` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `referenceSet` varchar(255) NOT NULL,
-  `referenceMeaning` varchar(255) DEFAULT NULL,
-  `display` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `activeInd` int DEFAULT NULL,
-  `created` datetime NOT NULL,
-  PRIMARY KEY (`referenceCd`),
-  KEY `referenceNDX1` (`referenceMeaning`,`referenceSet`) USING BTREE,
-  KEY `referenceSet` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_1` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_10` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_11` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_12` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_13` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_14` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_15` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_16` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_17` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_18` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_19` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_2` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_20` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_21` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_22` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_23` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_24` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_25` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_26` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_27` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_28` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_29` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_3` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_30` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_31` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_32` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_33` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_34` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_35` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_36` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_37` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_38` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_39` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_4` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_40` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_41` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_42` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_43` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_44` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_45` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_46` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_47` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_5` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_6` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_7` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_8` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`),
-  CONSTRAINT `reference_ibfk_9` FOREIGN KEY (`referenceSet`) REFERENCES `referencesets` (`referenceSet`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `reference`
@@ -415,23 +86,6 @@ INSERT INTO `reference` VALUES ('0022df55-c2d8-11eb-96e5-ee86d28a3c90','ERRORLOG
 UNLOCK TABLES;
 
 --
--- Table structure for table `referencesets`
---
-
-DROP TABLE IF EXISTS `referencesets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `referencesets` (
-  `referenceSet` varchar(255) NOT NULL,
-  `display` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `deletableInd` int NOT NULL DEFAULT '1',
-  `created` datetime NOT NULL,
-  PRIMARY KEY (`referenceSet`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `referencesets`
 --
 
@@ -440,23 +94,6 @@ LOCK TABLES `referencesets` WRITE;
 INSERT INTO `referencesets` VALUES ('APPLICATIONSETTINGS','Application Settings',NULL,1,'2020-06-18 13:52:47'),('BIGTEST','Big Test',NULL,1,'2020-06-19 13:35:27'),('COUNTRYCODES','Country Codes',NULL,0,'2022-04-29 13:50:26'),('ERRORLOGINCLUSION','Targets for system monitoring',NULL,0,'2021-06-01 12:50:37'),('PATCHESCONTENTTYPE','patchesContent Content Types',NULL,0,'2022-08-31 12:39:30'),('PATCHEXCLUSIONS','Exclusions for patches',NULL,0,'2020-11-10 12:19:02'),('PATCHTARGETS','Targets for patches',NULL,0,'2020-11-10 12:19:02'),('PINACCESSCODE','Pin Access Code',NULL,0,'2023-03-17 13:24:38'),('USERSTATUS','User Status Codes',NULL,0,'2020-06-05 15:55:50'),('USERTYPE','User Type Codes',NULL,0,'2020-06-05 15:55:50');
 /*!40000 ALTER TABLE `referencesets` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `sessions`
---
-
-DROP TABLE IF EXISTS `sessions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sessions` (
-  `sid` varchar(36) NOT NULL,
-  `expires` datetime DEFAULT NULL,
-  `data` text,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `sessions`
@@ -469,29 +106,6 @@ INSERT INTO `sessions` VALUES ('1F2WM-IqPXvB5CLZo5L110bwh_Y3Ti3T','2024-03-03 23
 UNLOCK TABLES;
 
 --
--- Table structure for table `statistic`
---
-
-DROP TABLE IF EXISTS `statistic`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `statistic` (
-  `StatID` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `PlayerID` int NOT NULL,
-  `Points` int NOT NULL DEFAULT '0',
-  `GameID` int NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`StatID`),
-  KEY `PlayerID` (`PlayerID`),
-  KEY `GameID` (`GameID`),
-  CONSTRAINT `statistic_ibfk_91` FOREIGN KEY (`PlayerID`) REFERENCES `player` (`PlayerID`),
-  CONSTRAINT `statistic_ibfk_92` FOREIGN KEY (`GameID`) REFERENCES `event` (`GameID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `statistic`
 --
 
@@ -502,29 +116,6 @@ INSERT INTO `statistic` VALUES ('1335980',60032897,1,57627,'2024-03-02 18:00:00'
 UNLOCK TABLES;
 
 --
--- Table structure for table `team`
---
-
-DROP TABLE IF EXISTS `team`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `team` (
-  `teamId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `ownerId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `leagueId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`teamId`),
-  KEY `ownerId` (`ownerId`),
-  KEY `leagueId` (`leagueId`),
-  CONSTRAINT `team_ibfk_93` FOREIGN KEY (`ownerId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `team_ibfk_94` FOREIGN KEY (`leagueId`) REFERENCES `league` (`leagueId`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `team`
 --
 
@@ -533,49 +124,6 @@ LOCK TABLES `team` WRITE;
 INSERT INTO `team` VALUES ('fe1c4ba0-30ca-4a9e-a3a8-a2a68b1a41a0','Brian\'s Team','22dfe77a-6b9a-471b-b3a3-8690076573da','5fa56108-ffae-4365-9521-7b5efde5bb07','2024-03-02 15:12:27','2024-03-02 15:12:27',NULL);
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `pwd` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `statusCd` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `userTypeCd` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `lastLoginDate` datetime DEFAULT NULL,
-  `lastIP` varchar(255) DEFAULT NULL,
-  `primaryPhone` varchar(255) DEFAULT NULL,
-  `cellPhone` varchar(255) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `zip` varchar(255) DEFAULT NULL,
-  `emailVerifyGUID` varchar(255) DEFAULT NULL,
-  `emailVerifyExpire` datetime DEFAULT NULL,
-  `timeZoneId` varchar(255) DEFAULT NULL,
-  `lastActiveDateTime` int DEFAULT NULL,
-  `profilePictureURL` varchar(255) DEFAULT NULL,
-  `profilePictureLocal` varchar(255) DEFAULT NULL,
-  `bksTestColumn` varchar(255) DEFAULT NULL,
-  `created` datetime NOT NULL,
-  `updated` datetime NOT NULL,
-  `deletedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`userId`),
-  UNIQUE KEY `userAK1` (`email`),
-  KEY `userNDX1` (`email`) USING BTREE,
-  KEY `userNDX2` (`lastName`) USING BTREE,
-  KEY `userNDX3` (`emailVerifyGUID`) USING BTREE,
-  KEY `statusCd` (`statusCd`),
-  KEY `userTypeCd` (`userTypeCd`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`statusCd`) REFERENCES `reference` (`referenceCd`) ON UPDATE CASCADE,
-  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`userTypeCd`) REFERENCES `reference` (`referenceCd`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
@@ -596,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-02 18:21:05
+-- Dump completed on 2024-03-02 18:26:42
