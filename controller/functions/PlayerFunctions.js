@@ -13,7 +13,7 @@ function getPlayerFunction(request) {
     let newColumnsToReturn = [];
     let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
-        newColumnsToReturn.push('PlayerID', 'FirstName', 'LastName', 'TeamID', 'createdAt', 'updatedAt', 'deletedAt', 'points');
+        newColumnsToReturn.push('PlayerID', 'FirstName', 'LastName', 'TeamID', 'createdAt', 'updatedAt', 'deletedAt', sequelize.literal(`(select sum(s.points) from statistic s where s.PlayerID = PlayerID) as points`));
         includes.push('apiTeam');
                     
     } else {
@@ -32,7 +32,7 @@ function getPlayerFunction(request) {
                     includes.push(request.columnsToReturn[i]);
                     break;
                 case 'points':
-                    newColumnsToReturn.push(sequelize.literal(`(select sum(s.points) from statistic s where s.PlayerID = PlayerID)`));
+                    newColumnsToReturn.push(sequelize.literal(`(select sum(s.points) from statistic s where s.PlayerID = PlayerID) as points`));
                     break;
             }
         }
