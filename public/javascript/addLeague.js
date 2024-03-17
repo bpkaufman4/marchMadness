@@ -6,7 +6,8 @@ function addLeague() {
     const password = getobj('password').value;
     fetchTable('leagueName', 'api/league/put', {name, ownerId, privateInd, password}, 1)
     .then(reply => {
-        console.log(reply);
+        alert('League added');
+        window.location.assign('home');
     });
 }
 
