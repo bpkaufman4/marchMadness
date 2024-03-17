@@ -12,7 +12,7 @@ async function signupFormHandler(event) {
 
     if(response.status == 'SUCCESS') {
         console.log('success');
-        document.location.replace('/');
+        document.location.replace('/login');
     } else {
         console.log(response);
     }

@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 router.get('/home', (req, res) => {
     if(req.session.loggedIn) {
         const leagues = getLeagueFunction({columnsToReturn: ['name', 'owner', 'leagueId', 'inLeague'], userId: req.session.userId});
-        const teams = getTeamFunction({columnsToReturn: ['leagueId', 'name', 'league', 'teamId']});
+        const teams = getTeamFunction({ownerId: req.session.userId, columnsToReturn: ['leagueId', 'name', 'league', 'teamId']});
         Promise.all([leagues, teams])
         .then(values => {
             const allLeagues = (values[0].reply.length > 0) ? values[0].reply.map(league => league.get({plain: true})) : [];
@@ -85,6 +85,9 @@ router.get('/team/:teamId', (req, res) => {
     })
 });
 
+router.get('/register', (req, res) => {
+    res.render('register');
+})
 router.get('/league/:leagueId', (req, res) => {
     const request = {
         where: {
