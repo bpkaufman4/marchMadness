@@ -24,29 +24,29 @@
     <input type="hidden" id="userId" value="{{session.userId}}">
     <h1>Leagues</h1>
     <a href="addLeague">Make your own</a>
-    <table>
+    <div>
         {{#each leagues}}
-            <tr>
-                <td>{{name}}</td>
-                <td>{{owner.firstName}} {{owner.lastName}}</td>
-                <td>
+            <div class="row">
+                <div class="col-4">{{name}}</div>
+                <div class="col-4">{{owner.firstName}} {{owner.lastName}}</div>
+                <div class="col-4">
                     {{#if inLeague}}
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#joinLeagueModal" data-league-id="{{leagueId}}" data-league-name="{{name}}">Join League</button>
+                        <button type="button" data-league-id="{{leagueId}}" class="btn btn-secondary" >View</button>
                     {{else}}
-                    <button type="button" class="btn btn-secondary" >Joined</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#joinLeagueModal" data-league-id="{{leagueId}}" data-league-name="{{name}}">Join League</button>
                     {{/if}}
-                </td>
-            </tr>
+                </div>
+            </div>
         {{/each}}
-    </table>
+    </div>
     <h1>Teams</h1>
     <table>
         {{#each teams}} 
-            <tr>
-                <td>{{name}}</td>
-                <td>{{league.name}}</td>
-                <td><a href="team/{{teamId}}">Go To Team</a></td>
-            </tr>
+            <div class="row">
+                <div class="col-4">{{name}}</div>
+                <div class="col-4">{{league.name}}</div>
+                <div class="col-4"><a href="team/{{teamId}}"><div class="btn btn-primary">Go To Team</div></a></div>
+            </div>
         {{/each}}
     </table>
 </div>

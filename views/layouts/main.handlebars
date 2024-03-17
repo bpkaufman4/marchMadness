@@ -3,31 +3,54 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="manifest" href="/javascript/pwa.webmanifest">
-        <link rel="apple-touch-icon" href="/images/pwa-icon-ios.webp">
+        <link rel="manifest" href="{{basepath}}/javascript/pwa.webmanifest">
+        <link rel="apple-touch-icon" href="{{basepath}}/images/pwa-icon-ios.webp">
         <meta name="theme-color" content="#764ABC">
         <title>Node Build</title>
-        <script src="/javascript/helpers.js"></script>
+        <script src="{{basepath}}/javascript/helpers.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <link rel="apple-touch-icon" href="{{basepath}}images/basketball_logo_orange_ball.jpg">
+        <link rel="shortcut icon" href="{{basepath}}images/basketball_logo_orange_ball.jpg">
+        <link rel="stylesheet" href="{{basepath}}stylesheets/main.css">
     </head>
     <body>
     <input type="hidden" name="userId" value="{{ session.userId }}">
     <input type="hidden" name="userType" value="{{ session.userType }}">
-        <header class="container">
-            <nav class="navbar">
-                <a class="navbar-brand" href="/">Fantasy Basketball</a>
-                {{#if session.loggedIn }}
-                <button class="nav-link" id="logout">Log Out</button>
-                {{ else }}
-                <a class="nav-link" href="/login">Log In</a>
-                {{/if}}
-            </header>
-        </nav>
         <main class="container">
             {{{ body }}}
         </main>
+        <nav class="navbar fixed-bottom">
+                <a class="col-6" href="{{ basepath }}home">
+                    <span class="material-symbols-outlined">home</span>
+                    <p>Home</p>
+                </a>
+                {{#if session.loggedIn }}
+                    <a class="col-6" id="logoutBtn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <p>Logout</p>
+                    </a>
+                {{else}}
+                    <a class="col-6" href="{{ basepath }}login">
+                        <span class="material-symbols-outlined">login</span>
+                        <p>Login</p>
+                    </a>
+                {{/if}}
+        </nav>
     </body>
-    <script src="/javascript/logout.js"></script>
-    <script src="/javascript/pwa.js"></script>
+    <script src="{{ basepath }}javascript/logout.js"></script>
+    <script>
+        function init() {
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('{{basepath}}javascript/serviceWorker.js')
+                .then(reg => {
+                    console.log('Service sorker registered -->', reg);
+                }, err => {
+                    console.error('Service worker not registered --> ', err);
+                })
+            }
+        }
+        document.addEventListener('DOMContentLoaded', init, false);
+    </script>
 </html>

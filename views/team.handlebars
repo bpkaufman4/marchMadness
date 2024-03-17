@@ -1,7 +1,15 @@
-{{#if players}}
+<style>
+    .playerDiv {border-radius: 0.375rem; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);; margin-top: 10px;}
+</style>
+<h1>{{teams.name}}</h1>
+{{#if teams.players}}
     <div id="playersDiv">
-        {{#each players}}
-            <div>{{FirstName}} {{LastName}}, {{points}} points</div>
+        {{#each teams.players}}
+            <div>{{FirstName}} {{LastName}}
+                {{#if points}}
+                    , {{points}} points
+                {{/if}}
+            </div>
         {{/each}}
     </div>
 {{else}}
@@ -9,9 +17,11 @@
 {{/if}}
 <div class="input-group mb-3">
     <input type="search" class="form-control" id="playerSearch" placeholder="Search Players">
-    <button id="searchButton">Search</button>
+    <button id="searchButton" class="btn-primary btn ">Search</button>
 </div>
-<input type="hidden" id="leagueId" value="{{leagueId}}">
-<input type="hidden" id="teamId" value="{{teamId}}">
-<div id="searchPlayersCatch"></div>
-<script src="../javascript/team.js"></script>
+<input type="hidden" id="leagueId" value="{{teams.leagueId}}">
+<input type="hidden" id="teamId" value="{{teams.teamId}}">
+<div class="scroll">
+    <div id="searchPlayersCatch" class="container"></div>
+</div>
+<script src="{{basepath}}javascript/team.js"></script>

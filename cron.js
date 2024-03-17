@@ -22,18 +22,14 @@ function processGet(url) {
     })
 }
 
-// setTimeout(() => {
-//     var db = fs.readFileSync('./marchmadness.sql', 'utf8');
-//     sequelize.query(db);
-// }, 10000);
-
 function setupCron() {
-    pullTodayStats();
-    pullYesterdayStats();
+    // pullTodayStats();
+    // pullYesterdayStats();
     cron.schedule('0 0 * * *', pullPlayers, {timezone: 'America/Chicago'});
     cron.schedule('0 * * * *', pullEvents, {timezone: 'America/Chicago'});
-    cron.schedule('*/5 * * * *', pullTodayStats, {timezone: 'America/Chicago'});
-    cron.schedule('0 0 * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
+    pullEvents();
+    // cron.schedule('*/5 * * * *', pullTodayStats, {timezone: 'America/Chicago'});
+    // cron.schedule('0 0 * * *', pullYesterdayStats, {timezone: 'America/Chicago'});
 }
 
 function pullTodayStats() {
@@ -48,11 +44,13 @@ function pullYesterdayStats() {
 }
 
 function pullEvents() {
-    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024?key=${process.env.API_KEY}`)
+    processGet(`https://api.sportsdata.io/v3/cbb/scores/json/SchedulesBasic/2024POST?key=${process.env.API_KEY}`)
     .then(reply => {
-        reply.forEach(e => {
-            Event.upsert(e);
-        });
+        if(reply){
+            reply.forEach(e => {
+                Event.upsert(e);
+            });
+        }
     });
 }
 
@@ -60,9 +58,11 @@ function pullEvents() {
 function pullPlayers() {
     processGet(`https://api.sportsdata.io/v3/cbb/scores/json/PlayersByActive?key=${process.env.API_KEY}`)
     .then(reply => {
-        reply.forEach(p => {
-            Player.upsert(p);
-        })
+        if(reply) {
+            reply.forEach(p => {
+                Player.upsert(p);
+            })
+        }
     })
 }
 

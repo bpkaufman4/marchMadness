@@ -13,7 +13,7 @@ function getTeamFunction(request) {
     let newColumnsToReturn = [];
     let includes = [];
     if(!request.columnsToReturn || request.columnsToReturn.length == 0) {
-        newColumnsToReturn.push('teamId', 'name', 'ownerId', 'leagueId', 'createdAt', 'updatedAt', 'deletedAt', 'players')
+        newColumnsToReturn.push('teamId', 'name', 'ownerId', 'leagueId', 'createdAt', 'updatedAt', 'deletedAt')
                     
     } else {
         for(let i = 0; i < request.columnsToReturn.length; i++) {
@@ -32,7 +32,9 @@ function getTeamFunction(request) {
                 case 'players':
                     includes.push(request.columnsToReturn[i]);
                     break;
-                
+                case 'points':
+                    newColumnsToReturn.push([sequelize.literal(`(select sum(s.points) from statistic s where s.PlayerId in (select playerPlayerId from playerTeam where teamTeamId = team.teamId))`), 'points']);
+                    break;
             }
         }
     }
@@ -43,8 +45,7 @@ function getTeamFunction(request) {
     for(key in request) {
         switch(key) {
             case 'ownerId':
-                                case 'leagueId':
-                                
+            case 'leagueId':
                 if(request[key] > '') whereRequest[key] = request[key];
                 break;
         }
@@ -60,12 +61,15 @@ function getTeamFunction(request) {
         };
         if(includes.length > 0) findRequest['include'] = includes;
         if(Object.keys(whereRequest).length > 0) findRequest['where'] = whereRequest;
+        if(request.orderBy > '') findRequest.order = request.orderBy;
         if(Object.keys(binds).length > 0) findRequest['bind'] = binds;
         Team.findAll(findRequest)
         .then(dbData => {
+            console.log(dbData);
             resolve({status: 'SUCCESS', reply: dbData})
         })
         .catch(err => {
+            console.log(err);
             resolve({status: 'FAIL', reply: err})
         })
     })
@@ -94,15 +98,14 @@ function putTeamFunction(request) {
         if(request[key] > '') {
             switch(key) {
                 case 'teamId':
-                                case 'name':
-                                case 'ownerId':
-                                case 'leagueId':
-                                case 'createdAt':
-                                case 'updatedAt':
-                                case 'deletedAt':
-                                
-                newRequest[key] = request[key];
-                break;
+                case 'name':
+                case 'ownerId':
+                case 'leagueId':
+                case 'createdAt':
+                case 'updatedAt':
+                case 'deletedAt':
+                    newRequest[key] = request[key];
+                    break;
                 
             }
         }
@@ -126,6 +129,7 @@ function putTeamFunction(request) {
                 resolve({status: 'SUCCESS', reply:dbData});
             })
             .catch(err => {
+                console.log(err);
                 resolve({status: 'FAIL', reply: err});
             });
         }

@@ -1,9 +1,10 @@
 async function logout() {
     let request = {};
-    fetchTable('logout', 'api/user/logout', request, 1)
+    fetchTable('logoutBtn', 'api/user/logout', request, 1)
     .then(reply => {
         if(reply.status == 'SUCCESS') document.location.replace('/login');
     });
 }
-
-getobj('logout').addEventListener('click', logout);
+if(getobj('logoutBtn')) {
+    getobj('logoutBtn').addEventListener('click', logout);
+}
